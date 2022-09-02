@@ -1,8 +1,10 @@
-
+package principal_UI;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
@@ -59,14 +61,14 @@ public class Principal extends JFrame implements ActionListener {
 
         btnLimpiar = new JButton();
         btnLimpiar.setText("Limpiar");
-        btnLimpiar.setBounds(800, 100, 100, 35);
+        btnLimpiar.setBounds(800, 100, 150, 35);
         btnLimpiar.setFont(new Font("Century Gothic", 1, 15));
         btnLimpiar.addActionListener(this);
         this.add(btnLimpiar);
 
         btnCompilar = new JButton();
         btnCompilar.setText("Compilar");
-        btnCompilar.setBounds(950, 100, 100, 35);
+        btnCompilar.setBounds(1000, 100, 150, 35);
         btnCompilar.setFont(new Font("Century Gothic", 1, 15));
         btnCompilar.addActionListener(this);
         this.add(btnCompilar);
@@ -79,6 +81,7 @@ public class Principal extends JFrame implements ActionListener {
         salidaGolang=new JTextArea();
         salidaGolang.setBounds(0,0,650,300);
         salidaGolang.setFont(new Font("Century Gothic", 1, 12));
+        salidaGolang.setEditable(false);
         panelGolang.add(salidaGolang);
 
         JScrollPane scrollGolang = new JScrollPane(salidaGolang, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -99,6 +102,7 @@ public class Principal extends JFrame implements ActionListener {
         salidaPython=new JTextArea();
         salidaPython.setBounds(0,0,650,300);
         salidaPython.setFont(new Font("Century Gothic", 1, 12));
+        salidaPython.setEditable(false);
         panelPython.add(salidaPython);
 
         JScrollPane scrollPython = new JScrollPane(salidaPython, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -157,7 +161,17 @@ public class Principal extends JFrame implements ActionListener {
             if (comboFile.getSelectedItem().equals("Abrir Archivo")) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showOpenDialog(this);
-                entrada.setText(fileChooser.getSelectedFile().getAbsolutePath());
+                try {
+                    FileReader fr = new FileReader(fileChooser.getSelectedFile());
+                    BufferedReader br = new BufferedReader(fr);
+                    String linea = "";
+                    while ((linea = br.readLine()) != null) {
+                        entrada.append(linea + "\n");
+                    }
+                    fr.close();
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             } else if (comboFile.getSelectedItem().equals("Guardar Como")) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.showSaveDialog(this);
@@ -175,7 +189,25 @@ public class Principal extends JFrame implements ActionListener {
             } else if (comboVer.getSelectedItem().equals("Manual Tecnico")) {
                 JOptionPane.showMessageDialog(this, "Manual Tecnico");
             }
-        }
+        } else if (e.getSource()==btnLimpiar){
+            entrada.setText("");
+            salidaGolang.setText("");
+            salidaPython.setText("");
+        } /*else if (e.getSource()==btnCompilar){
+            String entrada = this.entrada.getText();
+            String salidaGolang = "";
+            String salidaPython = "";
+            try {
+                Compilador compilador = new Compilador();
+                compilador.compilar(entrada);
+                salidaGolang = compilador.getSalidaGolang();
+                salidaPython = compilador.getSalidaPython();
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+            this.salidaGolang.setText(salidaGolang);
+            this.salidaPython.setText(salidaPython);
+        }*/
 
 
     }
