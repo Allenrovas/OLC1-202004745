@@ -1,64 +1,138 @@
 package analizadores; 
 import java_cup.runtime.*;
+import analizadores.*;
+import com.company.*;
+import java.util.ArrayList;
 
-parser code 
+parser code
 {:
-    /**
-     * Método al que se llama automáticamente ante algún error sintactico.
-     **/ 
-    public void syntax_error(Symbol s){ 
-        System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
-    } 
 
-    /**
-     * Método al que se llama automáticamente ante algún error sintáctico 
-     * en el que ya no es posible una recuperación de errores.
-     **/ 
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
-        System.out.println("Error síntactico irrecuperable en la Línea " + 
-        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
-        " no reconocido."); 
-    }  
-:} 
 
-terminal String PTCOMA,PARIZQ,PARDER,CORIZQ,CORDER;
-terminal String MAS,MENOS,POR,DIVIDIDO;
-terminal String ENTERO;
-terminal String DECIMAL;
-terminal String UMENOS;
-terminal String REVALUAR;
 
-non terminal ini;
-non terminal instrucciones;
-non terminal instruccion;
-non terminal Double expresion;
+    // error sintactico
+    public void syntax_error(Symbol s)
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
 
-precedence left MAS,MENOS;
-precedence left POR,DIVIDIDO;
-precedence right UMENOS; 
+         ArrayList<String> errores = new ArrayList<String>();
+            errores.add(lexema);
+            errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+            Main.errores.add(errores);
+        System.out.println("=======Recuperado========");
 
-start with ini; 
 
-ini::=instrucciones;
+    }
 
-instrucciones ::= 
-   instruccion instrucciones
- | instruccion
- | error instrucciones
-; 
+    //momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
 
-instruccion ::= 
-   REVALUAR CORIZQ expresion:a CORDER PTCOMA{:System.out.println("El valor de la expresión es: "+a);:}
+        System.out.println("=======ErrorIrrecuperable=========");
+
+    }
+:}
+
+terminal String verdadero, falso, potencia, mod, mayor, menor, mayor_o_igual, menor_o_igual, es_igual, es_diferente, or, and, not, inicio, fin, ingresar, como, con_valor, si, fin_si, de_lo_contrario, o_si, segun, hacer, entonces, fin_segun, para, hasta, fin_para, mientras, fin_mientras, repetir, hasta_que, fin_repetir, escribir, fin_escribir, fin_funcion, fin_procedimiento, fin_principal, funcion, procedimiento, principal, entero, real, caracter, booleano, cadena, vacio, identificador, numero, numero_real, caracter_literal, cadena_literal, comentario, comentario_linea, comentario_bloque, error, punto_coma, dos_puntos, coma, punto, parentesis_abre, parentesis_cierra, corchete_abre, corchete_cierra, llave_abre, llave_cierra, igual, mas, menos, por, division, potencia, mod, mayor, menor, mayor_o_igual, menor_o_igual, es_igual, es_diferente, or, and, not, inicio, fin, ingresar, como, con_valor, si, fin_si, de_lo_contrario, o_si, segun, hacer, entonces, fin_segun, para, hasta, fin_para, con, incremental, mientras, hacer, fin_mientras, repetir, hasta_que, retornar, metodo, fin_metodo, con_parametros, funcion, fin_funcion, ejecutar, imprimir, imprimir_nl,puntocoma,coma,igual,dividido,por,menos,mas,parCerrar,parAbierto,asignacionSimbolo,variable,comentario_multilinea,comentario_linea,caracter,cadena,decimal,entero;
+
+non terminal INICIO, OPERANDO, VARIABLE_A, VARIABLE_B;
+
+start with INICIO;
+
+INICIO::= llavea INICIO2 llavec {:System.out.println("Fin de analisis de entrada");:}
 ;
 
-expresion  ::= 
-    MENOS expresion:a                      {:RESULT=a*-1;:}%prec UMENOS     
- |  expresion:a MAS        expresion:b     {:RESULT=a+b;:}
- |  expresion:a MENOS      expresion:b     {:RESULT=a-b;:}
- |  expresion:a POR        expresion:b     {:RESULT=a*b;:}
- |  expresion:a DIVIDIDO   expresion:b     {:RESULT=a/b;:}
- |  ENTERO:a                               {:RESULT=new Double(a);:}
- |  DECIMAL:a                              {:RESULT=new Double(a);:}
- |  PARIZQ expresion:a PARDER              {:RESULT=a;:}
+INICIO2::= CONJUNTOS
+| INICIO2 CONJUNTOS
+| INICIO2 EXPRESIONES
+| EXPRESIONES
+| INICIO2 PORCENTAJES
+| PORCENTAJES
+| INICIO2 ENTRADAS
+| ENTRADAS
+| error
 ;
+
+OPERANDO::=
+
+VARIABLE_A::= cadena
+|booleano
+CONJUNTOS::= conj dospuntos id:idd flecha  COMBINACIONES:combinacion puntocoma  {: System.out.println("");System.out.println(idd+" "+combinacion);
+                                                                                   Conjunto conjunto = new Conjunto(idd,(String)combinacion);
+                                                                                                   Main.conjuntos.add(conjunto);
+                                                                                  :}
+;
+
+
+
+COMBINACIONES::= letra:letra1 guionondulado:guion letra:letra2    {: RESULT=letra1+guion+letra2; :}
+| numero:numero1 guionondulado:guion numero:numero2               {: RESULT=numero1+guion+numero2; :}
+| simbolos:simbolo1 guionondulado:guion simbolos:simbolo2         {: RESULT=simbolo1+guion+simbolo2; :}
+| llavea:llave1 guionondulado:guion llavec:llave2         {: RESULT=llave1+guion+llave2; :}
+| letra:letracoma1 COMASLETRA:letracoma2                    {: RESULT=letracoma1+letracoma2; :}
+| numero:numerocoma1 COMASLETRA:numerocoma2                {: RESULT=numerocoma1+numerocoma2; :}
+| cadena:cadenaa COMASLETRA:combinacion                                          {: RESULT=cadenaa+combinacion; :}
+| caracterEspecial:especial COMASLETRA:combinacion                               {: RESULT=especial+combinacion; :}
+;
+
+COMASLETRA::= coma:comaa letra:letracoma COMASLETRA:combinacion {: RESULT=comaa+letracoma+combinacion; :}
+| coma:comaa letra:letracoma {: RESULT=comaa+letracoma; :}
+| coma:comaa caracterEspecial:especial COMASLETRA:combinacion {: RESULT=comaa+especial+combinacion; :}
+| coma:comaa caracterEspecial:especial {: RESULT=comaa+especial; :}
+| coma:comaa cadena:cadenaa COMASLETRA:combinacion {: RESULT=comaa+cadenaa+combinacion; :}
+| coma:comaa cadena:cadenaa {: RESULT=comaa+cadenaa; :}
+| coma:comaa numero:numerocoma COMASLETRA:combinacion {: RESULT=comaa+numerocoma+combinacion; :}
+| coma:comaa numero:numerocoma {: RESULT=comaa+numerocoma; :}
+;
+
+
+
+
+EXPRESIONES::= id:idd flecha COMBINACIONESEXPRESIONES:expresionn puntocoma           {: System.out.println("");System.out.println(idd+expresionn);
+                                                                                       Expresion expresion = new Expresion(idd,(String)expresionn);
+                                                                                                       Main.expresiones.add(expresion);
+                                                                                      :}
+;
+
+COMBINACIONESEXPRESIONES::= punto:puntoo COMBINACIONESEXPRESIONES:combinacion {: RESULT=puntoo+combinacion; :}
+| punto:puntoo {: RESULT=puntoo; :}
+| llavea:llaveaa COMBINACIONESEXPRESIONES:combinacion {: RESULT=llaveaa+combinacion; :}
+| llavea:llaveaa {: RESULT=llaveaa; :}
+| llavec:llavecc COMBINACIONESEXPRESIONES:combinacion {: RESULT=llavecc+combinacion; :}
+| llavec:llavecc {: RESULT=llavecc; :}
+| id:idd COMBINACIONESEXPRESIONES:combinacion {: RESULT=idd+combinacion; :}
+| id:idd {: RESULT=idd; :}
+| asterisco:asteriscoo COMBINACIONESEXPRESIONES:combinacion {: RESULT=asteriscoo+combinacion; :}
+| asterisco:asteriscoo {: RESULT=asteriscoo; :}
+| interrogacion:interrogacionn COMBINACIONESEXPRESIONES:combinacion {: RESULT=interrogacionn+combinacion; :}
+| interrogacion:interrogacion {: RESULT=interrogacion; :}
+| or:orr COMBINACIONESEXPRESIONES:combinacion {: RESULT=orr+combinacion; :}
+| or:orr {: RESULT=orr; :}
+| cadena:cadenaa COMBINACIONESEXPRESIONES:combinacion {: RESULT=cadenaa+combinacion; :}
+| cadena:cadenaa {: RESULT=cadenaa; :}
+| mas:mass COMBINACIONESEXPRESIONES:combinacion {: RESULT=mass+combinacion; :}
+| mas:mass {: RESULT=mass;  :}
+| caracterEspecial:especial COMBINACIONESEXPRESIONES:combinacion {: String especial2 = "\""+"\\"+"\"";
+                                                                    RESULT=especial2+combinacion; :}
+| caracterEspecial:especial {:  String especial2 = "\""+"\\"+"\"";
+                                RESULT=especial2;  :}
+;
+
+PORCENTAJES::= porcentajes
+;
+
+ENTRADAS::= id:idd dospuntos cadena:cadenaa puntocoma                  {: System.out.println("");System.out.println(idd+cadenaa);
+                                                                       Expresion expresion2 = new Expresion(idd,cadenaa);
+                                                                                       Main.entradas.add(expresion2);
+                                                                      :}
+;
+
+
+
+//java -jar java-cup-11b.jar -parser Sintactico -symbols Simbolos sintactico.cup
+//java -jar jflex-full-1.7.0.jar lexico.jflex

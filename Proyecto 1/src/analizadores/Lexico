@@ -16,11 +16,11 @@ import java_cup.runtime.Symbol;
 %init} 
 
 BLANCOS=[ \r\t]+
-D=[0-9]+
-DD=[0-9]+("."[0-9]+)?
+entero=[0-9]+
+decimal=[0-9]+("."[0-9]+)?
 cadena=([\"][^\n\"]+[\"])
-caracter=[\'][^\'\n][\']
-caracter_ASCII=[\'][0-9][\']
+caracter=[\'][A-Za-z][\']
+caracter_ASCII="$"+[\{][1]?[0-9]{2}[\}]
 comentario_linea=([\/\/][^\n\"]+)
 comentario_multilinea="/*"[^"*/"]*"*/"
 variable="_"[A-Za-z0-9]+"_"
@@ -28,75 +28,79 @@ asignacionSimbolo="->"
 
 %%
 
-"Verdadero" {System.out.println("se encontro la palabra reservada Verdadero"); return new Symbol(sym.rVERDADERO,yyline,yychar,yytext());}
-"Falso" {System.out.println("se encontro la palabra reservada Falso"); return new Symbol(sym.rFALSO,yyline,yychar,yytext());}
-"potencia"{System.out.println("se encontro la palabra reservada potencia"); return new Symbol(sym.rPOTENCIA,yyline,yychar,yytext());}
-"mod"{System.out.println("se encontro la palabra reservada mod"); return new Symbol(sym.rMOD,yyline,yychar,yytext());}
-"mayor"{System.out.println("se encontro la palabra reservada mayor"); return new Symbol(sym.rMAYOR,yyline,yychar,yytext());}
-"menor"{System.out.println("se encontro la palabra reservada menor"); return new Symbol(sym.rMENOR,yyline,yychar,yytext());}
-"mayor_o_igual"{System.out.println("se encontro la palabra reservada mayor_o_igual"); return new Symbol(sym.rMAYOR_O_IGUAL,yyline,yychar,yytext());}
-"menor_o_igual"{System.out.println("se encontro la palabra reservada menor_o_igual"); return new Symbol(sym.rMENOR_O_IGUAL,yyline,yychar,yytext());}
-"es_igual"{System.out.println("se encontro la palabra reservada es_igual"); return new Symbol(sym.rES_IGUAL,yyline,yychar,yytext());}
-"es_diferente"{System.out.println("se encontro la palabra reservada es_diferente"); return new Symbol(sym.rES_DIFERENTE,yyline,yychar,yytext());}
-"or"{System.out.println("se encontro la palabra reservada or"); return new Symbol(sym.rOR,yyline,yychar,yytext());}
-"and"{System.out.println("se encontro la palabra reservada and"); return new Symbol(sym.rAND,yyline,yychar,yytext());}
-"not"{System.out.println("se encontro la palabra reservada not"); return new Symbol(sym.rNOT,yyline,yychar,yytext());}
-"inicio"{System.out.println("se encontro la palabra reservada inicio"); return new Symbol(sym.rINICIO,yyline,yychar,yytext());}
-"fin"{System.out.println("se encontro la palabra reservada fin"); return new Symbol(sym.rFIN,yyline,yychar,yytext());}
-"ingresar"{System.out.println("se encontro la palabra reservada ingresar"); return new Symbol(sym.rINGRESAR,yyline,yychar,yytext());}
-"como"{System.out.println("se encontro la palabra reservada como"); return new Symbol(sym.rCOMO,yyline,yychar,yytext());}
-"con_valor"{System.out.println("se encontro la palabra reservada con_valor"); return new Symbol(sym.rCON_VALOR,yyline,yychar,yytext());}
-"si"{System.out.println("se encontro la palabra reservada si"); return new Symbol(sym.rSI,yyline,yychar,yytext());}
-"fin_si"{System.out.println("se encontro la palabra reservada fin_si"); return new Symbol(sym.rFIN_SI,yyline,yychar,yytext());}
-"de_lo_contrario" {System.out.println("se encontro la palabra reservada de_lo_contrario"); return new Symbol(sym.rDE_LO_CONTRARIO,yyline,yychar,yytext());}
-"o_si" {System.out.println("se encontro la palabra reservada o_si"); return new Symbol(sym.rO_SI,yyline,yychar,yytext());}
-"segun" {System.out.println("se encontro la palabra reservada segun"); return new Symbol(sym.rSEGUN,yyline,yychar,yytext());}
-"hacer" {System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.rHACER,yyline,yychar,yytext());}
-"entonces" {System.out.println("se encontro la palabra reservada entonces"); return new Symbol(sym.rENTONCES,yyline,yychar,yytext());}
-"fin_segun" {System.out.println("se encontro la palabra reservada fin_segun"); return new Symbol(sym.rFIN_SEGUN,yyline,yychar,yytext());}
-"para" {System.out.println("se encontro la palabra reservada para"); return new Symbol(sym.rPARA,yyline,yychar,yytext());}
-"hasta" {System.out.println("se encontro la palabra reservada hasta"); return new Symbol(sym.rHASTA,yyline,yychar,yytext());}
-"fin_para" {System.out.println("se encontro la palabra reservada fin_para"); return new Symbol(sym.rFIN_PARA,yyline,yychar,yytext());}
-"con" {System.out.println("se encontro la palabra reservada con"); return new Symbol(sym.rCON,yyline,yychar,yytext());}
-"incremental" {System.out.println("se encontro la palabra reservada incremental"); return new Symbol(sym.rINCREMENTAL,yyline,yychar,yytext());}
-"mientras" {System.out.println("se encontro la palabra reservada mientras"); return new Symbol(sym.rMIENTRAS,yyline,yychar,yytext());}
-"hacer" {System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.rHACER,yyline,yychar,yytext());}
-"fin_mientras" {System.out.println("se encontro la palabra reservada fin_mientras"); return new Symbol(sym.rFIN_MIENTRAS,yyline,yychar,yytext());}
-"repetir" {System.out.println("se encontro la palabra reservada repetir"); return new Symbol(sym.rREPETIR,yyline,yychar,yytext());}
-"hasta_que" {System.out.println("se encontro la palabra reservada hasta_que"); return new Symbol(sym.rHASTA_QUE,yyline,yychar,yytext());}
-"retornar" {System.out.println("se encontro la palabra reservada retornar"); return new Symbol(sym.rRETORNAR,yyline,yychar,yytext());}
-"metodo" {System.out.println("se encontro la palabra reservada metodo"); return new Symbol(sym.rMETODO,yyline,yychar,yytext());}
-"fin_metodo" {System.out.println("se encontro la palabra reservada fin_metodo"); return new Symbol(sym.rFIN_METODO,yyline,yychar,yytext());}
-"con_parametros" {System.out.println("se encontro la palabra reservada con_parametros"); return new Symbol(sym.rCON_PARAMETROS,yyline,yychar,yytext());}
-"funcion" {System.out.println("se encontro la palabra reservada funcion"); return new Symbol(sym.rFUNCION,yyline,yychar,yytext());}
-"fin_funcion" {System.out.println("se encontro la palabra reservada fin_funcion"); return new Symbol(sym.rFIN_FUNCION,yyline,yychar,yytext());}
-"ejecutar" {System.out.println("se encontro la palabra reservada ejecutar"); return new Symbol(sym.rEJECUTAR,yyline,yychar,yytext());}
-"imprimir" {System.out.println("se encontro la palabra reservada imprimir"); return new Symbol(sym.rIMPRIMIR,yyline,yychar,yytext());}
-"imprimir_nl" {System.out.println("se encontro la palabra reservada imprimir_nl"); return new Symbol(sym.rIMPRIMIR_NL,yyline,yychar,yytext());}
+"verdadero" {System.out.println("se encontro la palabra reservada Verdadero"); return new Symbol(sym.verdadero,yyline,yychar,yytext());}
+"falso" {System.out.println("se encontro la palabra reservada Falso"); return new Symbol(sym.falso,yyline,yychar,yytext());}
+
+"boolean" {System.out.println("se encontro la palabra reservada Boolean"); return new Symbol(sym.boolean,yyline,yychar,yytext());}
+
+"potencia" {System.out.println("se encontro la palabra reservada potencia"); return new Symbol(sym.potencia,yyline,yychar,yytext());}
+"mod" {System.out.println("se encontro la palabra reservada mod"); return new Symbol(sym.mod,yyline,yychar,yytext());}
+"mayor" {System.out.println("se encontro la palabra reservada mayor"); return new Symbol(sym.mayor,yyline,yychar,yytext());}
+"menor" {System.out.println("se encontro la palabra reservada menor"); return new Symbol(sym.menor,yyline,yychar,yytext());}
+"mayor_o_igual" {System.out.println("se encontro la palabra reservada mayor_o_igual"); return new Symbol(sym.mayour_o_igual,yyline,yychar,yytext());}
+"menor_o_igual" {System.out.println("se encontro la palabra reservada menor_o_igual"); return new Symbol(sym.menor_o_igual,yyline,yychar,yytext());}
+"es_igual" {System.out.println("se encontro la palabra reservada es_igual"); return new Symbol(sym.es_igual,yyline,yychar,yytext());}
+"es_diferente" {System.out.println("se encontro la palabra reservada es_diferente"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
+"or" {System.out.println("se encontro la palabra reservada or"); return new Symbol(sym.or,yyline,yychar,yytext());}
+"and" {System.out.println("se encontro la palabra reservada and"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
+"not" {System.out.println("se encontro la palabra reservada not"); return new Symbol(sym.not,yyline,yychar,yytext());}
+"inicio" {System.out.println("se encontro la palabra reservada inicio"); return new Symbol(sym.inicio,yyline,yychar,yytext());}
+"fin" {System.out.println("se encontro la palabra reservada fin"); return new Symbol(sym.fin,yyline,yychar,yytext());}
+"ingresar" {System.out.println("se encontro la palabra reservada ingresar"); return new Symbol(sym.ingresar,yyline,yychar,yytext());}
+"como" {System.out.println("se encontro la palabra reservada como"); return new Symbol(sym.como,yyline,yychar,yytext());}
+"con_valor" {System.out.println("se encontro la palabra reservada con_valor"); return new Symbol(sym.con_valor,yyline,yychar,yytext());}
+"si" {System.out.println("se encontro la palabra reservada si"); return new Symbol(sym.si,yyline,yychar,yytext());}
+"fin_si" {System.out.println("se encontro la palabra reservada fin_si"); return new Symbol(sym.fin_si,yyline,yychar,yytext());}
+"de_lo_contrario" {System.out.println("se encontro la palabra reservada de_lo_contrario"); return new Symbol(sym.de_lo_contrario,yyline,yychar,yytext());}
+"o_si" {System.out.println("se encontro la palabra reservada o_si"); return new Symbol(sym.o_si,yyline,yychar,yytext());}
+"segun" {System.out.println("se encontro la palabra reservada segun"); return new Symbol(sym.segun,yyline,yychar,yytext());}
+"hacer" {System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.hacer,yyline,yychar,yytext());}
+"entonces" {System.out.println("se encontro la palabra reservada entonces"); return new Symbol(sym.entonces,yyline,yychar,yytext());}
+"fin_segun" {System.out.println("se encontro la palabra reservada fin_segun"); return new Symbol(sym.fin_segun,yyline,yychar,yytext());}
+"para" {System.out.println("se encontro la palabra reservada para"); return new Symbol(sym.para,yyline,yychar,yytext());}
+"hasta" {System.out.println("se encontro la palabra reservada hasta"); return new Symbol(sym.hasta,yyline,yychar,yytext());}
+"fin_para" {System.out.println("se encontro la palabra reservada fin_para"); return new Symbol(sym.fin_para,yyline,yychar,yytext());}
+"con" {System.out.println("se encontro la palabra reservada con"); return new Symbol(sym.con,yyline,yychar,yytext());}
+"incremental" {System.out.println("se encontro la palabra reservada incremental"); return new Symbol(sym.incremental,yyline,yychar,yytext());}
+"mientras" {System.out.println("se encontro la palabra reservada mientras"); return new Symbol(sym.mientras,yyline,yychar,yytext());}
+"hacer" {System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.hacer,yyline,yychar,yytext());}
+"fin_mientras" {System.out.println("se encontro la palabra reservada fin_mientras"); return new Symbol(sym.fin_mientras,yyline,yychar,yytext());}
+"repetir" {System.out.println("se encontro la palabra reservada repetir"); return new Symbol(sym.repetir,yyline,yychar,yytext());}
+"hasta_que" {System.out.println("se encontro la palabra reservada hasta_que"); return new Symbol(sym.hasta_que,yyline,yychar,yytext());}
+"retornar" {System.out.println("se encontro la palabra reservada retornar"); return new Symbol(sym.retornar,yyline,yychar,yytext());}
+"metodo" {System.out.println("se encontro la palabra reservada metodo"); return new Symbol(sym.metodo,yyline,yychar,yytext());}
+"fin_metodo" {System.out.println("se encontro la palabra reservada fin_metodo"); return new Symbol(sym.fin_metodo,yyline,yychar,yytext());}
+"con_parametros" {System.out.println("se encontro la palabra reservada con_parametros"); return new Symbol(sym.con_parametros,yyline,yychar,yytext());}
+"funcion" {System.out.println("se encontro la palabra reservada funcion"); return new Symbol(sym.funcion,yyline,yychar,yytext());}
+"fin_funcion" {System.out.println("se encontro la palabra reservada fin_funcion"); return new Symbol(sym.fin_funcion,yyline,yychar,yytext());}
+"ejecutar" {System.out.println("se encontro la palabra reservada ejecutar"); return new Symbol(sym.ejecutar,yyline,yychar,yytext());}
+"imprimir" {System.out.println("se encontro la palabra reservada imprimir"); return new Symbol(sym.imprimir,yyline,yychar,yytext());}
+"imprimir_nl" {System.out.println("se encontro la palabra reservada imprimir_nl"); return new Symbol(sym.imprimir_nl,yyline,yychar,yytext());}
 
 
-";" {System.out.println("se econtro un punto y coma"); return new Symbol(sym.PTCOMA,yyline,yychar, yytext());}
-"(" {System.out.println("se econtro un parentesis izquierdo");  return new Symbol(sym.PARIZQ,yyline,yychar, yytext());}
-")" {System.out.println("se econtro un parentesis derecho"); return new Symbol(sym.PARDER,yyline,yychar, yytext());}
+";" {System.out.println("se econtro un punto y coma"); return new Symbol(sym.puntocoma,yyline,yychar, yytext());}
+"(" {System.out.println("se econtro un parentesis izquierdo");  return new Symbol(sym.parAbierto,yyline,yychar, yytext());}
+")" {System.out.println("se econtro un parentesis derecho"); return new Symbol(sym.parCerrar,yyline,yychar, yytext());}
 
-"+" {System.out.println("se econtro un mas"); return new Symbol(sym.MAS,yyline,yychar, yytext());}
-"-" {System.out.println("se econtro un menos"); return new Symbol(sym.MENOS,yyline,yychar, yytext());}
-"*" {System.out.println("se econtro un por"); return new Symbol(sym.POR,yyline,yychar, yytext());}
-"/" {System.out.println("se econtro un dividido"); return new Symbol(sym.DIVIDIDO,yyline,yychar, yytext());}
-"=" {System.out.println("se econtro un igual"); return new Symbol(sym.IGUAL,yyline,yychar, yytext());}
-"," {System.out.println("se econtro una coma"); return new Symbol(sym.COMA,yyline,yychar, yytext());}
+"+" {System.out.println("se econtro un mas"); return new Symbol(sym.mas,yyline,yychar, yytext());}
+"-" {System.out.println("se econtro un menos"); return new Symbol(sym.menos,yyline,yychar, yytext());}
+"*" {System.out.println("se econtro un por"); return new Symbol(sym.por,yyline,yychar, yytext());}
+"/" {System.out.println("se econtro un dividido"); return new Symbol(sym.dividido,yyline,yychar, yytext());}
+"=" {System.out.println("se econtro un igual"); return new Symbol(sym.igual,yyline,yychar, yytext());}
+"," {System.out.println("se econtro una coma"); return new Symbol(sym.coma,yyline,yychar, yytext());}
+
 
 \n {yychar=1;}
 
 {BLANCOS} {} 
-{D} {System.out.println("se econtro un entero");  return new Symbol(sym.ENTERO,yyline,yychar, yytext());}
-{DD} {System.out.println("se econtro un decimal"); return new Symbol(sym.DECIMAL,yyline,yychar, yytext());}
-{cadena} {System.out.println("se econtro una cadena"); return new Symbol(sym.CADENA,yyline,yychar, yytext());}
-{caracter} {System.out.println("se econtro un caracter"); return new Symbol(sym.CARACTER,yyline,yychar, yytext());}
-{comentario_linea} {System.out.println("se econtro un comentarioLineal"); return new Symbol(sym.COMENTARIO_LINEA,yyline,yychar, yytext());}
-{comentario_multilinea} {System.out.println("se econtro un comentario Multilinea"); return new Symbol(sym.COMENTARIO_MULTILINEA,yyline,yychar, yytext());}
-{variable} {System.out.println("se econtro una variable"); return new Symbol(sym.VARIABLE,yyline,yychar, yytext());}
-{asignacionSimbolo} {System.out.println("se econtro una asignacion"); return new Symbol(sym.ASIGNACION,yyline,yychar, yytext());}
+{entero} {System.out.println("se econtro un entero");  return new Symbol(sym.entero,yyline,yychar, yytext());}
+{decimal} {System.out.println("se econtro un decimal"); return new Symbol(sym.decimal,yyline,yychar, yytext());}
+{cadena} {System.out.println("se econtro una cadena"); return new Symbol(sym.cadena,yyline,yychar, yytext());}
+{caracter} {System.out.println("se econtro un caracter"); return new Symbol(sym.caracter,yyline,yychar, yytext());}
+{comentario_linea} {System.out.println("se econtro un comentarioLineal"); return new Symbol(sym.comentario_linea,yyline,yychar, yytext());}
+{comentario_multilinea} {System.out.println("se econtro un comentario Multilinea"); return new Symbol(sym.comentario_multilinea,yyline,yychar, yytext());}
+{variable} {System.out.println("se econtro una variable"); return new Symbol(sym.variable,yyline,yychar, yytext());}
+{asignacionSimbolo} {System.out.println("se econtro una asignacion"); return new Symbol(sym.asignacionSimbolo,yyline,yychar, yytext());}
 
 . {
     System.out.println("Este es un error lexico: "+yytext()+

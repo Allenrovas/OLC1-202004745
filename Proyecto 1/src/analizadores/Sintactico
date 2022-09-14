@@ -1,64 +1,84 @@
 package analizadores; 
 import java_cup.runtime.*;
+import analizadores.*;
+import com.company.*;
+import java.util.ArrayList;
 
-parser code 
+parser code
 {:
-    /**
-     * Método al que se llama automáticamente ante algún error sintactico.
-     **/ 
-    public void syntax_error(Symbol s){ 
-        System.out.println("Error Sintáctico en la Línea " + (s.left) +
-        " Columna "+s.right+ ". No se esperaba este componente: " +s.value+"."); 
-    } 
 
-    /**
-     * Método al que se llama automáticamente ante algún error sintáctico 
-     * en el que ya no es posible una recuperación de errores.
-     **/ 
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{ 
-        System.out.println("Error síntactico irrecuperable en la Línea " + 
-        (s.left)+ " Columna "+s.right+". Componente " + s.value + 
-        " no reconocido."); 
-    }  
-:} 
 
-terminal String PTCOMA,PARIZQ,PARDER,CORIZQ,CORDER;
-terminal String MAS,MENOS,POR,DIVIDIDO;
-terminal String ENTERO;
-terminal String DECIMAL;
-terminal String UMENOS;
-terminal String REVALUAR;
 
-non terminal ini;
-non terminal instrucciones;
-non terminal instruccion;
-non terminal Double expresion;
+    // error sintactico
+    public void syntax_error(Symbol s)
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
 
-precedence left MAS,MENOS;
-precedence left POR,DIVIDIDO;
-precedence right UMENOS; 
+         ArrayList<String> errores = new ArrayList<String>();
+            errores.add(lexema);
+            errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+            Main.errores.add(errores);
+        System.out.println("=======Recuperado========");
 
-start with ini; 
 
-ini::=instrucciones;
+    }
 
-instrucciones ::= 
-   instruccion instrucciones
- | instruccion
- | error instrucciones
-; 
+    //momento en que ya no es posible una recuperacion de errores
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception
+    {
+        String lexema = s.value.toString();
+        int fila = s.right;
+        int columna = s.left;
 
-instruccion ::= 
-   REVALUAR CORIZQ expresion:a CORDER PTCOMA{:System.out.println("El valor de la expresión es: "+a);:}
-;
+        System.out.println("=======ErrorIrrecuperable=========");
 
-expresion  ::= 
-    MENOS expresion:a                      {:RESULT=a*-1;:}%prec UMENOS     
- |  expresion:a MAS        expresion:b     {:RESULT=a+b;:}
- |  expresion:a MENOS      expresion:b     {:RESULT=a-b;:}
- |  expresion:a POR        expresion:b     {:RESULT=a*b;:}
- |  expresion:a DIVIDIDO   expresion:b     {:RESULT=a/b;:}
- |  ENTERO:a                               {:RESULT=new Double(a);:}
- |  DECIMAL:a                              {:RESULT=new Double(a);:}
- |  PARIZQ expresion:a PARDER              {:RESULT=a;:}
-;
+    }
+:}
+
+terminal String verdadero, falso, decimal, entero, cadena, caracter, comentario_linea, comentario_multilinea, variable, asignacionSimbolo, mas, menos;
+terminal String potencia, por, dividido, boolean, mod, mayor, menor, mayor_o_igual, menor_o_igual, es_igual, es_diferente, or, and, not, inicio, fin;
+terminal String ingresar, como, con_valor, si, fin_si, de_lo_contrario, o_si, segun, entonces, fin_segun, para, hasta, fin_para, con, incremental;
+terminal String mientras, hacer, fin_mientras, repetir, hasta_que, retornar, metodo, fin_metodo, con_parametros, funcion, fin_funcion, ejecutar, imprimir, imprimir_nl;
+
+non terminal INICIO, OPERANDO, SUMA,INSTRUCCIONES, INSTRUCCION, RESTA, MULTIPLICACION, DIVISION;
+
+start with INICIO;
+
+INICIO ::= INSTRUCCIONES;
+
+INSTRUCCIONES ::= INSTRUCCIONES INSTRUCCION
+                | INSTRUCCION;
+
+INSTRUCCION ::= SUMA
+| RESTA
+| MULTIPLICACION
+| DIVISION;
+
+
+SUMA::= OPERANDO mas SUMA
+| OPERANDO {:System.out.println("Suma");:};
+
+
+
+OPERANDO::= boolean
+| entero
+| decimal
+| cadena
+| caracter
+| variable;
+
+
+
+
+
+
+
+
+
+
+
+//java -jar java-cup-11b.jar -parser Sintactico -symbols Simbolos sintactico.cup
+//java -jar jflex-full-1.7.0.jar lexico.jflex
