@@ -1,0 +1,205 @@
+S={INICIO}
+
+T={verdadero, falso, decimal, entero, cadena, caracter, comentario_linea, comentario_multilinea, variable, asignacionSimbolo, mas, menos;
+potencia, por, dividido, booleano, mod, mayor, menor, mayor_o_igual, menor_o_igual, es_igual, es_diferente, or, and, not, inicio, fin;
+ingresar, como, con_valor, si, fin_si, de_lo_contrario, o_si, segun, entonces, fin_segun, para, hasta, fin_para, con, incremental;
+mientras, hacer, fin_mientras, repetir, hasta_que, retornar, metodo, fin_metodo, con_parametros, funcion, fin_funcion, ejecutar, imprimir, imprimir_nl;
+numero, valorcadena, valorcaracter, puntocoma, coma, corCerrar, corAbrir, interroganteIzquierdo, interroganteDerecho;
+parAbierto, parCerrado, caracter_ascii;}
+
+V={
+INICIO;
+INSTRUCCIONES, INSTRUCCION, DECLARACION, VARIABLE_RELACIONAL;
+ASIGNACION, COMENTARIO, CONDICIONAL, CONDICIONAL_RECURSIVO, EJECUTAR;
+SELECCION, SELECCION_RECURSIVO, LISTAVARIABLES, EXPRESION, VARIABLE_CICLO;
+EXPRESION_RELACIONAL, VALOR_RACIONAL, PARA, MIENTRAS, REPETIR;
+RETORNO, METODO, FUNCION, IMPRIMIR, PARAMETROS_RECURSIVO, TIPO, MAIN;}
+
+P={
+
+INICIO::= MAIN 
+;
+
+MAIN::= inicio INSTRUCCIONES fin
+;
+
+INSTRUCCIONES::= INSTRUCCIONES INSTRUCCION: 
+| INSTRUCCION
+;
+
+INSTRUCCION::=
+DECLARACION
+| ASIGNACION
+| CONDICIONAL
+| SELECCION
+| PARA
+| MIENTRAS 
+| REPETIR
+| RETORNO
+| METODO
+| EJECUTAR
+| FUNCION 
+| IMPRIMIR 
+| COMENTARIO
+;
+
+DECLARACION::=
+ingresar LISTAVARIABLES como numero con_valor EXPRESION puntocoma 
+| ingresar LISTAVARIABLES como cadena con_valor valorcadena puntocoma 
+| ingresar LISTAVARIABLES como caracter con_valor valorcaracter puntocoma 
+| ingresar LISTAVARIABLES como caracter con_valor caracter_ascii puntocoma 
+| ingresar LISTAVARIABLES como booleano con_valor verdadero puntocoma 
+| ingresar LISTAVARIABLES como booleano con_valor falso puntocoma
+| ingresar LISTAVARIABLES como booleano con_valor EXPRESION_RELACIONAL puntocoma
+;
+
+ASIGNACION::=
+LISTAVARIABLES asignacionSimbolo EXPRESION puntocoma
+|LISTAVARIABLES asignacionSimbolo valorcadena puntocoma
+|LISTAVARIABLES asignacionSimbolo valorcaracter puntocoma
+|LISTAVARIABLES asignacionSimbolo caracter_ascii puntocoma
+|LISTAVARIABLES asignacionSimbolo verdadero puntocoma
+|LISTAVARIABLES asignacionSimbolo falso puntocoma
+;
+
+COMENTARIO::=
+comentario_linea
+| comentario_multilinea
+;
+
+CONDICIONAL::=
+si EXPRESION_RELACIONAL entonces INSTRUCCIONES fin_si
+| si EXPRESION_RELACIONAL entonces INSTRUCCIONES de_lo_contrario INSTRUCCIONES fin_si
+| si EXPRESION_RELACIONAL entonces INSTRUCCIONES CONDICIONAL_RECURSIVO de_lo_contrario INSTRUCCIONES fin_si
+| si EXPRESION_RELACIONAL entonces INSTRUCCIONES CONDICIONAL_RECURSIVO fin_si
+;
+
+CONDICIONAL_RECURSIVO::=
+CONDICIONAL_RECURSIVO o_si EXPRESION_RELACIONAL entonces INSTRUCCIONES
+|o_si EXPRESION_RELACIONAL entonces INSTRUCCIONES
+;
+
+SELECCION::=
+segun EXPRESION hacer SELECCION_RECURSIVO de_lo_contrario entonces INSTRUCCIONES fin_segun
+| segun EXPRESION hacer SELECCION_RECURSIVO fin_segun
+;
+
+SELECCION_RECURSIVO::=
+interroganteIzquierdo EXPRESION interroganteDerecho entonces INSTRUCCIONES SELECCION_RECURSIVO
+| interroganteIzquierdo EXPRESION interroganteDerecho entonces INSTRUCCIONES
+;
+
+PARA::=
+para VARIABLE_CICLO asignacionSimbolo VARIABLE_CICLO hasta VARIABLE_CICLO hacer INSTRUCCIONES fin_para
+| para VARIABLE_CICLO asignacionSimbolo VARIABLE_CICLO hasta VARIABLE_CICLO hacer fin_para
+| para VARIABLE_CICLO asignacionSimbolo VARIABLE_CICLO hasta VARIABLE_CICLO con incremental VARIABLE_CICLO hacer INSTRUCCIONES fin_para
+| para VARIABLE_CICLO asignacionSimbolo VARIABLE_CICLO hasta VARIABLE_CICLO con incremental VARIABLE_CICLO hacer fin_para
+;
+
+MIENTRAS::=
+mientras EXPRESION_RELACIONAL hacer INSTRUCCIONES fin_mientras
+| mientras EXPRESION_RELACIONAL hacer fin_mientras
+;
+
+REPETIR::=
+repetir INSTRUCCIONES hasta_que EXPRESION_RELACIONAL
+| repetir hasta_que EXPRESION_RELACIONAL
+;
+
+RETORNO::=
+retornar EXPRESION_RELACIONAL puntocoma
+| retornar EXPRESION puntocoma
+;
+
+EJECUTAR::=
+ejecutar variable parAbierto parCerrado puntocoma
+| ejecutar variable parAbierto PARAMETROS_RECURSIVO parCerrado puntocoma
+;
+
+METODO::=
+metodo variable INSTRUCCIONES fin_metodo
+| metodo variable  con_parametros parAbierto PARAMETROS_RECURSIVO parCerrado INSTRUCCIONES fin_metodo
+;
+
+FUNCION::=
+funcion variable TIPO INSTRUCCIONES fin_funcion
+| funcion variable TIPO con_parametros parAbierto PARAMETROS_RECURSIVO parCerrado INSTRUCCIONES fin_funcion
+;
+
+IMPRIMIR::=
+imprimir EXPRESION: puntocoma
+| imprimir valorcadena puntocoma
+| imprimir valorcaracter puntocoma
+| imprimir caracter_ascii puntocoma
+| imprimir_nl EXPRESION puntocoma
+| imprimir_nl valorcadena puntocoma
+| imprimir_nl valorcaracter puntocoma
+| imprimir_nl caracter_ascii puntocoma
+;
+
+
+
+PARAMETROS_RECURSIVO::=
+variable TIPO coma PARAMETROS_RECURSIVO:c
+| variable TIPO
+;
+
+TIPO::=
+numero
+| caracter
+| caracter_ascii
+| booleano
+| cadena
+;
+
+LISTAVARIABLES::=
+variable coma LISTAVARIABLES
+| variable
+;
+
+
+EXPRESION::=
+menos EXPRESION
+| EXPRESION mas EXPRESION
+| EXPRESION menos EXPRESION
+| EXPRESION por EXPRESION
+| EXPRESION dividido EXPRESION
+| EXPRESION potencia corAbrir EXPRESION corCerrar
+| EXPRESION mod EXPRESION
+| decimal
+| entero
+| variable
+| parAbierto EXPRESION parCerrado
+;
+
+VARIABLE_CICLO::=
+EXPRESION
+;
+
+EXPRESION_RELACIONAL::=
+VARIABLE_RELACIONAL VALOR_RACIONAL VARIABLE_RELACIONAL
+| not EXPRESION_RELACIONAL
+;
+
+VARIABLE_RELACIONAL::=
+ EXPRESION
+| valorcadena
+| valorcaracter
+| caracter_ascii
+| verdadero
+| falso
+;
+
+
+
+VALOR_RACIONAL::=
+mayor
+| menor
+| mayor_o_igual
+| menor_o_igual
+| es_igual
+| es_diferente
+| or
+| and
+| not;
+}

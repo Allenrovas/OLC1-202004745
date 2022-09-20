@@ -17,5 +17,6 @@
     </orderEntry>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="java-cup-11b-runtime" level="project" />
+    <orderEntry type="library" name="java-cup-11b-runtime1" level="project" />
   </component>
 </module>

@@ -277,12 +277,12 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 64 */ YY_NO_ANCHOR,
 		/* 65 */ YY_NO_ANCHOR,
 		/* 66 */ YY_NO_ANCHOR,
-		/* 67 */ YY_NOT_ACCEPT,
+		/* 67 */ YY_NO_ANCHOR,
 		/* 68 */ YY_NO_ANCHOR,
 		/* 69 */ YY_NO_ANCHOR,
-		/* 70 */ YY_NOT_ACCEPT,
+		/* 70 */ YY_NO_ANCHOR,
 		/* 71 */ YY_NO_ANCHOR,
-		/* 72 */ YY_NOT_ACCEPT,
+		/* 72 */ YY_NO_ANCHOR,
 		/* 73 */ YY_NO_ANCHOR,
 		/* 74 */ YY_NOT_ACCEPT,
 		/* 75 */ YY_NO_ANCHOR,
@@ -307,15 +307,15 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 94 */ YY_NOT_ACCEPT,
 		/* 95 */ YY_NO_ANCHOR,
 		/* 96 */ YY_NOT_ACCEPT,
-		/* 97 */ YY_NOT_ACCEPT,
+		/* 97 */ YY_NO_ANCHOR,
 		/* 98 */ YY_NOT_ACCEPT,
-		/* 99 */ YY_NOT_ACCEPT,
+		/* 99 */ YY_NO_ANCHOR,
 		/* 100 */ YY_NOT_ACCEPT,
-		/* 101 */ YY_NOT_ACCEPT,
+		/* 101 */ YY_NO_ANCHOR,
 		/* 102 */ YY_NOT_ACCEPT,
-		/* 103 */ YY_NOT_ACCEPT,
+		/* 103 */ YY_NO_ANCHOR,
 		/* 104 */ YY_NOT_ACCEPT,
-		/* 105 */ YY_NOT_ACCEPT,
+		/* 105 */ YY_NO_ANCHOR,
 		/* 106 */ YY_NOT_ACCEPT,
 		/* 107 */ YY_NOT_ACCEPT,
 		/* 108 */ YY_NOT_ACCEPT,
@@ -419,12 +419,12 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 206 */ YY_NOT_ACCEPT,
 		/* 207 */ YY_NOT_ACCEPT,
 		/* 208 */ YY_NOT_ACCEPT,
-		/* 209 */ YY_NO_ANCHOR,
+		/* 209 */ YY_NOT_ACCEPT,
 		/* 210 */ YY_NOT_ACCEPT,
 		/* 211 */ YY_NOT_ACCEPT,
 		/* 212 */ YY_NOT_ACCEPT,
 		/* 213 */ YY_NOT_ACCEPT,
-		/* 214 */ YY_NO_ANCHOR,
+		/* 214 */ YY_NOT_ACCEPT,
 		/* 215 */ YY_NOT_ACCEPT,
 		/* 216 */ YY_NOT_ACCEPT,
 		/* 217 */ YY_NOT_ACCEPT,
@@ -447,7 +447,7 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 234 */ YY_NOT_ACCEPT,
 		/* 235 */ YY_NOT_ACCEPT,
 		/* 236 */ YY_NOT_ACCEPT,
-		/* 237 */ YY_NOT_ACCEPT,
+		/* 237 */ YY_NO_ANCHOR,
 		/* 238 */ YY_NOT_ACCEPT,
 		/* 239 */ YY_NOT_ACCEPT,
 		/* 240 */ YY_NOT_ACCEPT,
@@ -456,8 +456,8 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 243 */ YY_NOT_ACCEPT,
 		/* 244 */ YY_NOT_ACCEPT,
 		/* 245 */ YY_NOT_ACCEPT,
-		/* 246 */ YY_NO_ANCHOR,
-		/* 247 */ YY_NO_ANCHOR,
+		/* 246 */ YY_NOT_ACCEPT,
+		/* 247 */ YY_NOT_ACCEPT,
 		/* 248 */ YY_NOT_ACCEPT,
 		/* 249 */ YY_NOT_ACCEPT,
 		/* 250 */ YY_NOT_ACCEPT,
@@ -488,68 +488,108 @@ public class Lexico implements java_cup.runtime.Scanner {
 		/* 275 */ YY_NOT_ACCEPT,
 		/* 276 */ YY_NOT_ACCEPT,
 		/* 277 */ YY_NOT_ACCEPT,
-		/* 278 */ YY_NOT_ACCEPT,
+		/* 278 */ YY_NO_ANCHOR,
 		/* 279 */ YY_NOT_ACCEPT,
-		/* 280 */ YY_NOT_ACCEPT
+		/* 280 */ YY_NOT_ACCEPT,
+		/* 281 */ YY_NOT_ACCEPT,
+		/* 282 */ YY_NOT_ACCEPT,
+		/* 283 */ YY_NOT_ACCEPT,
+		/* 284 */ YY_NOT_ACCEPT,
+		/* 285 */ YY_NOT_ACCEPT,
+		/* 286 */ YY_NOT_ACCEPT,
+		/* 287 */ YY_NOT_ACCEPT,
+		/* 288 */ YY_NOT_ACCEPT,
+		/* 289 */ YY_NOT_ACCEPT,
+		/* 290 */ YY_NOT_ACCEPT,
+		/* 291 */ YY_NOT_ACCEPT,
+		/* 292 */ YY_NOT_ACCEPT,
+		/* 293 */ YY_NOT_ACCEPT,
+		/* 294 */ YY_NOT_ACCEPT,
+		/* 295 */ YY_NOT_ACCEPT,
+		/* 296 */ YY_NOT_ACCEPT,
+		/* 297 */ YY_NOT_ACCEPT,
+		/* 298 */ YY_NOT_ACCEPT,
+		/* 299 */ YY_NOT_ACCEPT,
+		/* 300 */ YY_NOT_ACCEPT,
+		/* 301 */ YY_NOT_ACCEPT,
+		/* 302 */ YY_NOT_ACCEPT,
+		/* 303 */ YY_NOT_ACCEPT,
+		/* 304 */ YY_NOT_ACCEPT,
+		/* 305 */ YY_NOT_ACCEPT,
+		/* 306 */ YY_NOT_ACCEPT,
+		/* 307 */ YY_NOT_ACCEPT,
+		/* 308 */ YY_NOT_ACCEPT,
+		/* 309 */ YY_NOT_ACCEPT,
+		/* 310 */ YY_NOT_ACCEPT,
+		/* 311 */ YY_NOT_ACCEPT,
+		/* 312 */ YY_NOT_ACCEPT,
+		/* 313 */ YY_NOT_ACCEPT
 	};
 	private int yy_cmap[] = unpackFromString(1,65538,
-"38:9,34,33,38:2,34,38:18,34,38,37,38:4,39,25,26,29,27,32,28,36,30,35:10,38," +
-"24,38,31,41,38:2,5,10,14,4,2,7,19,21,15,23,40,8,16,11,6,12,22,3,9,13,20,1,4" +
-"0:2,17,40,38:4,18,38,5,10,14,4,2,7,19,21,15,23,40,8,16,11,6,12,22,3,9,13,20" +
-",1,40:2,17,40,38:65413,0:2")[0];
+"44:9,37,36,44:2,37,44:18,37,44,40,44,46,44:2,42,25,26,33,31,35,32,39,34,52," +
+"53,54,38,55,49,48,50:2,51,44,24,44:2,45,30,44,5,10,14,4,2,7,20,21,17,23,43," +
+"8,13,11,6,16,22,3,9,15,12,1,43:2,18,43,27,41,28,44,19,44,5,10,14,4,2,7,20,2" +
+"1,17,23,43,8,13,11,6,16,22,3,9,15,12,1,43:2,18,43,47,44,56,44:65,29,44:6534" +
+"4,0:2")[0];
 
-	private int yy_rmap[] = unpackFromString(1,281,
-"0,1,2,1:4,3,1,4,1:3,5,6,1:3,7,1,8,1,9,1:2,10,1:7,11,12,13,1:15,14,1:15,15,1" +
-"6,17,18,19,20,21,22,23,24,1,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40" +
-",41,42,43,44,45,46,47,48,49,10,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64" +
+	private int yy_rmap[] = unpackFromString(1,314,
+"0,1,2,1:8,3,1,4,1:2,5,6,1:4,7,1:2,8,1,9,10,1:7,11,12,13,1:20,14,1:14,15,16," +
+"17,18,19,20,21,22,23,1,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,4" +
+"1,42,43,44,45,46,47,48,49,50,51,52,53,9,10,54,55,56,57,58,59,60,61,62,63,64" +
 ",65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89" +
 ",90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110," +
-"111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129" +
-",130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,14" +
-"8,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,1" +
-"67,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185," +
-"186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204" +
-",205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,22" +
-"3,224,225,226")[0];
+"111,90,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128," +
+"129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147" +
+",148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,16" +
+"6,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,1" +
+"85,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203," +
+"204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222" +
+",223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,24" +
+"1,242,243,244,245,246,247,248,249,250")[0];
 
-	private int yy_nxt[][] = unpackFromString(227,42,
-"1,2,68,209,246,71,73,75,77,79,81,214,83,77,247,85,87,77,89,77:2,91,77:2,3,4" +
-",5,6,7,8,9,10,11,12,13,14,77,93,77,95,77:2,-1:44,67,-1:80,17,-1,18:28,69,18" +
-":3,-1,18:3,-1,18:4,-1:34,13,-1:42,14,103,-1:6,18:32,-1,18:3,-1,18:4,-1:18,1" +
-"25,-1:41,128,-1:58,25,-1:24,162,-1:41,280,-1:41,163,-1:41,240,-1:26,106,-1:" +
-"47,70,-1,72,-1:11,74,-1:19,69:28,18:2,69:2,120,69:3,120,69:4,-1:18,107,-1:3" +
-"4,78,-1:43,216,-1:31,15,-1:14,80,-1:25,108,-1:44,82,-1:9,84,-1:4,86,-1:33,1" +
-"09,248,-1:32,19,-1:39,88,-1:12,16,-1:35,110,-1:38,90,-1:43,111,-1:38,210,21" +
-"2,-1:46,20,-1:41,96,-1:4,97,-1:36,217,-1:32,98,-1:2,99,100,-1:8,213,-1:45,1" +
-"12,-1:23,101:17,-1,101:5,-1:11,101,-1:4,101,-1:7,113,-1:40,102,-1:49,21,-1:" +
-"29,104:32,-1,104:3,-1,104:4,-1:11,22,-1:4,115,-1:26,105:17,-1,105:5,-1:16,1" +
-"05,-1:15,116,274,-1:3,267,-1:34,220,-1:40,117,-1,221,-1:45,251,-1:28,23,-1:" +
-"38,101:17,24,101:5,-1:11,101,-1:4,101,-1:10,119,-1:4,249,-1:28,104:32,-1,10" +
-"4:3,26,104:4,-1:39,27,-1:6,121,-1:41,122,-1:10,123,-1:40,219,-1:29,223,-1:5" +
-"4,28,-1:35,124,-1:52,126,-1:29,127,-1:38,29,-1:42,30,-1:38,225,-1:44,129,-1" +
-":46,253,-1:43,132,-1:29,120:28,134,-1,120:11,-1:5,226,-1:51,135,-1:45,136,-" +
-"1:28,31,-1:42,227,-1,142,-1:2,143,-1:3,144,-1:36,32,-1:32,229,-1:40,256,-1:" +
-"10,268,-1:32,33,-1:42,149,-1:40,34,-1:43,35,-1:39,36,-1:68,37,-1:18,270,-1:" +
-"54,263,-1:35,232,-1:40,265,-1:43,152,-1:37,266,-1:48,153,-1:25,155,-1:12,38" +
-",-1:31,231,-1:38,156,-1:12,257,-1:32,157,-1:51,275,-1:31,39,-1:44,161,-1:38" +
-",40,-1:38,234,-1:40,164,-1:42,41,-1:52,235,-1:38,169,-1:49,170,-1:35,259,-1" +
-":39,42,-1:41,43,-1:45,173,-1:34,264,-1:38,174,-1:42,176,-1:57,237,-1:22,178" +
-",-1:46,44,-1:42,45,-1:35,46,-1:41,47,-1:52,180,-1:47,181,-1:26,48,-1:47,183" +
-",-1:35,49,-1:39,50,-1:41,51,-1:56,238,-1:32,52,-1:38,53,-1:37,187,-1:54,188" +
-",-1:37,54,-1:34,189,-1:50,190,-1:31,55,-1:54,191,-1:27,56,-1:50,194,-1:36,1" +
-"95,-1:41,57,-1:38,242,-1:40,243,-1:44,196,-1:55,198,-1:35,199,-1:39,58,-1:3" +
-"8,59,-1:41,60,-1:53,244,-1:23,61,-1:44,245,-1:45,62,-1:35,203,-1:44,207,-1:" +
-"43,63,-1:41,64,-1:48,208,-1:35,65,-1:38,66,-1:37,76,-1:42,114,-1:56,215,-1:" +
-"36,218,-1:30,118,-1:45,92,-1:43,261,-1:39,222,-1:49,224,-1:29,252,-1:59,138" +
-",-1:24,262,-1:44,130,-1:46,137,-1:43,139,-1:43,145,-1:28,146,-1:43,151,-1:5" +
-"7,154,-1:35,159,-1:32,158,-1:52,233,-1:28,171,-1:40,166,-1:54,175,-1:31,177" +
-",-1:42,276,-1:38,179,-1:58,186,-1:36,193,-1:39,192,-1:39,197,-1:33,200,-1:4" +
-"3,201,-1:49,202,-1:33,204,-1:39,206,-1:40,211,-1:45,94,-1:41,250,-1:37,133," +
-"-1:42,140,-1:44,131,-1:46,228,-1:43,150,-1:43,147,-1:28,148,-1:44,160,-1:38" +
-",172,-1:44,185,-1:42,182,-1:40,205,-1:42,141,-1:50,230,-1:31,165,-1:42,184," +
-"-1:40,167,-1:41,168,-1:39,255,-1:43,269,-1:39,258,-1:40,236,-1:50,239,-1:43" +
-",241,-1:48,260,-1:35,254,-1:29,271,-1:50,272,-1:49,273,-1:37,277,-1:44,278," +
-"-1:29,279,-1:35");
+	private int yy_nxt[][] = unpackFromString(251,57,
+"1,2,75,237,278,77,79,81,83,85,87,89,83,91,93,83,95,97,83,99,83,101,83:2,3,4" +
+",5,6,7,8,9,10,11,12,13,14,15,16,17,83,103,83,105,83:5,17:8,83,-1:59,74,-1:9" +
+"9,20,-1:44,113,114,-1:59,16,-1:57,17,115,-1:8,17:8,-1:20,138,-1:56,146,-1:3" +
+"8,27:35,-1,27:20,-1:38,28,-1:9,28:8,-1:20,183,-1:56,313,-1:56,188,-1:56,272" +
+",-1:40,119,-1:62,76,-1,78,-1:11,80,-1:52,120,-1:48,84,-1:60,243,-1:44,18,-1" +
+":15,86,-1:39,121,-1:59,88,-1:6,90,-1:4,92,-1:54,279,122,-1:44,21,-1:54,94,-" +
+"1:14,19,-1:48,123,-1:53,96,-1:58,124,-1:54,98,-1:5,100,-1:55,245,-1:47,102," +
+"-1:2,104,106,-1:10,241,-1:50,22,-1:50,107,108,-1:70,125,-1:41,238,240,-1:56" +
+",126,-1:61,109,-1,110,-1:58,23,-1:42,111:18,-1,111:4,-1:14,111,-1:4,111,-1:" +
+"4,111:8,-1:14,246,-1:48,112,-1:62,127,-1:3,248,-1:42,116:35,-1,116:3,-1,116" +
+":16,-1:18,281,-1:39,117:18,-1,117:4,-1:19,117,-1:2,118,-1:14,24,-1:55,129,2" +
+"80,-1:63,25,-1,130,-1:57,132,-1:2,307,-1:2,302,-1:52,251,-1:41,111:18,26,11" +
+"1:4,-1:14,111,-1:4,111,-1:4,111:8,-1:10,133,-1:4,298,-1:43,244:33,-1,244:6," +
+"-1,244:15,-1,116:35,-1,116:3,29,116:16,-1:42,30,-1:61,134,-1:13,250,-1:56,1" +
+"35,-1:12,136,-1:53,247,-1:44,252,-1:71,31,-1:48,137,-1:59,139,-1:52,140,-1:" +
+"54,141,-1:61,283,-1:50,144,-1:57,32,-1:55,33,-1:54,254,-1:68,147,-1:79,150," +
+"-1:9,151,-1,152,153,-1,154,-1:20,155,-1:59,156,-1:42,34,-1:57,258,-1,161,-1" +
+":3,162,-1:2,163,-1:51,35,-1:47,260,-1:57,36,-1:57,165,-1:55,37,-1:67,259,-1" +
+":53,167,-1:46,287,-1:14,296,-1:45,38,-1:54,39,-1:54,244:32,149,40,244:6,-1," +
+"244:15,-1:54,172,-1:50,172:4,-1:43,172,-1:9,172:8,-1:51,172:3,-1:52,173,-1:" +
+"3,174:2,175,-1:9,303,-1:61,299,-1:59,300,-1:58,177,-1:58,262,-1:43,178,-1:5" +
+"2,180,-1:14,41,-1:41,181,-1:14,288,-1:44,261,-1:57,42,-1:56,43,-1:53,184,-1" +
+":58,44,-1:65,187,-1:55,308,-1:49,45,-1:59,266,-1:103,189,-1:49,172,-1:5,172" +
+",-1:53,172:3,-1:4,267,-1:57,46,-1:64,47,-1:56,194,-1:65,195,-1:51,289,-1:52" +
+",48,-1:51,198,-1:55,199,-1:59,201,-1:51,202,-1:70,203,-1:61,269,-1:76,49,-1" +
+":22,50,-1:57,51,-1:50,52,-1:56,53,-1:67,208,-1:54,209,-1:55,211,-1:50,54,-1" +
+":70,270,-1:46,55,-1:50,56,-1:59,212,-1:55,213,-1:56,57,-1:54,58,-1:56,59,-1" +
+":59,60,-1:52,215,-1:71,216,-1:50,61,-1:49,217,-1:67,218,-1:44,62,-1:66,220," +
+"-1:45,63,-1:65,222,-1:51,223,-1:56,64,-1:53,274,-1:73,224,-1:38,275,-1:59,2" +
+"25,-1:66,227,-1:52,65,-1:57,276,-1:52,66,-1:56,67,-1:50,68,-1:59,277,-1:60," +
+"69,-1:50,233,-1:61,70,-1:56,71,-1:54,235,-1:67,236,-1:48,72,-1:53,73,-1:52," +
+"82,-1:57,131,-1:72,242,-1:52,292,-1:43,128,-1:62,293,-1:54,249,-1:51,244:32" +
+",149,-1,244:6,-1,244:15,-1:14,253,-1:44,294,-1:66,157,-1:50,142,-1:61,256,-" +
+"1:50,255,-1:54,295,-1:68,158,-1:58,160,-1:41,169,-1:58,176,-1:66,264,-1:53," +
+"168,-1:57,179,-1:59,297,-1:46,182,-1:54,197,-1:67,265,-1:55,268,-1:45,191,-" +
+"1:60,309,-1:55,204,-1:54,206,-1:70,205,-1:51,214,-1:61,219,-1:54,221,-1:52," +
+"226,-1:48,228,-1:58,229,-1:66,230,-1:46,231,-1:54,234,-1:55,239,-1:60,282,-" +
+"1:52,145,-1:60,143,-1:53,286,-1:68,166,-1:58,170,-1:41,171,-1:65,301,-1:50," +
+"185,-1:53,196,-1:60,210,-1:53,207,-1:58,232,-1:53,257,-1:60,159,-1:53,164,-" +
+"1:70,263,-1:44,186,-1:53,200,-1:56,148,-1:59,190,-1:56,192,-1:56,193,-1:54," +
+"285,-1:55,290,-1:65,271,-1:60,273,-1:53,291,-1:58,284,-1:44,304,-1:65,305,-" +
+"1:65,306,-1:53,310,-1:58,311,-1:43,312,-1:50");
 
 	public java_cup.runtime.Symbol next_token ()
 		throws java.io.IOException {
@@ -615,382 +655,406 @@ public class Lexico implements java_cup.runtime.Scanner {
 					case -5:
 						break;
 					case 5:
-						{System.out.println("se econtro un parentesis derecho"); return new Symbol(sym.parCerrar,yyline,yychar, yytext());}
+						{System.out.println("se econtro un parentesis derecho"); return new Symbol(sym.parCerrado,yyline,yychar, yytext());}
 					case -6:
 						break;
 					case 6:
-						{System.out.println("se econtro un mas"); return new Symbol(sym.mas,yyline,yychar, yytext());}
+						{System.out.println("se econtro un corchete izquierdo");  return new Symbol(sym.corAbrir,yyline,yychar, yytext());}
 					case -7:
 						break;
 					case 7:
-						{System.out.println("se econtro un menos"); return new Symbol(sym.menos,yyline,yychar, yytext());}
+						{System.out.println("se econtro un corchete derecho"); return new Symbol(sym.corCerrar,yyline,yychar, yytext());}
 					case -8:
 						break;
 					case 8:
-						{System.out.println("se econtro un por"); return new Symbol(sym.por,yyline,yychar, yytext());}
+						{System.out.println("se econtro un interrogante izquierdo"); return new Symbol(sym.interroganteIzquierdo,yyline,yychar, yytext());}
 					case -9:
 						break;
 					case 9:
-						{System.out.println("se econtro un dividido"); return new Symbol(sym.dividido,yyline,yychar, yytext());}
+						{System.out.println("se econtro un interrogante derecho"); return new Symbol(sym.interroganteDerecho,yyline,yychar, yytext());}
 					case -10:
 						break;
 					case 10:
-						{System.out.println("se econtro un igual"); return new Symbol(sym.igual,yyline,yychar, yytext());}
+						{System.out.println("se econtro un mas"); return new Symbol(sym.mas,yyline,yychar, yytext());}
 					case -11:
 						break;
 					case 11:
-						{System.out.println("se econtro una coma"); return new Symbol(sym.coma,yyline,yychar, yytext());}
+						{System.out.println("se econtro un menos"); return new Symbol(sym.menos,yyline,yychar, yytext());}
 					case -12:
 						break;
 					case 12:
-						{yychar=1;}
+						{System.out.println("se econtro un por"); return new Symbol(sym.por,yyline,yychar, yytext());}
 					case -13:
 						break;
 					case 13:
-						{}
+						{System.out.println("se econtro un dividido"); return new Symbol(sym.dividido,yyline,yychar, yytext());}
 					case -14:
 						break;
 					case 14:
-						{System.out.println("se econtro un entero");  return new Symbol(sym.entero,yyline,yychar, yytext());}
+						{System.out.println("se econtro una coma"); return new Symbol(sym.coma,yyline,yychar, yytext());}
 					case -15:
 						break;
 					case 15:
-						{System.out.println("se encontro la palabra reservada or"); return new Symbol(sym.or,yyline,yychar,yytext());}
+						{yychar=1;}
 					case -16:
 						break;
 					case 16:
-						{System.out.println("se encontro la palabra reservada si"); return new Symbol(sym.si,yyline,yychar,yytext());}
+						{}
 					case -17:
 						break;
 					case 17:
-						{System.out.println("se econtro una asignacion"); return new Symbol(sym.asignacionSimbolo,yyline,yychar, yytext());}
+						{System.out.println("se econtro un entero");  return new Symbol(sym.entero,yyline,yychar, yytext());}
 					case -18:
 						break;
 					case 18:
-						{System.out.println("se econtro un comentarioLineal"); return new Symbol(sym.comentario_linea,yyline,yychar, yytext());}
+						{System.out.println("se encontro la palabra reservada or"); return new Symbol(sym.or,yyline,yychar,yytext());}
 					case -19:
 						break;
 					case 19:
-						{System.out.println("se encontro la palabra reservada and"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada si"); return new Symbol(sym.si,yyline,yychar,yytext());}
 					case -20:
 						break;
 					case 20:
-						{System.out.println("se encontro la palabra reservada fin"); return new Symbol(sym.fin,yyline,yychar,yytext());}
+						{System.out.println("se econtro una asignacion"); return new Symbol(sym.asignacionSimbolo,yyline,yychar, yytext());}
 					case -21:
 						break;
 					case 21:
-						{System.out.println("se encontro la palabra reservada not"); return new Symbol(sym.not,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada and"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
 					case -22:
 						break;
 					case 22:
-						{System.out.println("se encontro la palabra reservada con"); return new Symbol(sym.con,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin"); return new Symbol(sym.fin,yyline,yychar,yytext());}
 					case -23:
 						break;
 					case 23:
-						{System.out.println("se encontro la palabra reservada mod"); return new Symbol(sym.mod,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada not"); return new Symbol(sym.not,yyline,yychar,yytext());}
 					case -24:
 						break;
 					case 24:
-						{System.out.println("se econtro una variable"); return new Symbol(sym.variable,yyline,yychar, yytext());}
+						{System.out.println("se encontro la palabra reservada mod"); return new Symbol(sym.mod,yyline,yychar,yytext());}
 					case -25:
 						break;
 					case 25:
-						{System.out.println("se econtro un decimal"); return new Symbol(sym.decimal,yyline,yychar, yytext());}
+						{System.out.println("se encontro la palabra reservada con"); return new Symbol(sym.con,yyline,yychar,yytext());}
 					case -26:
 						break;
 					case 26:
-						{System.out.println("se econtro una cadena"); return new Symbol(sym.cadena,yyline,yychar, yytext());}
+						{System.out.println("se econtro una variable"); return new Symbol(sym.variable,yyline,yychar, yytext());}
 					case -27:
 						break;
 					case 27:
-						{System.out.println("se econtro un caracter"); return new Symbol(sym.caracter,yyline,yychar, yytext());}
+						{System.out.println("se econtro un comentarioLineal"); return new Symbol(sym.comentario_linea,yyline,yychar, yytext());}
 					case -28:
 						break;
 					case 28:
-						{System.out.println("se encontro la palabra reservada o_si"); return new Symbol(sym.o_si,yyline,yychar,yytext());}
+						{System.out.println("se econtro un decimal"); return new Symbol(sym.decimal,yyline,yychar, yytext());}
 					case -29:
 						break;
 					case 29:
-						{System.out.println("se encontro la palabra reservada para"); return new Symbol(sym.para,yyline,yychar,yytext());}
+						{System.out.println("se econtro una cadena"); return new Symbol(sym.valorcadena,yyline,yychar, yytext());}
 					case -30:
 						break;
 					case 30:
-						{System.out.println("se encontro la palabra reservada como"); return new Symbol(sym.como,yyline,yychar,yytext());}
+						{System.out.println("se econtro un caracter"); return new Symbol(sym.valorcaracter,yyline,yychar, yytext());}
 					case -31:
 						break;
 					case 31:
-						{System.out.println("se encontro la palabra reservada Falso"); return new Symbol(sym.falso,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada o_si"); return new Symbol(sym.o_si,yyline,yychar,yytext());}
 					case -32:
 						break;
 					case 32:
-						{System.out.println("se encontro la palabra reservada segun"); return new Symbol(sym.segun,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada como"); return new Symbol(sym.como,yyline,yychar,yytext());}
 					case -33:
 						break;
 					case 33:
-						{System.out.println("se encontro la palabra reservada menor"); return new Symbol(sym.menor,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada para"); return new Symbol(sym.para,yyline,yychar,yytext());}
 					case -34:
 						break;
 					case 34:
-						{System.out.println("se encontro la palabra reservada mayor"); return new Symbol(sym.mayor,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Falso"); return new Symbol(sym.falso,yyline,yychar,yytext());}
 					case -35:
 						break;
 					case 35:
-						{System.out.println("se encontro la palabra reservada hasta"); return new Symbol(sym.hasta,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada segun"); return new Symbol(sym.segun,yyline,yychar,yytext());}
 					case -36:
 						break;
 					case 36:
-						{System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.hacer,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada menor"); return new Symbol(sym.menor,yyline,yychar,yytext());}
 					case -37:
 						break;
 					case 37:
-						{System.out.println("se econtro un comentario Multilinea"); return new Symbol(sym.comentario_multilinea,yyline,yychar, yytext());}
+						{System.out.println("se encontro la palabra reservada mayor"); return new Symbol(sym.mayor,yyline,yychar,yytext());}
 					case -38:
 						break;
 					case 38:
-						{System.out.println("se encontro la palabra reservada fin_si"); return new Symbol(sym.fin_si,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada hasta"); return new Symbol(sym.hasta,yyline,yychar,yytext());}
 					case -39:
 						break;
 					case 39:
-						{System.out.println("se encontro la palabra reservada inicio"); return new Symbol(sym.inicio,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada hacer"); return new Symbol(sym.hacer,yyline,yychar,yytext());}
 					case -40:
 						break;
 					case 40:
-						{System.out.println("se encontro la palabra reservada metodo"); return new Symbol(sym.metodo,yyline,yychar,yytext());}
+						{System.out.println("se econtro un comentario Multilinea"); return new Symbol(sym.comentario_multilinea,yyline,yychar, yytext());}
 					case -41:
 						break;
 					case 41:
-						{System.out.println("se encontro la palabra reservada repetir"); return new Symbol(sym.repetir,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin_si"); return new Symbol(sym.fin_si,yyline,yychar,yytext());}
 					case -42:
 						break;
 					case 42:
-						{System.out.println("se encontro la palabra reservada funcion"); return new Symbol(sym.funcion,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Numero"); return new Symbol(sym.numero,yyline,yychar,yytext());}
 					case -43:
 						break;
 					case 43:
-						{System.out.println("se encontro la palabra reservada Boolean"); return new Symbol(sym.boolean,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada metodo"); return new Symbol(sym.metodo,yyline,yychar,yytext());}
 					case -44:
 						break;
 					case 44:
-						{System.out.println("se encontro la palabra reservada es_igual"); return new Symbol(sym.es_igual,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Cadena"); return new Symbol(sym.cadena,yyline,yychar,yytext());}
 					case -45:
 						break;
 					case 45:
-						{System.out.println("se encontro la palabra reservada entonces"); return new Symbol(sym.entonces,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada inicio"); return new Symbol(sym.inicio,yyline,yychar,yytext());}
 					case -46:
 						break;
 					case 46:
-						{System.out.println("se encontro la palabra reservada ejecutar"); return new Symbol(sym.ejecutar,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada repetir"); return new Symbol(sym.repetir,yyline,yychar,yytext());}
 					case -47:
 						break;
 					case 47:
-						{System.out.println("se encontro la palabra reservada retornar"); return new Symbol(sym.retornar,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada funcion"); return new Symbol(sym.funcion,yyline,yychar,yytext());}
 					case -48:
 						break;
 					case 48:
-						{System.out.println("se encontro la palabra reservada fin_para"); return new Symbol(sym.fin_para,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Boolean"); return new Symbol(sym.booleano,yyline,yychar,yytext());}
 					case -49:
 						break;
 					case 49:
-						{System.out.println("se encontro la palabra reservada potencia"); return new Symbol(sym.potencia,yyline,yychar,yytext());}
+						{System.out.println("se econtro un caracter ascii"); return new Symbol(sym.caracter_ascii,yyline,yychar, yytext());}
 					case -50:
 						break;
 					case 50:
-						{System.out.println("se encontro la palabra reservada ingresar"); return new Symbol(sym.ingresar,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada es_igual"); return new Symbol(sym.es_igual,yyline,yychar,yytext());}
 					case -51:
 						break;
 					case 51:
-						{System.out.println("se encontro la palabra reservada imprimir"); return new Symbol(sym.imprimir,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada entonces"); return new Symbol(sym.entonces,yyline,yychar,yytext());}
 					case -52:
 						break;
 					case 52:
-						{System.out.println("se encontro la palabra reservada mientras"); return new Symbol(sym.mientras,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada ejecutar"); return new Symbol(sym.ejecutar,yyline,yychar,yytext());}
 					case -53:
 						break;
 					case 53:
-						{System.out.println("se encontro la palabra reservada Verdadero"); return new Symbol(sym.verdadero,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada retornar"); return new Symbol(sym.retornar,yyline,yychar,yytext());}
 					case -54:
 						break;
 					case 54:
-						{System.out.println("se encontro la palabra reservada fin_segun"); return new Symbol(sym.fin_segun,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin_para"); return new Symbol(sym.fin_para,yyline,yychar,yytext());}
 					case -55:
 						break;
 					case 55:
-						{System.out.println("se encontro la palabra reservada con_valor"); return new Symbol(sym.con_valor,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada mientras"); return new Symbol(sym.mientras,yyline,yychar,yytext());}
 					case -56:
 						break;
 					case 56:
-						{System.out.println("se encontro la palabra reservada hasta_que"); return new Symbol(sym.hasta_que,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Caracter"); return new Symbol(sym.caracter,yyline,yychar,yytext());}
 					case -57:
 						break;
 					case 57:
-						{System.out.println("se encontro la palabra reservada fin_metodo"); return new Symbol(sym.fin_metodo,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada potencia"); return new Symbol(sym.potencia,yyline,yychar,yytext());}
 					case -58:
 						break;
 					case 58:
-						{System.out.println("se encontro la palabra reservada fin_funcion"); return new Symbol(sym.fin_funcion,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada ingresar"); return new Symbol(sym.ingresar,yyline,yychar,yytext());}
 					case -59:
 						break;
 					case 59:
-						{System.out.println("se encontro la palabra reservada incremental"); return new Symbol(sym.incremental,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada imprimir"); return new Symbol(sym.imprimir,yyline,yychar,yytext());}
 					case -60:
 						break;
 					case 60:
-						{System.out.println("se encontro la palabra reservada imprimir_nl"); return new Symbol(sym.imprimir_nl,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada Verdadero"); return new Symbol(sym.verdadero,yyline,yychar,yytext());}
 					case -61:
 						break;
 					case 61:
-						{System.out.println("se encontro la palabra reservada es_diferente"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin_segun"); return new Symbol(sym.fin_segun,yyline,yychar,yytext());}
 					case -62:
 						break;
 					case 62:
-						{System.out.println("se encontro la palabra reservada fin_mientras"); return new Symbol(sym.fin_mientras,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada con_valor"); return new Symbol(sym.con_valor,yyline,yychar,yytext());}
 					case -63:
 						break;
 					case 63:
-						{System.out.println("se encontro la palabra reservada menor_o_igual"); return new Symbol(sym.menor_o_igual,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada hasta_que"); return new Symbol(sym.hasta_que,yyline,yychar,yytext());}
 					case -64:
 						break;
 					case 64:
-						{System.out.println("se encontro la palabra reservada mayor_o_igual"); return new Symbol(sym.mayour_o_igual,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin_metodo"); return new Symbol(sym.fin_metodo,yyline,yychar,yytext());}
 					case -65:
 						break;
 					case 65:
-						{System.out.println("se encontro la palabra reservada con_parametros"); return new Symbol(sym.con_parametros,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada fin_funcion"); return new Symbol(sym.fin_funcion,yyline,yychar,yytext());}
 					case -66:
 						break;
 					case 66:
-						{System.out.println("se encontro la palabra reservada de_lo_contrario"); return new Symbol(sym.de_lo_contrario,yyline,yychar,yytext());}
+						{System.out.println("se encontro la palabra reservada incremental"); return new Symbol(sym.incremental,yyline,yychar,yytext());}
 					case -67:
 						break;
-					case 68:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
+					case 67:
+						{System.out.println("se encontro la palabra reservada imprimir_nl"); return new Symbol(sym.imprimir_nl,yyline,yychar,yytext());}
 					case -68:
 						break;
-					case 69:
-						{System.out.println("se econtro un comentarioLineal"); return new Symbol(sym.comentario_linea,yyline,yychar, yytext());}
+					case 68:
+						{System.out.println("se encontro la palabra reservada es_diferente"); return new Symbol(sym.es_diferente,yyline,yychar,yytext());}
 					case -69:
 						break;
-					case 71:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
+					case 69:
+						{System.out.println("se encontro la palabra reservada fin_mientras"); return new Symbol(sym.fin_mientras,yyline,yychar,yytext());}
 					case -70:
 						break;
-					case 73:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
+					case 70:
+						{System.out.println("se encontro la palabra reservada menor_o_igual"); return new Symbol(sym.menor_o_igual,yyline,yychar,yytext());}
 					case -71:
+						break;
+					case 71:
+						{System.out.println("se encontro la palabra reservada mayor_o_igual"); return new Symbol(sym.mayor_o_igual,yyline,yychar,yytext());}
+					case -72:
+						break;
+					case 72:
+						{System.out.println("se encontro la palabra reservada con_parametros"); return new Symbol(sym.con_parametros,yyline,yychar,yytext());}
+					case -73:
+						break;
+					case 73:
+						{System.out.println("se encontro la palabra reservada de_lo_contrario"); return new Symbol(sym.de_lo_contrario,yyline,yychar,yytext());}
+					case -74:
 						break;
 					case 75:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -72:
+					case -75:
 						break;
 					case 77:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -73:
+					case -76:
 						break;
 					case 79:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -74:
+					case -77:
 						break;
 					case 81:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -75:
+					case -78:
 						break;
 					case 83:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -76:
+					case -79:
 						break;
 					case 85:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -77:
+					case -80:
 						break;
 					case 87:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -78:
+					case -81:
 						break;
 					case 89:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -79:
+					case -82:
 						break;
 					case 91:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -80:
+					case -83:
 						break;
 					case 93:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -81:
+					case -84:
 						break;
 					case 95:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
-					case -82:
-						break;
-					case 209:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
-					case -83:
-						break;
-					case 214:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
-					case -84:
-						break;
-					case 246:
-						{
-    System.out.println("Este es un error lexico: "+yytext()+
-    ", en la linea: "+yyline+", en la columna: "+yychar);
-}
 					case -85:
 						break;
-					case 247:
+					case 97:
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
 }
 					case -86:
+						break;
+					case 99:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -87:
+						break;
+					case 101:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -88:
+						break;
+					case 103:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -89:
+						break;
+					case 105:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -90:
+						break;
+					case 237:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -91:
+						break;
+					case 278:
+						{
+    System.out.println("Este es un error lexico: "+yytext()+
+    ", en la linea: "+yyline+", en la columna: "+yychar);
+}
+					case -92:
 						break;
 					default:
 						yy_error(YY_E_INTERNAL,false);

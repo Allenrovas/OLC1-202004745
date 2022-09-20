@@ -1,16 +1,19 @@
-package principal_UI;
+package principal;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.JScrollPane;
 
 
 public class Principal extends JFrame implements ActionListener {
-    JTextArea entrada;
+
     JComboBox comboFile;
     JComboBox comboReporte;
     JComboBox comboVer;
@@ -25,50 +28,52 @@ public class Principal extends JFrame implements ActionListener {
     JButton btnLimpiar;
     JButton btnCompilar;
 
+    public static JTextArea entrada;
+
     public Principal() {
         this.setTitle("Proyecto 1 OLC1");
-        this.setBounds(50, 50, 1500, 1000);
+        this.setBounds(50, 50, 1300, 750);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(new Color(174, 214, 241));
         this.setLayout(null);
 
         JLabel titulo = new JLabel();
         titulo.setText("Pseudo-Parser");
-        titulo.setBounds(700, 20, 1000, 35);
+        titulo.setBounds(500, 10, 500, 35);
         titulo.setFont(new Font("Century Gothic", 1, 35));
         this.add(titulo);
 
         JLabel tituloEntrada = new JLabel();
         tituloEntrada.setText("Archivo de entrada");
-        tituloEntrada.setBounds(10, 150, 200, 35);
+        tituloEntrada.setBounds(10, 100, 200, 35);
         tituloEntrada.setFont(new Font("Century Gothic", 1, 15));
         this.add(tituloEntrada);
 
 
         panelEntrada = new JPanel();
         panelEntrada.setLayout(null);
-        panelEntrada.setBounds(10, 190, 750,700);
+        panelEntrada.setBounds(10, 140, 700,550);
 
         entrada=new JTextArea();
-        entrada.setBounds(0,0,750,700);
+        entrada.setBounds(0,0,700,550);
         entrada.setFont(new Font("Century Gothic", 1, 12));
         panelEntrada.add(entrada);
 
         JScrollPane scrollEntrada = new JScrollPane(entrada, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollEntrada.setBounds(0, 0, 750,700);
+        scrollEntrada.setBounds(0, 0, 700,550);
         panelEntrada.add(scrollEntrada);
         this.add(panelEntrada);
 
         btnLimpiar = new JButton();
         btnLimpiar.setText("Limpiar");
-        btnLimpiar.setBounds(800, 100, 150, 35);
+        btnLimpiar.setBounds(800, 60, 150, 35);
         btnLimpiar.setFont(new Font("Century Gothic", 1, 15));
         btnLimpiar.addActionListener(this);
         this.add(btnLimpiar);
 
         btnCompilar = new JButton();
         btnCompilar.setText("Compilar");
-        btnCompilar.setBounds(1000, 100, 150, 35);
+        btnCompilar.setBounds(1000, 60, 150, 35);
         btnCompilar.setFont(new Font("Century Gothic", 1, 15));
         btnCompilar.addActionListener(this);
         this.add(btnCompilar);
@@ -76,49 +81,49 @@ public class Principal extends JFrame implements ActionListener {
 
         panelGolang = new JPanel();
         panelGolang.setLayout(null);
-        panelGolang.setBounds(800,200,650,300);
+        panelGolang.setBounds(750,140,500,250);
 
         salidaGolang=new JTextArea();
-        salidaGolang.setBounds(0,0,650,300);
+        salidaGolang.setBounds(0,0,500,250);
         salidaGolang.setFont(new Font("Century Gothic", 1, 12));
         salidaGolang.setEditable(false);
         panelGolang.add(salidaGolang);
 
         JScrollPane scrollGolang = new JScrollPane(salidaGolang, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollGolang.setBounds(0, 0, 650, 300);
+        scrollGolang.setBounds(0, 0, 500, 250);
         panelGolang.add(scrollGolang);
         this.add(panelGolang);
 
         JLabel tituloSalidaGolang = new JLabel();
         tituloSalidaGolang.setText("Salida Golang");
-        tituloSalidaGolang.setBounds(800, 150, 200, 35);
+        tituloSalidaGolang.setBounds(800, 100, 200, 35);
         tituloSalidaGolang.setFont(new Font("Century Gothic", 1, 15));
         this.add(tituloSalidaGolang);
 
         panelPython = new JPanel();
         panelPython.setLayout(null);
-        panelPython.setBounds(800,600,650,300);
+        panelPython.setBounds(750,440,500,250);
 
         salidaPython=new JTextArea();
-        salidaPython.setBounds(0,0,650,300);
+        salidaPython.setBounds(0,0,500,250);
         salidaPython.setFont(new Font("Century Gothic", 1, 12));
         salidaPython.setEditable(false);
         panelPython.add(salidaPython);
 
         JScrollPane scrollPython = new JScrollPane(salidaPython, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPython.setBounds(0, 0, 650, 300);
+        scrollPython.setBounds(0, 0, 500, 250);
         panelPython.add(scrollPython);
         this.add(panelPython);
 
         JLabel tituloSalidaPython = new JLabel();
         tituloSalidaPython.setText("Salida Python");
-        tituloSalidaPython.setBounds(800, 550, 200, 35);
+        tituloSalidaPython.setBounds(800, 390, 200, 35);
         tituloSalidaPython.setFont(new Font("Century Gothic", 1, 15));
         this.add(tituloSalidaPython);
 
         JLabel NombreEstudiante = new JLabel();
         NombreEstudiante.setText("OLC1_2S_2022<202004745>");
-        NombreEstudiante.setBounds(1250, 20, 200, 35);
+        NombreEstudiante.setBounds(1050, 20, 200, 35);
         NombreEstudiante.setFont(new Font("Century Gothic", 1, 15));
         this.add(NombreEstudiante);
 
@@ -130,15 +135,16 @@ public class Principal extends JFrame implements ActionListener {
 
     private void iniciarComponentes() {
         comboFile = new JComboBox();
-        comboFile.setBounds(10, 100, 200, 35);
+        comboFile.setBounds(10, 60, 200, 35);
         comboFile.setFont(new Font("Century Gothic", 1, 15));
         comboFile.addItem("Abrir Archivo");
-        comboFile.addItem("Guardar Como");
+        comboFile.addItem("Guardar Python");
+        comboFile.addItem("Guardar Golang");
         comboFile.addActionListener(this);
         this.add(comboFile);
 
         comboReporte = new JComboBox();
-        comboReporte.setBounds(260, 100, 200, 35);
+        comboReporte.setBounds(260, 60, 200, 35);
         comboReporte.setFont(new Font("Century Gothic", 1, 15));
         comboReporte.addItem("Reporte de Errores");
         comboReporte.addItem("Diagrama de flujo");
@@ -146,7 +152,7 @@ public class Principal extends JFrame implements ActionListener {
         this.add(comboReporte);
 
         comboVer = new JComboBox();
-        comboVer.setBounds(510, 100, 200, 35);
+        comboVer.setBounds(510, 60, 200, 35);
         comboVer.setFont(new Font("Century Gothic", 1, 15));
         comboVer.addItem("Manual de Usuario");
         comboVer.addItem("Manual Tecnico");
@@ -172,42 +178,41 @@ public class Principal extends JFrame implements ActionListener {
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
-            } else if (comboFile.getSelectedItem().equals("Guardar Como")) {
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.showSaveDialog(this);
-                entrada.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            } else if (comboFile.getSelectedItem().equals("Guardar Python")) {
+                Main.guardarArchivo(salidaPython.getText(), "Python");
+            } else if (comboFile.getSelectedItem().equals("Guardar Golang")) {
+                Main.guardarArchivoGo(salidaGolang.getText(), "Golang");
             }
         } else if (e.getSource()==comboReporte) {
             if (comboReporte.getSelectedItem().equals("Reporte de Errores")) {
-                JOptionPane.showMessageDialog(this, "Reporte de Errores");
+                Main.Errores();
             } else if (comboReporte.getSelectedItem().equals("Diagrama de flujo")) {
                 JOptionPane.showMessageDialog(this, "Diagrama de flujo");
             }
         } else if (e.getSource()==comboVer) {
             if (comboVer.getSelectedItem().equals("Manual de Usuario")) {
-                JOptionPane.showMessageDialog(this, "Manual de Usuario");
+                try {
+                    File path = new File ("../../Documentacion/ManualUsuario.pdf");
+                    Desktop.getDesktop().open(path);
+                }catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             } else if (comboVer.getSelectedItem().equals("Manual Tecnico")) {
-                JOptionPane.showMessageDialog(this, "Manual Tecnico");
+                try {
+                    File path = new File ("../../Documentacion/ManualTecnico.pdf");
+                    Desktop.getDesktop().open(path);
+                }catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
         } else if (e.getSource()==btnLimpiar){
             entrada.setText("");
             salidaGolang.setText("");
             salidaPython.setText("");
-        } /*else if (e.getSource()==btnCompilar){
-            String entrada = this.entrada.getText();
-            String salidaGolang = "";
-            String salidaPython = "";
-            try {
-                Compilador compilador = new Compilador();
-                compilador.compilar(entrada);
-                salidaGolang = compilador.getSalidaGolang();
-                salidaPython = compilador.getSalidaPython();
-            } catch (Exception ex) {
-                System.out.println(ex.getMessage());
-            }
-            this.salidaGolang.setText(salidaGolang);
-            this.salidaPython.setText(salidaPython);
-        }*/
+        } else if (e.getSource()==btnCompilar){
+            Main.errores = new ArrayList<>();
+            Main.analizar();
+        }
 
 
     }
