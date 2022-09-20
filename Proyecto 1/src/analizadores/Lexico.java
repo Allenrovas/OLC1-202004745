@@ -643,6 +643,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -3:
 						break;
@@ -934,6 +939,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -75:
 						break;
@@ -941,6 +951,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -76:
 						break;
@@ -948,6 +963,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -77:
 						break;
@@ -955,6 +975,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -78:
 						break;
@@ -962,6 +987,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -79:
 						break;
@@ -969,6 +999,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -80:
 						break;
@@ -976,6 +1011,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -81:
 						break;
@@ -983,6 +1023,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -82:
 						break;
@@ -990,6 +1035,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -83:
 						break;
@@ -997,6 +1047,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -84:
 						break;
@@ -1004,6 +1059,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -85:
 						break;
@@ -1011,6 +1071,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -86:
 						break;
@@ -1018,6 +1083,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -87:
 						break;
@@ -1025,6 +1095,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -88:
 						break;
@@ -1032,6 +1107,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -89:
 						break;
@@ -1039,6 +1119,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -90:
 						break;
@@ -1046,6 +1131,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -91:
 						break;
@@ -1053,6 +1143,11 @@ public class Lexico implements java_cup.runtime.Scanner {
 						{
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(lexema);
+                errores.add(String.valueOf(fila));
+                errores.add(String.valueOf(columna));
+                Main.errores.add(errores);
 }
 					case -92:
 						break;
