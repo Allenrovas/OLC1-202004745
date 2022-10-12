@@ -152,11 +152,11 @@ public class Operacion implements Instruccion {
                 String [] variables = var.split(",");
                 String variable = "";
                 for (int i = 0; i < variables.length; i++) {
-                    variable += "var"+variables[i];
+                    variable += "var "+variables[i];
                 }
-                return variable;
+                return variable.toString();
             }catch (Exception e) {
-                return "var"+valor.toString();
+                return "var "+valor.toString();
             }
         }else if(tipo == Tipo_operacion.CADENA){
             return valor.toString();

@@ -147,7 +147,7 @@ public class Principal extends JFrame implements ActionListener {
         comboReporte.setBounds(260, 60, 200, 35);
         comboReporte.setFont(new Font("Century Gothic", 1, 15));
         comboReporte.addItem("Reporte de Errores");
-        comboReporte.addItem("Diagrama de flujo");
+        comboReporte.addItem("Arbol Sintactico");
         comboReporte.addActionListener(this);
         this.add(comboReporte);
 
@@ -186,20 +186,20 @@ public class Principal extends JFrame implements ActionListener {
         } else if (e.getSource()==comboReporte) {
             if (comboReporte.getSelectedItem().equals("Reporte de Errores")) {
                 Main.Errores();
-            } else if (comboReporte.getSelectedItem().equals("Diagrama de flujo")) {
-                JOptionPane.showMessageDialog(this, "Diagrama de flujo");
+            } else if (comboReporte.getSelectedItem().equals("Arbol Sintactico")) {
+                Main.graficarM();
             }
         } else if (e.getSource()==comboVer) {
             if (comboVer.getSelectedItem().equals("Manual de Usuario")) {
                 try {
-                    File path = new File ("../../Documentacion/ManualUsuario.pdf");
+                    File path = new File ("Documentacion/ManualUsuario.pdf");
                     Desktop.getDesktop().open(path);
                 }catch (IOException ex) {
                     ex.printStackTrace();
                 }
             } else if (comboVer.getSelectedItem().equals("Manual Tecnico")) {
                 try {
-                    File path = new File ("../../Documentacion/ManualTecnico.pdf");
+                    File path = new File ("Documentacion/ManualTecnico.pdf");
                     Desktop.getDesktop().open(path);
                 }catch (IOException ex) {
                     ex.printStackTrace();
@@ -211,9 +211,9 @@ public class Principal extends JFrame implements ActionListener {
             salidaPython.setText("");
         } else if (e.getSource()==btnCompilar){
             Main.errores = new ArrayList<>();
-            Main.analizar();
+            salidaPython.setText(Main.analizar(entrada.getText()));
+            salidaGolang.setText(Main.analizarGo(entrada.getText()));
         }
-
 
     }
 }

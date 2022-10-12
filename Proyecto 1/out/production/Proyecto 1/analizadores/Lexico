@@ -1,5 +1,7 @@
 package analizadores;
 import java_cup.runtime.Symbol; 
+import java.util.ArrayList;
+import principal.*;
 
 %% 
 %class Lexico
@@ -20,7 +22,7 @@ entero=[0-9]+
 decimal=[0-9]+("."[0-9]+)?
 valorcadena=([\"][^\n\"]+[\"])
 valorcaracter=[\'][A-Za-z][\']
-caracter_ascii=[\'][\$][\{][1]?[0-9][0-9][\}][\']
+caracter_ascii=("'${"(((6[5-9])|([7-8][0-9])|(90))|((9[7-9])|(1[0-1][0-9])|(12[0-2]))|(164)|(165)|(32))"}'")
 comentario_linea=[\/][\/][^\n]+
 comentario_multilinea=\/\*[^"\\/"]+\*\/
 variable="_"[A-Za-z0-9]+"_"
@@ -114,4 +116,9 @@ asignacionSimbolo="->"
 . {
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
+    ArrayList<String> errores = new ArrayList<String>();
+                errores.add(yytext());
+                errores.add(String.valueOf(yyline));
+                errores.add(String.valueOf(yychar));
+                Main.errores.add(errores);
 }

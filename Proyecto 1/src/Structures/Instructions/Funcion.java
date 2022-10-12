@@ -41,7 +41,7 @@ public class Funcion implements Instruccion {
             tipo1 = "int";
         } else if (tipo.equals("cadena")) {
             tipo1 = "string";
-        } else if (tipo.equals("booleano")) {
+        } else if (tipo.equals("boolean")) {
             tipo1 = "bool";
         }
 

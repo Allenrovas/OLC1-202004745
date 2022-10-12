@@ -47,7 +47,7 @@ public class Condicional implements Instruccion {
     }
     @Override
     public String traducirGo(){
-        String traduccion = "if"+this.condicion.traducirGo()+"{\n";
+        String traduccion = "if "+this.condicion.traducirGo()+"{\n";
         if(listaInstrucciones != null) {
             for (Instruccion ins : listaInstrucciones) {
                 traduccion += "\t" + ins.traducirGo()+"\n";;
@@ -55,7 +55,7 @@ public class Condicional implements Instruccion {
             traduccion += "\n}";
         }
         if(listaElseIfInstrucciones != null){
-            traduccion += "else if"+this.condicion.traducirGo()+"{\n";
+            traduccion += "else if "+this.condicion.traducirGo()+"{\n";
             for(Instruccion ins: listaElseIfInstrucciones){
                 traduccion += "\t"+ins.traducirGo()+"\n";;
             }

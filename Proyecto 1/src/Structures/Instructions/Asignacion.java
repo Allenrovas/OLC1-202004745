@@ -11,7 +11,7 @@ public class Asignacion implements Instruccion {
     }
     @Override
     public String traducir() {
-        return variable.traducir()+" = "+valor.traducir()+";\n";
+        return variable.traducir()+" = "+valor.traducir()+"\n";
     }
     @Override
     public String traducirGo() {

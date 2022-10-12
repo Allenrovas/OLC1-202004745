@@ -1,5 +1,9 @@
 package Structures;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 
 
@@ -28,6 +32,19 @@ public class Arbol {
         graficar(raiz, s);
         s.append("}");
         System.out.println(s.toString());
+        try {
+            File archivo = new File("grafo1.txt");
+            BufferedWriter bw;
+            if (archivo.exists()) {
+                bw = new BufferedWriter(new FileWriter(archivo));
+                bw.write(s.toString());
+            } else {
+                bw = new BufferedWriter(new FileWriter(archivo));
+                bw.write(s.toString());
+            }
+            bw.close();
+        } catch (IOException e) {
+        }
     }
 
     public void graficar(Node raiz, StringBuilder s){

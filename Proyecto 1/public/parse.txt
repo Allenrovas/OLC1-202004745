@@ -1,0 +1,276 @@
+﻿inicio
+
+
+/*Archivo de calificacion Organizacion de lenguajes y compiladores 1*******/
+/******** Usac */
+//Segundo Semestre
+
+
+
+
+/////inicio de la traduccion
+
+
+/*
+        Primer archivo de entrada para proyecto organizacion de lenguajes y compiladores 1
+*/
+
+
+@$& //errores lexicos, se tienen que recuperar!
+
+
+//seccion de declraciones de funciones de variables
+Ingresar _variable1_      coMo NumEro cOn_valor 5;
+Ingresar _variable2_      coMo NumEro cOn_valor 50 ;
+ingresaR _v1_, _v2_, _v3_ cOmo CadenA con_vAlor "esta es una cadena";
+ingresaR _curso1_         cOmo cadena con_vAlor "olc";
+ingresaR _curso2_         cOmo cadena con_vAlor "olc";
+ingresaR _curso3_         cOmo cadena con_vAlor "olc";
+ingresar _pi1_            como numero con_valor 3;
+ingResar _pi2_            como numero con_valor 3.1;
+ingresar _pi3_            como numero con_valor 3.14;
+ingreSar _pi4_            como numero con_valor 3.141;
+ingresar _anio1_          como numero con_valor 1;
+ingresar _anio2_          como numero con_valor 9;
+IngresAr _anio3_          como numero con_valor 4;
+ingresar _anio4_          como numero con_valor 5;
+Ingresar _variableAntesNeg_    como numero con_valor 5.0;
+ingresar _encabezado1_    como cadena con_valor "Universidad San Carlos de Guatemala...;";
+ingresar _encabezado2_    como cadena con_valor "Escuela de Ciencias y Sistemas
+Segundo semestre
+";
+ingresar _flag1_          como boolean  con_valor verdadero;
+ingresar _flag2_          como boolean  con_valor falso;
+ingresar _name1_          como caracter con_valor 'f';
+ingresar _name2_          como caracter con_valor 'e';
+ingresar _name3_          como caracter con_valor 'r';
+ingresar _name4_, _name6_ como caracter con_valor 'n';
+ingresar _name5_          como caracter con_valor 'a';
+ingresar _name7_          como caracter con_valor '${100}';
+ingresar _name8_          como caracter con_valor '${111}';
+
+
+ingresar _operaciones1Basica_      como numero con_valor 1+(1);               //2 el resultado
+ingresar _operaciones1Basica2_      como numero con_valor _operaciones1Basica_+_operaciones1Basica_;     // 4              
+ingresar _operaciones1Intermedia_  Como nUmero con_valor 15+(9*8)+200/8*3+9;  //171 el resultado
+ingresar _operaciones1Avanzadas1_  ComO numeRo con_valor ((15+9)*8+200/8*3+9);   //276 el resultado
+ingresar _operaciones1Avanzadas2_  coMo numero con_valor ( 1 potencia [1] +2 ) potencia [22.2-2.2-15] + (2);   //245
+ingresar _operaciones1Avanzadas3_  como nuMero con_valor (30 potencia [2]) + (2);   //902
+ingresar _operaciones1Avanzadas4_  Como numeRo con_valor (30 potencia [10-8+9-4*2-1]) + (2) ;  //902
+ingresar _operaciones1Avanzadas5_  coMo nUmero con_valor 30 potencia [10-8+9-4*2-1] + (15/( 1 potencia [1] +2)) ;  //905
+ingresar _operaciones1Avanzadas6_  Como numeRo con_valor (5*8) modulo (1+5+6);   //4 es el resultado
+ingresar _operaciones1Avanzadas7_  Como numeRo con_valor (5*8) modulo ((5+3) potencia [8]); //   40
+ingresar _operaciones1Avanzadas8_  Como numeRo con_valor (5*8) modulo ((5+ (2 potencia[2*2])) potencia [8]);  
+
+
+
+
+
+
+
+@ /*otro error lexico************/
+
+
+//seccion de asignaciones
+_v1_                           -> "esta es la cadena numero 1";
+_v2_, _v3_                     -> "estas cadenas deben ser diferentes";
+_curso1_ , _curso2_ ,_curso3_  -> "Organizacion de lenguajes y compiladores 1";
+
+
+
+
+
+
+//31 Errores lexico
+   $$$
+ $$$$$
+$ $$   $
+ $$$
+   $$
+   $$$ 
+          $   $$  $
+ $$$$
+  $$$
+
+
+
+
+
+
+
+
+imprimir_nl _operaciones1Basica_ ;
+imprimir_nl _operaciones1Basica2_ ;
+imprimir_nl _operaciones1Intermedia_ ;
+imprimir_nl _operaciones1Avanzadas1_ ;
+imprimir_nl _operaciones1Avanzadas2_ ;
+imprimir_nl _operaciones1Avanzadas3_ ;
+imprimir_nl _operaciones1Avanzadas4_ ;
+imprimir_nl _operaciones1Avanzadas5_ ;
+imprimir_nl _operaciones1Avanzadas6_ ;
+imprimir_nl _operaciones1Avanzadas7_ ;
+imprimir_nl _operaciones1Avanzadas8_ ;
+
+
+
+
+imprimir_nl _operacionRela1_;
+imprimir_nl _operacionRela3_;
+imprimir_nl _operacionRela3_;
+imprimir_nl _operacionRela3_;
+imprimir_nl _operacionRela4_;
+imprimir_nl _operacionRela31_;
+imprimir_nl _operacionRela5_;
+imprimir_nl _operacionRela6_;
+imprimir_nl _operacionRela7_;
+imprimir_nl _operacionRela5_;
+
+
+imprimir_nl _encabezado1_;
+imprimir_nl _encabezado2_;
+imprimir  "...";
+imprimir _anio1_ ;
+imprimir _anio2_ ;
+imprimir _anio3_ ;
+imprimir _anio4_ ;
+imprimir_nl ".";
+imprimir_nl (_v3_);
+
+
+
+
+imprimir  _name1_;
+imprimir  _name2_;
+imprimir  _name3_;
+imprimir  _name4_;
+imprimir  _name5_;
+imprimir  _name6_;
+imprimir  _name7_;
+imprimir  _name8_;
+imprimir  ".";
+
+
+imprimir_nl _variable1_ ;
+imprimir_nl _variable2_ ;
+imprimir_nl _v1_ ;
+imprimir_nl _v2_ ;
+imprimir_nl _v3_ ;
+imprimir_nl _curso1_ ;
+imprimir_nl _curso2_ ;
+imprimir_nl _curso3_ ;
+imprimir_nl _pi1_ ;
+imprimir_nl _pi2_ ;
+imprimir_nl _pi3_ ;
+imprimir_nl _pi4_ ;
+imprimir_nl _anio1_ ;
+imprimir_nl _anio2_ ;
+imprimir_nl _anio3_ ;
+imprimir_nl _anio4_ ;
+imprimir_nl _variableAntesNeg_ ;
+imprimir_nl _flag1_ ;
+imprimir_nl _flag2_ ;
+
+
+
+
+
+
+
+
+si verdadero es_igual verdadero entonces
+                imprimir_nl "El if esta correcto";
+	retornar _potencia_;
+
+        de_lo_contrario
+                imprimir_nl "no tiene que imprimir este mensaje, error en instruccion if";
+fin_si
+
+
+
+
+
+ingresar _varB_ como Boolean con_valor falso; 
+
+
+si _varB_ entonces
+        imprimir_nl "Estas definiendo mal los valores";
+        ingresar _varaux_ como Numeror con_valor _variable1_ % 2;
+        segun _varaux_ hacer
+                ¿0? entonces
+                        imprimir_nl "el valor es mayor a 0 y menos a 2";
+                ¡2? entonces
+                        imprimir_nl "el valor es mayor a 2";
+        fin_segun
+de_lo_contrario
+                  imprimir_nl “Estas definiendo bien los valores c:”;
+fin_si
+
+
+
+
+
+
+/*Ahora empezamos con las funciones y procedimientos*/
+
+
+metodo _potenciaManual_ con_parametros (_base_ Numero, _exponenete_ Numero)
+        ingresar _i_ como Numero con_valor 0;
+        ingresar _acumulado_ como Numero con_valor 0;
+        para _i_->0 hasta _exponente_-1 hacer
+                _acumulado_ -> _acumulado_ + _acumulado_;
+        fin_para        
+
+
+        imprimir_nl " Esta es la potencia Manual";
+        imprimir_nl  _acumulado_;
+        
+fin_metodo
+
+
+funcion _potenciaFuncion_ Numero con_parametros (_base_ Numero, _exponente_ Numero) 
+        ingresar _potencia_ como Numero con_valor _base_ potencia [_exponente_];
+imprimir_nl " Esta es la potencia Manual pero con una funcion";
+        imprimir_nl  _acumulado_;
+        retornar _potencia_;
+fin_funcion
+
+
+metodo _metodo_1_
+        imprimir_nl "estamos entrando al metodo 1";        
+        ejecutar _potenciaManual_(3*1+4/2, 3+2);
+        imprimir ejecutar _potenciaFuncion_(3*1+4/2, 3+2);   //3,125
+        imprimit_nl " Esta es la potencia Funcion";
+imprimit_nl "FIN del metodo1";
+fin_metodo
+
+
+ejecutar _metodo_1_();
+
+
+
+
+funcion _fibonacci_ Numero con_parametros (_n_ Numero)
+        si (_n_ mayor 1) 
+                retornar _fibonacci_(_n_ - 1) + _fibonacci_(_n_ - 2);
+        o_si (_n_ es_igual 1) entonces
+ retornar 1;
+o_si (_n_ es_igual 0) entonces
+        retornar 0;
+de_lo_contrario
+        imprimir_nl “Debes ingresar un valor mayor o igual a 1”;
+        fin_si
+fin_funcion
+
+
+imprimir "El fibonacci de 5 es ";
+imprimir _fibonacci_(5);
+imprimir_nl ".";
+
+mientras  (_variable1_ mayor_o_igual 5*5+8/2) hacer
+                imprimir _variable1_;
+                _variable1_ -> _variable1_ + 1;
+        fin_mientras
+
+ejecutar _metodo_1_();
+
+fin

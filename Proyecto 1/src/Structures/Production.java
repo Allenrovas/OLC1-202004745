@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class Production {
     private Node nodo;
     private Instruccion ins;
-    private LinkedList<Instruccion> instructions;
+    LinkedList<Instruccion> instructions;
 
     public Production() {
     }

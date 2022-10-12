@@ -11,10 +11,10 @@ public class Declaracion implements Instruccion {
     }
     @Override
     public String traducir() {
-        return variable.traducir()+" = "+valor.traducir()+";\n";
+        return this.variable.traducir()+" = "+this.valor.traducir()+"\n";
     }
     @Override
     public String traducirGo() {
-        return variable.traducirGo()+" = "+valor.traducirGo()+";\n";
+        return this.variable.traducirGo()+" = "+this.valor.traducirGo()+";\n";
     }
 }

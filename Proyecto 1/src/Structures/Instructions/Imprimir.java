@@ -9,10 +9,10 @@ public class Imprimir implements Instruccion {
 
     @Override
     public String traducir() {
-        return "print("+this.operacion.traducir()+")";
+        return "print("+this.operacion.traducir()+")\n";
     }
     @Override
     public String traducirGo(){
-        return "fmt.Println("+this.operacion.traducirGo()+")";
+        return "fmt.Print("+this.operacion.traducirGo()+")\n";
     }
 }

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import principal.*;
 import java.util.LinkedList;
 
-
-
 import Structures.Node;
 import Structures.Arbol;
 import Structures.Production;
@@ -17,6 +15,7 @@ import Structures.Instructions.Asignacion;
 import Structures.Instructions.Condicional;
 import Structures.Instructions.Seleccion;
 import Structures.Instructions.Para;
+import Structures.Instructions.Parametros;
 import Structures.Instructions.Mientras;
 import Structures.Instructions.Repetir;
 import Structures.Instructions.Retorno;
@@ -27,7 +26,7 @@ import Structures.Instructions.ComentarioMl;
 import Structures.Instructions.Comentario;
 import Structures.Instructions.ImprimirNl;
 import Structures.Instructions.Imprimir;
-import Structures.Instructions.Inicio;
+import Structures.Instructions.Error;
 
 
 parser code
@@ -81,11 +80,12 @@ terminal String numero, valorcadena, valorcaracter, puntocoma, coma, corCerrar, 
 terminal String parAbierto, parCerrado, caracter_ascii;
 
 non terminal INICIO;
-non terminal INSTRUCCIONES, INSTRUCCION, DECLARACION, VARIABLE_RELACIONAL;
-non terminal ASIGNACION, COMENTARIO, CONDICIONAL, CONDICIONAL_RECURSIVO, EJECUTAR;
-non terminal SELECCION, SELECCION_RECURSIVO, LISTAVARIABLES, EXPRESION, VARIABLE_CICLO;
-non terminal EXPRESION_RELACIONAL, VALOR_RACIONAL, PARA, MIENTRAS, REPETIR;
-non terminal RETORNO, METODO, FUNCION, IMPRIMIR, PARAMETROS_RECURSIVO, TIPO, MAIN;
+non terminal Production INSTRUCCIONES, INSTRUCCION, VARIABLE_RELACIONAL;
+non terminal Production CONDICIONAL_RECURSIVO;
+non terminal Production SELECCION_RECURSIVO,  EXPRESION;// VARIABLE_CICLO;LISTAVARIABLES,
+non terminal Production EXPRESION_RELACIONAL;
+non terminal Production PARAMETROS_RECURSIVO;
+non terminal String TIPO;// VALOR_RACIONAL;
 
 precedence left mas, menos;
 precedence left por, dividido, mod;
@@ -94,90 +94,33 @@ precedence left potencia;
 
 start with INICIO;
 
-INICIO::= MAIN:a {:System.out.println("Fin del análisis");
-                        parser.AST = a.getInstructions();
-                        Node NODERAIZ = new Node("INIT");
-                        NODERAIZ.addSon(a.getNode());
-                        parser.arbol=new Arbol(NODERAIZ);
-                     :}
+INICIO::= inicio INSTRUCCIONES:a fin             {:
+                                                    //se guarda el AST, que es la lista principal de instrucciones en la variable
+                                                    //AST que se definió dentro del parser
+                                                    parser.AST=a.getInstructions();
+                                                    Node NODERAIZ = new Node("INIT"); NODERAIZ.addSon(a.getNode());
+                                                    parser.arbol=new Arbol(NODERAIZ);
+                                                :}
 ;
 
-MAIN::= inicio INSTRUCCIONES:a fin {:RESULT=new Production(new Node("MAIN"), new Inicio(a.getInstructions()));
-                                    :}
+INSTRUCCIONES ::=
+   INSTRUCCIONES:a INSTRUCCION:b                {:
+                                                    RESULT=new Production(new Node("Instrucciones"), a.getInstructions());
+                                                    RESULT.addIns(b.getIns());
+                                                    RESULT.addSon(a);
+                                                    RESULT.addSon(b);
+                                                :}
+ | INSTRUCCION:a                                {:
+                                                    RESULT=new Production(new Node("Instrucciones"), new LinkedList<>());
+                                                    RESULT.addIns(a.getIns());
+                                                    RESULT.addSon(a);
+                                                :}
 ;
 
-INSTRUCCIONES::= INSTRUCCIONES:b INSTRUCCION:a  {:
-                                            RESULT=new Production(new Node("Instrucciones"), a.getInstructions());
-                                            RESULT.addIns(b.getIns());
-                                            RESULT.addSon(a);
-                                            RESULT.addSon(b);
-                                         :}
-| INSTRUCCION:a {:
-                RESULT=new Production(new Node("Instrucciones"), new LinkedList<>());
-                RESULT.addIns(a.getIns());
-                RESULT.addSon(a);
-
-                :}
-;
 
 INSTRUCCION::=
-DECLARACION:a {:
-            RESULT=new Production(new Node("Instruccion"), new Declaracion((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| ASIGNACION:a {:
-            RESULT=new Production(new Node("Instruccion"), new Asignacion((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| CONDICIONAL:a {:
-            RESULT=new Production(new Node("Instruccion"), new Condicional((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| SELECCION:a {:
-            RESULT=new Production(new Node("Instruccion"), new Seleccion((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| PARA:a {:
-            RESULT=new Production(new Node("Instruccion"), new Para((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| MIENTRAS:a {:
-            RESULT=new Production(new Node("Instruccion"), new Mientras((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| REPETIR:a {:
-            RESULT=new Production(new Node("Instruccion"), new Repetir((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| RETORNO:a {:
-            RESULT=new Production(new Node("Instruccion"), new Retorno((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| METODO:a {:
-            RESULT=new Production(new Node("Instruccion"), new Metodo((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| EJECUTAR:a {:
-            RESULT=new Production(new Node("Instruccion"), new Ejecutar((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| FUNCION:a {:
-            RESULT=new Production(new Node("Instruccion"), new Funcion((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| IMPRIMIR:a {:
-            RESULT=new Production(new Node("Instruccion"), new Imprimir((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-| COMENTARIO:a {:
-            RESULT=new Production(new Node("Instruccion"), new Comentario((Operacion)a.getIns()));
-            RESULT.addSon(a);
-            :}
-;
-
-DECLARACION::=
-ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), b.getIns());
+ingresar variable:a como numero con_valor EXPRESION:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), (Operacion) b.getIns()));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -186,8 +129,8 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como cadena con_valor valorcadena:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CADENA));
+|ingresar variable:a como cadena con_valor valorcadena:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CADENA)));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -196,8 +139,8 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como caracter con_valor valorcaracter:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER));
+|ingresar variable:a como caracter con_valor valorcaracter:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER)));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -206,18 +149,18 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como caracter con_valor caracter:b_ascii puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER_ASCII));
+|ingresar variable:a como caracter con_valor caracter_ascii:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER_ASCII)));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
             RESULT.addSon("caracter");
             RESULT.addSon("con_valor");
-            RESULT.addSon(b_ascii);
+            RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como booleano con_valor verdadero:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.VERDADERO));
+|ingresar variable:a como booleano con_valor verdadero:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.VERDADERO)));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -226,8 +169,8 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como booleano con_valor falso:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.FALSO));
+|ingresar variable:a como booleano con_valor falso:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.FALSO)));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -236,8 +179,8 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-| ingresar LISTAVARIABLES:a como booleano con_valor EXPRESION_RELACIONAL:b puntocoma {:
-            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), (Operacion)b.getIns());
+|ingresar variable:a como booleano con_valor EXPRESION_RELACIONAL:b puntocoma {:
+            RESULT=new Production(new Node("Declaracion"), new Declaracion(new Operacion(a.toString(),Operacion.Tipo_operacion.VARIABLE), (Operacion)b.getIns()));
             RESULT.addSon("ingresar");
             RESULT.addSon(a);
             RESULT.addSon("como");
@@ -246,66 +189,57 @@ ingresar LISTAVARIABLES:a como numero con_valor EXPRESION:b puntocoma {:
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-;
-
-ASIGNACION::=
-LISTAVARIABLES:a asignacionSimbolo EXPRESION:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), b.getIns());
+|variable:a asignacionSimbolo EXPRESION:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), (Operacion) b.getIns()));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-|LISTAVARIABLES:a asignacionSimbolo valorcadena:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CADENA));
+|variable:a asignacionSimbolo valorcadena:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), new Operacion(b,Operacion.Tipo_operacion.CADENA)));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-|LISTAVARIABLES:a asignacionSimbolo valorcaracter:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER));
+|variable:a asignacionSimbolo valorcaracter:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), new Operacion(b,Operacion.Tipo_operacion.CARACTER)));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-|LISTAVARIABLES:a asignacionSimbolo caracter_ascii:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.CARACTER_ASCII));
+|variable:a asignacionSimbolo caracter_ascii:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), new Operacion(b,Operacion.Tipo_operacion.CARACTER_ASCII)));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-|LISTAVARIABLES:a asignacionSimbolo verdadero:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.VERDADERO));
+|variable:a asignacionSimbolo verdadero:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), new Operacion(b,Operacion.Tipo_operacion.VERDADERO)));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-|LISTAVARIABLES:a asignacionSimbolo falso:b puntocoma {:
-            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a,Operacion.Tipo_operacion.VARIABLE), new Operacion(b,Operacion.Tipo_operacion.FALSO));
+|variable:a asignacionSimbolo falso:b puntocoma {:
+            RESULT=new Production(new Node("Asignacion"), new Asignacion(new Operacion(a.toString(),Operacion.Tipo_operacion.CADENA), new Operacion(b,Operacion.Tipo_operacion.FALSO)));
             RESULT.addSon(a);
             RESULT.addSon("->");
             RESULT.addSon(b);
             RESULT.addSon(";");
             :}
-;
-
-COMENTARIO::=
-comentario_linea:a {:
-            RESULT=new Production(new Node("Comentario"), new Comentario(a);
+|comentario_linea:a {:
+            RESULT=new Production(new Node("Comentario"), new Comentario(a));
             RESULT.addSon(a);
             :}
-| comentario_multilinea:a {:
-            RESULT=new Production(new Node("ComentarioMl"), new ComentarioMl(a);
+|comentario_multilinea:a {:
+            RESULT=new Production(new Node("ComentarioMl"), new ComentarioMl(a));
             RESULT.addSon(a);
             :}
-;
-
-CONDICIONAL::=
-si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
+|si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
             RESULT=new Production(new Node("Condicional"), new Condicional((Operacion)a.getIns(), b.getInstructions()));
             RESULT.addSon("si");
             RESULT.addSon(a);
@@ -313,7 +247,7 @@ si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
             RESULT.addSon(b);
             RESULT.addSon("fin_si");
             :}
-| si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b de_lo_contrario INSTRUCCIONES:c fin_si {:
+|si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b de_lo_contrario INSTRUCCIONES:c fin_si {:
             RESULT=new Production(new Node("Condicional"), new Condicional((Operacion)a.getIns(), b.getInstructions(), c.getInstructions()));
             RESULT.addSon("si");
             RESULT.addSon(a);
@@ -323,7 +257,7 @@ si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
             RESULT.addSon(c);
             RESULT.addSon("fin_si");
             :}
-| si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b CONDICIONAL_RECURSIVO:c de_lo_contrario INSTRUCCIONES:d fin_si {:
+|si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b CONDICIONAL_RECURSIVO:c de_lo_contrario INSTRUCCIONES:d fin_si {:
             RESULT=new Production(new Node("Condicional"), new Condicional((Operacion)a.getIns(), b.getInstructions(), c.getInstructions(), d.getInstructions()));
             RESULT.addSon("si");
             RESULT.addSon(a);
@@ -334,7 +268,7 @@ si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
             RESULT.addSon(d);
             RESULT.addSon("fin_si");
             :}
-| si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b CONDICIONAL_RECURSIVO:c fin_si {:
+|si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b CONDICIONAL_RECURSIVO:c fin_si {:
             RESULT=new Production(new Node("Condicional"), new Condicional((Operacion)a.getIns(), b.getInstructions(), c.getInstructions()));
             RESULT.addSon("si");
             RESULT.addSon(a);
@@ -343,12 +277,225 @@ si EXPRESION_RELACIONAL:a entonces INSTRUCCIONES:b fin_si {:
             RESULT.addSon(c);
             RESULT.addSon("fin_si");
             :}
-;
+|segun EXPRESION:a hacer SELECCION_RECURSIVO:b de_lo_contrario entonces INSTRUCCIONES:c fin_segun {:
+             RESULT=new Production(new Node("Seleccion"), new Seleccion((Operacion)a.getIns(), b.getInstructions(), c.getInstructions()));
+             RESULT.addSon("segun");
+             RESULT.addSon(a);
+             RESULT.addSon("hacer");
+             RESULT.addSon(b);
+             RESULT.addSon("de_lo_contrario");
+             RESULT.addSon("entonces");
+             RESULT.addSon(c);
+             RESULT.addSon("fin_segun");
+             :}
+|segun EXPRESION:a hacer SELECCION_RECURSIVO:b fin_segun {:
+             RESULT=new Production(new Node("Seleccion"), new Seleccion((Operacion)a.getIns(), b.getInstructions()));
+             RESULT.addSon("segun");
+             RESULT.addSon(a);
+             RESULT.addSon("hacer");
+             RESULT.addSon(b);
+             RESULT.addSon("fin_segun");
+             :}
+|para VARIABLE_RELACIONAL:a asignacionSimbolo VARIABLE_RELACIONAL:b hasta VARIABLE_RELACIONAL:c hacer INSTRUCCIONES:d fin_para {:
+             RESULT=new Production(new Node("Para"), new Para((Operacion)a.getIns(), (Operacion)b.getIns(), (Operacion)c.getIns(), d.getInstructions()));
+             RESULT.addSon("para");
+             RESULT.addSon(a);
+             RESULT.addSon("->");
+             RESULT.addSon(b);
+             RESULT.addSon("hasta");
+             RESULT.addSon(c);
+             RESULT.addSon("hacer");
+             RESULT.addSon(d);
+             RESULT.addSon("fin_para");
+             :}
+|para VARIABLE_RELACIONAL:a asignacionSimbolo VARIABLE_RELACIONAL:b hasta VARIABLE_RELACIONAL:c hacer fin_para {:
+             RESULT=new Production(new Node("Para"), new Para((Operacion)a.getIns(), (Operacion)b.getIns(),(Operacion)c.getIns()));
+             RESULT.addSon("para");
+             RESULT.addSon(a);
+             RESULT.addSon("->");
+             RESULT.addSon(b);
+             RESULT.addSon("hasta");
+             RESULT.addSon(c);
+             RESULT.addSon("hacer");
+             RESULT.addSon("fin_para");
+             :}
+|para VARIABLE_RELACIONAL:a asignacionSimbolo VARIABLE_RELACIONAL:b hasta VARIABLE_RELACIONAL:c con incremental VARIABLE_RELACIONAL:d hacer INSTRUCCIONES:e fin_para {:
+             RESULT=new Production(new Node("Para"), new Para((Operacion)a.getIns(), (Operacion)b.getIns(), (Operacion)c.getIns(),(Operacion)d.getIns(), e.getInstructions()));
+             RESULT.addSon("para");
+             RESULT.addSon(a);
+             RESULT.addSon("->");
+             RESULT.addSon(b);
+             RESULT.addSon("hasta");
+             RESULT.addSon(c);
+             RESULT.addSon("con");
+             RESULT.addSon("incremental");
+             RESULT.addSon(d);
+             RESULT.addSon("hacer");
+             RESULT.addSon(e);
+             RESULT.addSon("fin_para");
+             :}
+|para VARIABLE_RELACIONAL:a asignacionSimbolo VARIABLE_RELACIONAL:b hasta VARIABLE_RELACIONAL:c con incremental VARIABLE_RELACIONAL:d hacer fin_para {:
+             RESULT=new Production(new Node("Para"), new Para((Operacion)a.getIns(),(Operacion)b.getIns(), (Operacion)c.getIns(), d.getInstructions()));
+             RESULT.addSon("para");
+             RESULT.addSon(a);
+             RESULT.addSon("->");
+             RESULT.addSon(b);
+             RESULT.addSon("hasta");
+             RESULT.addSon(c);
+             RESULT.addSon("con");
+             RESULT.addSon("incremental");
+             RESULT.addSon(d);
+             RESULT.addSon("hacer");
+             RESULT.addSon("fin_para");
+             :}
+|mientras EXPRESION_RELACIONAL:a hacer INSTRUCCIONES:b fin_mientras {:
+             RESULT=new Production(new Node("Mientras"), new Mientras((Operacion)a.getIns(), b.getInstructions()));
+             RESULT.addSon("mientras");
+             RESULT.addSon(a);
+             RESULT.addSon("hacer");
+             RESULT.addSon(b);
+             RESULT.addSon("fin_mientras");
+             :}
+|mientras EXPRESION_RELACIONAL:a hacer fin_mientras {:
+             RESULT=new Production(new Node("Mientras"), new Mientras((Operacion) a.getIns()));
+             RESULT.addSon("mientras");
+             RESULT.addSon(a);
+             RESULT.addSon("hacer");
+             RESULT.addSon("fin_mientras");
+             :}
+|repetir INSTRUCCIONES:a hasta_que EXPRESION_RELACIONAL:b {:
+             RESULT=new Production(new Node("Repetir"), new Repetir((Operacion)b.getIns(),a.getInstructions()));
+             RESULT.addSon("repetir");
+             RESULT.addSon(a);
+             RESULT.addSon("hasta_que");
+             RESULT.addSon(b);
+             :}
+|repetir hasta_que EXPRESION_RELACIONAL:a {:
+             RESULT=new Production(new Node("Repetir"), new Repetir((Operacion)a.getIns()));
+             RESULT.addSon("repetir");
+             RESULT.addSon("hasta_que");
+             RESULT.addSon(a);
+             :}
+|retornar EXPRESION:a puntocoma {:
+             RESULT=new Production(new Node("Retorno"), new Retorno((Operacion)a.getIns()));
+             RESULT.addSon("retornar");
+             RESULT.addSon(a);
+             RESULT.addSon(";");
+             :}
+|ejecutar variable:a parAbierto parCerrado puntocoma {:
+             RESULT=new Production(new Node("Ejecutar"), new Ejecutar(a));
+             RESULT.addSon("ejecutar");
+             RESULT.addSon(a);
+             RESULT.addSon("(");
+             RESULT.addSon(")");
+             RESULT.addSon(";");
+             :}
+|ejecutar variable:a parAbierto VARIABLE_RELACIONAL:b parCerrado puntocoma {:
+             RESULT=new Production(new Node("Ejecutar"), new Ejecutar(a, b.toString()));
+             RESULT.addSon("ejecutar");
+             RESULT.addSon(a);
+             RESULT.addSon("(");
+             RESULT.addSon(b);
+             RESULT.addSon(")");
+             RESULT.addSon(";");
+             :}
+
+|metodo variable:a INSTRUCCIONES:b fin_metodo {:
+             RESULT=new Production(new Node("Metodo"), new Metodo(a, b.getInstructions()));
+             RESULT.addSon("metodo");
+             RESULT.addSon(a);
+             RESULT.addSon(b);
+             RESULT.addSon("fin_metodo");
+             :}
+|metodo variable:a con_parametros parAbierto PARAMETROS_RECURSIVO:b parCerrado INSTRUCCIONES:c fin_metodo {:
+             RESULT=new Production(new Node("Metodo"), new Metodo(a, b.toString(), c.getInstructions()));
+             RESULT.addSon("metodo");
+             RESULT.addSon(a);
+             RESULT.addSon("con_parametros");
+             RESULT.addSon("(");
+             RESULT.addSon(b);
+             RESULT.addSon(")");
+             RESULT.addSon(c);
+             RESULT.addSon("fin_metodo");
+             :}
+|funcion variable:a TIPO:c INSTRUCCIONES:b fin_funcion {:
+              RESULT=new Production(new Node("Funcion"), new Funcion(a, b.getInstructions(),c.toString()));
+              RESULT.addSon("funcion");
+              RESULT.addSon(a);
+              RESULT.addSon(c);
+              RESULT.addSon(b);
+              RESULT.addSon("fin_funcion");
+              :}
+|funcion variable:a TIPO:c con_parametros parAbierto PARAMETROS_RECURSIVO:b parCerrado INSTRUCCIONES:d fin_funcion {:
+              RESULT=new Production(new Node("Funcion"), new Funcion(a, b.toString(), d.getInstructions(),c.toString()));
+              RESULT.addSon("funcion");
+              RESULT.addSon(a);
+              RESULT.addSon(c);
+              RESULT.addSon("con_parametros");
+              RESULT.addSon("(");
+              RESULT.addSon(b);
+              RESULT.addSon(")");
+              RESULT.addSon(d);
+              RESULT.addSon("fin_funcion");
+              :}
+|imprimir EXPRESION:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"),  new Imprimir((Operacion) a.getIns()));
+              RESULT.addSon("imprimir");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir valorcadena:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new Imprimir(new Operacion(a, Operacion.Tipo_operacion.CADENA)));
+              RESULT.addSon("imprimir");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir valorcaracter:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new Imprimir(new Operacion(a, Operacion.Tipo_operacion.CARACTER)));
+              RESULT.addSon("imprimir");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir caracter_ascii:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new Imprimir(new Operacion(a, Operacion.Tipo_operacion.CARACTER_ASCII)));
+              RESULT.addSon("imprimir");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir_nl EXPRESION:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new ImprimirNl((Operacion) a.getIns()));
+              RESULT.addSon("imprimir_nl");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir_nl valorcadena:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new ImprimirNl(new Operacion(a, Operacion.Tipo_operacion.CADENA)));
+              RESULT.addSon("imprimir_nl");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir_nl valorcaracter:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new ImprimirNl(new Operacion(a, Operacion.Tipo_operacion.CARACTER)));
+              RESULT.addSon("imprimir_nl");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|imprimir_nl caracter_ascii:a puntocoma {:
+              RESULT=new Production(new Node("Imprimir"), new ImprimirNl(new Operacion(a, Operacion.Tipo_operacion.CARACTER_ASCII)));
+              RESULT.addSon("imprimir_nl");
+              RESULT.addSon(a);
+              RESULT.addSon(";");
+              :}
+|error {:
+              RESULT=new Production(new Node("Error"), new Error());
+              RESULT.addSon("error");
+              :}
+ ;
 
 CONDICIONAL_RECURSIVO::=
 CONDICIONAL_RECURSIVO:a o_si EXPRESION_RELACIONAL:b entonces INSTRUCCIONES:c {:
-            RESULT = new Production(new Node("o_si"), l.getInstructions());
-            RESULT.addIns(new Condicional((Operacion)a.getIns(), (Operacion)b.getIns()));
+            RESULT = new Production(new Node("o_si"), c.getInstructions());
+            RESULT.addIns(new Condicional((Operacion)a.getIns(), b.getInstructions()));
             RESULT.addSon(a);
             RESULT.addSon("o_si");
             RESULT.addSon(b);
@@ -365,31 +512,10 @@ CONDICIONAL_RECURSIVO:a o_si EXPRESION_RELACIONAL:b entonces INSTRUCCIONES:c {:
             :}
 ;
 
-SELECCION::=
-segun EXPRESION:a hacer SELECCION_RECURSIVO:b de_lo_contrario entonces INSTRUCCIONES:c fin_segun {:
-            RESULT=new Production(new Node("Seleccion"), new Seleccion((Operacion)a.getIns(), b.getInstructions(), c.getInstructions()));
-            RESULT.addSon("segun");
-            RESULT.addSon(a);
-            RESULT.addSon("hacer");
-            RESULT.addSon(b);
-            RESULT.addSon("de_lo_contrario");
-            RESULT.addSon("entonces");
-            RESULT.addSon(c);
-            RESULT.addSon("fin_segun");
-            :}
-| segun EXPRESION:a hacer SELECCION_RECURSIVO:b fin_segun {:
-            RESULT=new Production(new Node("Seleccion"), new Seleccion((Operacion)a.getIns(), b.getInstructions()));
-            RESULT.addSon("segun");
-            RESULT.addSon(a);
-            RESULT.addSon("hacer");
-            RESULT.addSon(b);
-            RESULT.addSon("fin_segun");
-            :}
-;
 
 SELECCION_RECURSIVO::=
 interroganteIzquierdo EXPRESION:a interroganteDerecho entonces INSTRUCCIONES:b SELECCION_RECURSIVO:c {:
-            RESULT=new Production(new Node("Seleccion_Recursivo"), new Seleccion((Operacion)a.getIns(),a.getIns(), c.getInstructions()));
+            RESULT=new Production(new Node("Seleccion_Recursivo"), new Seleccion((Operacion)a.getIns(),b.getInstructions(), c.getInstructions()));
             RESULT.addSon("¿");
             RESULT.addSon(a);
             RESULT.addSon("?");
@@ -397,7 +523,7 @@ interroganteIzquierdo EXPRESION:a interroganteDerecho entonces INSTRUCCIONES:b S
             RESULT.addSon(b);
             RESULT.addSon(c);
             :}
-| interroganteIzquierdo EXPRESION:a interroganteDerecho entonces INSTRUCCIONES:b {:
+|interroganteIzquierdo EXPRESION:a interroganteDerecho entonces INSTRUCCIONES:b {:
             RESULT=new Production(new Node("Seleccion_Recursivo"), new Seleccion((Operacion)a.getIns(), b.getInstructions()));
             RESULT.addSon("¿");
             RESULT.addSon(a);
@@ -407,232 +533,18 @@ interroganteIzquierdo EXPRESION:a interroganteDerecho entonces INSTRUCCIONES:b S
             :}
 ;
 
-PARA::=
-para VARIABLE_CICLO:a asignacionSimbolo VARIABLE_CICLO:b hasta VARIABLE_CICLO:c hacer INSTRUCCIONES:d fin_para {:
-            RESULT=new Production(new Node("Para"), new Para(a.getIns(), b.getIns(), c.getIns(), d.getInstructions()));
-            RESULT.addSon("para");
-            RESULT.addSon(a);
-            RESULT.addSon("->");
-            RESULT.addSon(b);
-            RESULT.addSon("hasta");
-            RESULT.addSon(c);
-            RESULT.addSon("hacer");
-            RESULT.addSon(d);
-            RESULT.addSon("fin_para");
-            :}
-| para VARIABLE_CICLO:a asignacionSimbolo VARIABLE_CICLO:b hasta VARIABLE_CICLO:c hacer fin_para {:
-            RESULT=new Production(new Node("Para"), new Para(a.getIns(), b.getIns(), c.getIns()));
-            RESULT.addSon("para");
-            RESULT.addSon(a);
-            RESULT.addSon("->");
-            RESULT.addSon(b);
-            RESULT.addSon("hasta");
-            RESULT.addSon(c);
-            RESULT.addSon("hacer");
-            RESULT.addSon("fin_para");
-            :}
-| para VARIABLE_CICLO:a asignacionSimbolo VARIABLE_CICLO:b hasta VARIABLE_CICLO:c con incremental VARIABLE_CICLO:d hacer INSTRUCCIONES:e fin_para {:
-            RESULT=new Production(new Node("Para"), new Para(a.getIns(), b.getIns(), c.getIns(), d.getIns(), e.getInstructions()));
-            RESULT.addSon("para");
-            RESULT.addSon(a);
-            RESULT.addSon("->");
-            RESULT.addSon(b);
-            RESULT.addSon("hasta");
-            RESULT.addSon(c);
-            RESULT.addSon("con");
-            RESULT.addSon("incremental");
-            RESULT.addSon(d);
-            RESULT.addSon("hacer");
-            RESULT.addSon(e);
-            RESULT.addSon("fin_para");
-            :}
-| para VARIABLE_CICLO:a asignacionSimbolo VARIABLE_CICLO:b hasta VARIABLE_CICLO:c con incremental VARIABLE_CICLO:d hacer fin_para {:
-            RESULT=new Production(new Node("Para"), new Para(a.getIns(), b.getIns(), c.getIns(), d.getIns()));
-            RESULT.addSon("para");
-            RESULT.addSon(a);
-            RESULT.addSon("->");
-            RESULT.addSon(b);
-            RESULT.addSon("hasta");
-            RESULT.addSon(c);
-            RESULT.addSon("con");
-            RESULT.addSon("incremental");
-            RESULT.addSon(d);
-            RESULT.addSon("hacer");
-            RESULT.addSon("fin_para");
-            :}
-;
-
-MIENTRAS::=
-mientras EXPRESION_RELACIONAL:a hacer INSTRUCCIONES:b fin_mientras {:
-            RESULT=new Production(new Node("Mientras"), new Mientras((Operacion)a.getIns(), b.getInstructions()));
-            RESULT.addSon("mientras");
-            RESULT.addSon(a);
-            RESULT.addSon("hacer");
-            RESULT.addSon(b);
-            RESULT.addSon("fin_mientras");
-            :}
-| mientras EXPRESION_RELACIONAL:a hacer fin_mientras {:
-            RESULT=new Production(new Node("Mientras"), new Mientras(a.getIns()));
-            RESULT.addSon("mientras");
-            RESULT.addSon(a);
-            RESULT.addSon("hacer");
-            RESULT.addSon("fin_mientras");
-            :}
-;
-
-REPETIR::=
-repetir INSTRUCCIONES:a hasta_que EXPRESION_RELACIONAL:b {:
-            RESULT=new Production(new Node("Repetir"), new Repetir(a.getInstructions(), (Operacion)b.getIns()));
-            RESULT.addSon("repetir");
-            RESULT.addSon(a);
-            RESULT.addSon("hasta_que");
-            RESULT.addSon(b);
-            :}
-| repetir hasta_que EXPRESION_RELACIONAL:b {:
-            RESULT=new Production(new Node("Repetir"), new Repetir((Operacion)a.getIns()));
-            RESULT.addSon("repetir");
-            RESULT.addSon("hasta_que");
-            RESULT.addSon(b);
-            :}
-;
-
-RETORNO::=
-retornar EXPRESION:a puntocoma {:
-            RESULT=new Production(new Node("Retorno"), new Retorno((Operacion)a.getIns()));
-            RESULT.addSon("retornar");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-;
-
-EJECUTAR::=
-ejecutar variable:a parAbierto parCerrado puntocoma {:
-            RESULT=new Production(new Node("Ejecutar"), new Ejecutar(a.getIns()));
-            RESULT.addSon("ejecutar");
-            RESULT.addSon(a);
-            RESULT.addSon("(");
-            RESULT.addSon(")");
-            RESULT.addSon(";");
-            :}
-| ejecutar variable:a parAbierto PARAMETROS_RECURSIVO:b parCerrado puntocoma {:
-            RESULT=new Production(new Node("Ejecutar"), new Ejecutar(a.getIns(), b.getIns()));
-            RESULT.addSon("ejecutar");
-            RESULT.addSon(a);
-            RESULT.addSon("(");
-            RESULT.addSon(b);
-            RESULT.addSon(")");
-            RESULT.addSon(";");
-            :}
-
-;
-
-METODO::=
-metodo variable:a INSTRUCCIONES:b fin_metodo {:
-            RESULT=new Production(new Node("Metodo"), new Metodo(a.getIns(), b.getInstructions()));
-            RESULT.addSon("metodo");
-            RESULT.addSon(a);
-            RESULT.addSon(b);
-            RESULT.addSon("fin_metodo");
-            :}
-| metodo variable:a con_parametros parAbierto PARAMETROS_RECURSIVO:b parCerrado INSTRUCCIONES:c fin_metodo {:
-            RESULT=new Production(new Node("Metodo"), new Metodo(a.getIns(), b.getIns(), c.getInstructions()));
-            RESULT.addSon("metodo");
-            RESULT.addSon(a);
-            RESULT.addSon("con_parametros");
-            RESULT.addSon("(");
-            RESULT.addSon(b);
-            RESULT.addSon(")");
-            RESULT.addSon(c);
-            RESULT.addSon("fin_metodo");
-            :}
-;
-
-FUNCION::=
-funcion variable:a TIPO:c INSTRUCCIONES:b fin_funcion {:
-            RESULT=new Production(new Node("Funcion"), new Funcion(a.getIns(), b.getInstructions()),c.getIns());
-            RESULT.addSon("funcion");
-            RESULT.addSon(a);
-            RESULT.addSon(c);
-            RESULT.addSon(b);
-            RESULT.addSon("fin_funcion");
-            :}
-| funcion variable:a TIPO:c con_parametros parAbierto PARAMETROS_RECURSIVO:b parCerrado INSTRUCCIONES:d fin_funcion {:
-            RESULT=new Production(new Node("Funcion"), new Funcion(a.getIns(), c.getIns(), b.getIns(), d.getInstructions()));
-            RESULT.addSon("funcion");
-            RESULT.addSon(a);
-            RESULT.addSon(c);
-            RESULT.addSon("con_parametros");
-            RESULT.addSon("(");
-            RESULT.addSon(b);
-            RESULT.addSon(")");
-            RESULT.addSon(d);
-            RESULT.addSon("fin_funcion");
-            :}
-;
-
-IMPRIMIR::=
-imprimir EXPRESION:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new Imprimir(a.getIns()));
-            RESULT.addSon("imprimir");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir valorcadena:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new Imprimir(a.getIns()));
-            RESULT.addSon("imprimir");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir valorcaracter:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new Imprimir(a.getIns()));
-            RESULT.addSon("imprimir");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir caracter_ascii:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new Imprimir(a.getIns()));
-            RESULT.addSon("imprimir");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir_nl EXPRESION:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new ImprimirNl(a.getIns(), true));
-            RESULT.addSon("imprimir_nl");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir_nl valorcadena:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new ImprimirNl(a.getIns(), true));
-            RESULT.addSon("imprimir_nl");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir_nl valorcaracter:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new ImprimirNl(a.getIns(), true));
-            RESULT.addSon("imprimir_nl");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-| imprimir_nl caracter_ascii:a puntocoma {:
-            RESULT=new Production(new Node("Imprimir"), new ImprimirNl(a.getIns(), true));
-            RESULT.addSon("imprimir_nl");
-            RESULT.addSon(a);
-            RESULT.addSon(";");
-            :}
-;
-
 
 
 PARAMETROS_RECURSIVO::=
 variable:a TIPO:b coma PARAMETROS_RECURSIVO:c {:
-            RESULT=new Production(new Node("Parametros"), new Parametros(a.getIns(), b.getIns(), c.getIns()));
+            RESULT=new Production(new Node("Parametros"), new Parametros(a, b.toString(), c.getInstructions()));
             RESULT.addSon(a);
             RESULT.addSon(b);
             RESULT.addSon(",");
             RESULT.addSon(c);
             :}
 | variable:a TIPO:b {:
-            RESULT=new Production(new Node("Parametros"), new Parametros(a.getIns(), b.getIns()));
+            RESULT=new Production(new Node("Parametros"), new Parametros(a, b.toString()));
             RESULT.addSon(a);
             RESULT.addSon(b);
             :}
@@ -656,15 +568,15 @@ numero {:
             :}
 ;
 
-LISTAVARIABLES::=
+/*LISTAVARIABLES::=
 variable:a coma LISTAVARIABLES:b {:
             RESULT=new Production(new Node("ListaVariables"), new Operacion(a,Operacion.Tipo_operacion.VARIABLE));
             RESULT.addSon(a);
             RESULT.addSon(",");
             RESULT.addSon(b);
             :}
-| variable:c {:RESULT=new Production(new Node(null, a), new Operacion(a,Operacion.Tipo_operacion.VARIABLE));:}
-;
+| variable:c {:RESULT=new Production(new Node(null, c), new Operacion(c,Operacion.Tipo_operacion.VARIABLE));:}
+;*/
 
 
 EXPRESION::=
@@ -714,20 +626,68 @@ menos EXPRESION:a {:RESULT=new Production(new Node("Expresion"), new Operacion((
                     :}
 ;
 
-VARIABLE_CICLO::=
+/*VARIABLE_CICLO::=
 EXPRESION:a {:
             RESULT=new Production(new Node("VariableCiclo"), new VariableCiclo(a.getIns()));
             RESULT.addSon(a);
             :}
-;
+;*/
 
 EXPRESION_RELACIONAL::=
-VARIABLE_RELACIONAL:a VALOR_RACIONAL:c VARIABLE_RELACIONAL:b {:
-            RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.c));
+VARIABLE_RELACIONAL:a mayor VARIABLE_RELACIONAL:b {:
+            RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.mayor));
             RESULT.addSon(a);
-            RESULT.addSon(c);
+            RESULT.addSon("mayor");
             RESULT.addSon(b);
             :}
+| VARIABLE_RELACIONAL:a menor VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.menor));
+              RESULT.addSon(a);
+              RESULT.addSon("menor");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a mayor_o_igual VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.mayor_o_igual));
+              RESULT.addSon(a);
+              RESULT.addSon("mayor_o_igual");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a and VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.and));
+              RESULT.addSon(a);
+              RESULT.addSon("and");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a es_igual VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.es_igual));
+              RESULT.addSon(a);
+              RESULT.addSon("es_igual");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a es_diferente VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.es_diferente));
+              RESULT.addSon(a);
+              RESULT.addSon("es_diferente");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a or VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.or));
+              RESULT.addSon(a);
+              RESULT.addSon("or");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a not VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.NOT));
+              RESULT.addSon(a);
+              RESULT.addSon("not");
+              RESULT.addSon(b);
+              :}
+| VARIABLE_RELACIONAL:a menor_o_igual VARIABLE_RELACIONAL:b {:
+              RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(),(Operacion)b.getIns(), Operacion.Tipo_operacion.menor_o_igual));
+              RESULT.addSon(a);
+              RESULT.addSon("menor_o_igual");
+              RESULT.addSon(b);
+              :}
 | not EXPRESION_RELACIONAL:a {:
             RESULT=new Production(new Node("ExpresionRelacional"), new Operacion((Operacion)a.getIns(), Operacion.Tipo_operacion.NOT));
             RESULT.addSon("not");
@@ -741,28 +701,28 @@ VARIABLE_RELACIONAL::=
             RESULT.addSon(a);
             :}
 | valorcadena:a {:
-            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a, Operacion.Tipo_operacion.CADENA));
+            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a.toString(), Operacion.Tipo_operacion.CADENA));
             RESULT.addSon(a);
             :}
 | valorcaracter:a {:
-            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a, Operacion.Tipo_operacion.CARACTER));
+            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a.toString(), Operacion.Tipo_operacion.CARACTER));
             RESULT.addSon(a);
             :}
 | caracter_ascii:a {:
-            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a, Operacion.Tipo_operacion.CARACTER_ASCII));
+            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a.toString(), Operacion.Tipo_operacion.CARACTER_ASCII));
             RESULT.addSon(a);
             :}
 | verdadero:a {:
-            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a, Operacion.Tipo_operacion.VERDADERO));
+            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a.toString(), Operacion.Tipo_operacion.VERDADERO));
             RESULT.addSon(a);
             :}
 | falso:a {:
-            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a, Operacion.Tipo_operacion.FALSO));
+            RESULT=new Production(new Node("VariableRelacional"), new Operacion(a.toString(), Operacion.Tipo_operacion.FALSO));
             RESULT.addSon(a);
             :}
 ;
 
-
+/*
 
 VALOR_RACIONAL::=
 mayor {:RESULT="mayor";:}
@@ -774,4 +734,4 @@ mayor {:RESULT="mayor";:}
 | or {:RESULT="or";:}
 | and {:RESULT="and";:}
 | not {:RESULT="NOT";:}
-;
+;*/

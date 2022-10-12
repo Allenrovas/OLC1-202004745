@@ -1,5 +1,7 @@
 package analizadores;
 import java_cup.runtime.Symbol; 
+import java.util.ArrayList;
+import principal.*;
 
 %% 
 %class Lexico
@@ -115,8 +117,8 @@ asignacionSimbolo="->"
     System.out.println("Este es un error lexico: "+yytext()+
     ", en la linea: "+yyline+", en la columna: "+yychar);
     ArrayList<String> errores = new ArrayList<String>();
-                errores.add(lexema);
-                errores.add(String.valueOf(fila));
-                errores.add(String.valueOf(columna));
+                errores.add(yytext());
+                errores.add(String.valueOf(yyline));
+                errores.add(String.valueOf(yychar));
                 Main.errores.add(errores);
 }

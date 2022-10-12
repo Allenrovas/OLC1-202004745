@@ -9,12 +9,11 @@ public class ImprimirNl implements Instruccion {
 
     @Override
     public String traducir() {
-        String traduccion = "print("+this.operacion.traducir()+")";
-        traduccion += "print(\"\")";
+        String traduccion = "print("+this.operacion.traducir()+")\n";
         return traduccion;
     }
     @Override
     public String traducirGo(){
-        return "fmt.Println("+this.operacion.traducirGo()+")";
+        return "fmt.Println("+this.operacion.traducirGo()+")\n";
     }
 }
