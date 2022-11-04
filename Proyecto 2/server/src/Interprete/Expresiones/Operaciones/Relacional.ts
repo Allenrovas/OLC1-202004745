@@ -57,7 +57,7 @@ export default class Relacional extends Operacion implements Expresion{
                         return tipo.ERROR;
                     }
                 }else if(tipo_exp1 == tipo.CARACTER){
-                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE || tipo_exp2 == tipo.CARACTER){
+                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE || tipo_exp2 == tipo.CARACTER || tipo_exp2 == tipo.CADENA){
                         return tipo.BOOLEANO;
                     }else{
                         return tipo.ERROR;
@@ -69,7 +69,7 @@ export default class Relacional extends Operacion implements Expresion{
                         return tipo.ERROR; 
                     }
                 }else if(tipo_exp1 == tipo.CADENA){
-                    if(tipo_exp2 == tipo.CADENA){
+                    if(tipo_exp2 == tipo.CADENA || tipo_exp2 == tipo.CARACTER){
                         return tipo.BOOLEANO;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `No esperaba este simbolo`, this.linea, this.columna));
@@ -100,9 +100,6 @@ export default class Relacional extends Operacion implements Expresion{
                 if(tipo_exp1 == tipo.ENTERO){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
                         return valor_exp1 == valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 < 'a' 
-                        let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 == num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semanticoS
@@ -111,21 +108,17 @@ export default class Relacional extends Operacion implements Expresion{
                 }else if(tipo_exp1 == tipo.DOBLE){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
                         return valor_exp1 == valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){
-                        let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 == num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
                 }else if(tipo_exp1 == tipo.CARACTER){
-                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        let num_ascci = valor_exp1.charCodeAt(0);
-                        return num_ascci == valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){
+                    if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci_exp1 = valor_exp1.charCodeAt(0);
                         let num_ascci_exp2 = valor_exp2.charCodeAt(0);
                         return num_ascci_exp1 == num_ascci_exp2;
+                    }else if(tipo_exp2 == tipo.CADENA){
+                        return valor_exp1 == valor_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
@@ -149,21 +142,20 @@ export default class Relacional extends Operacion implements Expresion{
                 }else if(tipo_exp1 == tipo.CADENA){
                     if(tipo_exp2 == tipo.CADENA){ 
                         return valor_exp1 == valor_exp2; //"hola" == "hola"
+                    }else if(tipo_exp2 == tipo.CARACTER){
+                        return valor_exp1 == valor_exp2; 
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
-                } 
+                }
                 
                 break;
             
             case Operador.DIFERENCIA:
                 if(tipo_exp1 == tipo.ENTERO){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 != valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 < 'a' 
-                        let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 != num_ascci;
+                        return valor_exp1 == valor_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semanticoS
@@ -171,22 +163,18 @@ export default class Relacional extends Operacion implements Expresion{
                     }
                 }else if(tipo_exp1 == tipo.DOBLE){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 != valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){
-                        let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 != num_ascci;
+                        return valor_exp1 == valor_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
                 }else if(tipo_exp1 == tipo.CARACTER){
-                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        let num_ascci = valor_exp1.charCodeAt(0);
-                        return num_ascci != valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){
+                    if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci_exp1 = valor_exp1.charCodeAt(0);
                         let num_ascci_exp2 = valor_exp2.charCodeAt(0);
-                        return num_ascci_exp1 != num_ascci_exp2;
+                        return num_ascci_exp1 == num_ascci_exp2;
+                    }else if(tipo_exp2 == tipo.CADENA){
+                        return valor_exp1 == valor_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
@@ -202,19 +190,21 @@ export default class Relacional extends Operacion implements Expresion{
                             num_bool_exp2= 0;
                         }
                         
-                        return num_bool_exp1 != num_bool_exp2;
+                        return num_bool_exp1 == num_bool_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
                 }else if(tipo_exp1 == tipo.CADENA){
                     if(tipo_exp2 == tipo.CADENA){ 
-                        return valor_exp1 != valor_exp2; //"hola" == "hola"
+                        return valor_exp1 == valor_exp2; //"hola" == "hola"
+                    }else if(tipo_exp2 == tipo.CARACTER){
+                        return valor_exp1 == valor_exp2; 
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
-                } 
+                }
                 
                 break;
                 
@@ -252,40 +242,17 @@ export default class Relacional extends Operacion implements Expresion{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
-                }else if(tipo_exp1 == tipo.BOOLEANO){
-                    if(tipo_exp2 == tipo.BOOLEANO){
-                        let num_bool_exp1 = 1;
-                        if(valor_exp1 == false){
-                            num_bool_exp1= 0;
-                        }
-                        let num_bool_exp2 = 1;
-                        if(valor_exp2 == false){
-                            num_bool_exp2= 0;
-                        }
-                        
-                        return num_bool_exp1 < num_bool_exp2;
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                }else if(tipo_exp1 == tipo.CADENA){
-                    if(tipo_exp2 == tipo.CADENA){ 
-                        return valor_exp1 < valor_exp2; //"hola" < "hola"
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                } 
+                }
                 
                 break;
 
             case Operador.MAYORQUE:
                 if(tipo_exp1 == tipo.ENTERO){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 > valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 > 'a' 
+                        return valor_exp1 < valor_exp2;
+                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 < 'a' 
                         let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 > num_ascci;
+                        return valor_exp1 < num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semanticoS
@@ -293,10 +260,10 @@ export default class Relacional extends Operacion implements Expresion{
                     }
                 }else if(tipo_exp1 == tipo.DOBLE){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 > valor_exp2;
+                        return valor_exp1 < valor_exp2;
                     }else if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 > num_ascci;
+                        return valor_exp1 < num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
@@ -304,49 +271,26 @@ export default class Relacional extends Operacion implements Expresion{
                 }else if(tipo_exp1 == tipo.CARACTER){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
                         let num_ascci = valor_exp1.charCodeAt(0);
-                        return num_ascci > valor_exp2;
+                        return num_ascci < valor_exp2;
                     }else if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci_exp1 = valor_exp1.charCodeAt(0);
                         let num_ascci_exp2 = valor_exp2.charCodeAt(0);
-                        return num_ascci_exp1 > num_ascci_exp2;
+                        return num_ascci_exp1 < num_ascci_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
-                }else if(tipo_exp1 == tipo.BOOLEANO){
-                    if(tipo_exp2 == tipo.BOOLEANO){
-                        let num_bool_exp1 = 1;
-                        if(valor_exp1 == false){
-                            num_bool_exp1= 0;
-                        }
-                        let num_bool_exp2 = 1;
-                        if(valor_exp2 == false){
-                            num_bool_exp2= 0;
-                        }
-                        
-                        return num_bool_exp1 > num_bool_exp2;
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                }else if(tipo_exp1 == tipo.CADENA){
-                    if(tipo_exp2 == tipo.CADENA){ 
-                        return valor_exp1 > valor_exp2; //"hola" > "hola"
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                } 
+                }
                 
                 break;
             
             case Operador.MENORIGUAL:
                 if(tipo_exp1 == tipo.ENTERO){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 <= valor_exp2;
-                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 <= 'a' 
+                        return valor_exp1 < valor_exp2;
+                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 < 'a' 
                         let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 <= num_ascci;
+                        return valor_exp1 < num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semanticoS
@@ -354,10 +298,10 @@ export default class Relacional extends Operacion implements Expresion{
                     }
                 }else if(tipo_exp1 == tipo.DOBLE){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                        return valor_exp1 <= valor_exp2;
+                        return valor_exp1 < valor_exp2;
                     }else if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci = valor_exp2.charCodeAt(0);
-                        return valor_exp1 <= num_ascci;
+                        return valor_exp1 < num_ascci;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
@@ -365,102 +309,56 @@ export default class Relacional extends Operacion implements Expresion{
                 }else if(tipo_exp1 == tipo.CARACTER){
                     if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
                         let num_ascci = valor_exp1.charCodeAt(0);
-                        return num_ascci <= valor_exp2;
+                        return num_ascci < valor_exp2;
                     }else if(tipo_exp2 == tipo.CARACTER){
                         let num_ascci_exp1 = valor_exp1.charCodeAt(0);
                         let num_ascci_exp2 = valor_exp2.charCodeAt(0);
-                        return num_ascci_exp1 <= num_ascci_exp2;
+                        return num_ascci_exp1 < num_ascci_exp2;
                     }else{
                         controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
                         //reportar error semantico
                     }
-                }else if(tipo_exp1 == tipo.BOOLEANO){
-                    if(tipo_exp2 == tipo.BOOLEANO){
-                        let num_bool_exp1 = 1;
-                        if(valor_exp1 == false){
-                            num_bool_exp1= 0;
-                        }
-                        let num_bool_exp2 = 1;
-                        if(valor_exp2 == false){
-                            num_bool_exp2= 0;
-                        }
-                        
-                        return num_bool_exp1 <= num_bool_exp2;
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                }else if(tipo_exp1 == tipo.CADENA){
-                    if(tipo_exp2 == tipo.CADENA){ 
-                        return valor_exp1 <= valor_exp2; //"hola" <= "hola"
-                    }else{
-                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                        //reportar error semantico
-                    }
-                } 
+                }
                 
                 break;
 
             case Operador.MAYORIGUAL:
-                    if(tipo_exp1 == tipo.ENTERO){
-                        if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                            return valor_exp1 >= valor_exp2;
-                        }else if(tipo_exp2 == tipo.CARACTER){ // 5 >= 'a' 
-                            let num_ascci = valor_exp2.charCodeAt(0);
-                            return valor_exp1 >= num_ascci;
-                        }else{
-                            controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                            //reportar error semanticoS
-                            return null;
-                        }
-                    }else if(tipo_exp1 == tipo.DOBLE){
-                        if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                            return valor_exp1 >= valor_exp2;
-                        }else if(tipo_exp2 == tipo.CARACTER){
-                            let num_ascci = valor_exp2.charCodeAt(0);
-                            return valor_exp1 >= num_ascci;
-                        }else{
-                            controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                            //reportar error semantico
-                        }
-                    }else if(tipo_exp1 == tipo.CARACTER){
-                        if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
-                            let num_ascci = valor_exp1.charCodeAt(0);
-                            return num_ascci >= valor_exp2;
-                        }else if(tipo_exp2 == tipo.CARACTER){
-                            let num_ascci_exp1 = valor_exp1.charCodeAt(0);
-                            let num_ascci_exp2 = valor_exp2.charCodeAt(0);
-                            return num_ascci_exp1 >= num_ascci_exp2;
-                        }else{
-                            controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                            //reportar error semantico
-                        }
-                    }else if(tipo_exp1 == tipo.BOOLEANO){
-                        if(tipo_exp2 == tipo.BOOLEANO){
-                            let num_bool_exp1 = 1;
-                            if(valor_exp1 == false){
-                                num_bool_exp1= 0;
-                            }
-                            let num_bool_exp2 = 1;
-                            if(valor_exp2 == false){
-                                num_bool_exp2= 0;
-                            }
-                            
-                            return num_bool_exp1 >= num_bool_exp2;
-                        }else{
-                            controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                            //reportar error semantico
-                        }
-                    }else if(tipo_exp1 == tipo.CADENA){
-                        if(tipo_exp2 == tipo.CADENA){ 
-                            return valor_exp1 >= valor_exp2; //"hola" >= "hola"
-                        }else{
-                            controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
-                            //reportar error semantico
-                        }
-                    } 
-                    
-                    break;
+                if(tipo_exp1 == tipo.ENTERO){
+                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
+                        return valor_exp1 < valor_exp2;
+                    }else if(tipo_exp2 == tipo.CARACTER){ // 5 < 'a' 
+                        let num_ascci = valor_exp2.charCodeAt(0);
+                        return valor_exp1 < num_ascci;
+                    }else{
+                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
+                        //reportar error semanticoS
+                        return null;
+                    }
+                }else if(tipo_exp1 == tipo.DOBLE){
+                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
+                        return valor_exp1 < valor_exp2;
+                    }else if(tipo_exp2 == tipo.CARACTER){
+                        let num_ascci = valor_exp2.charCodeAt(0);
+                        return valor_exp1 < num_ascci;
+                    }else{
+                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
+                        //reportar error semantico
+                    }
+                }else if(tipo_exp1 == tipo.CARACTER){
+                    if(tipo_exp2 == tipo.ENTERO || tipo_exp2 == tipo.DOBLE){
+                        let num_ascci = valor_exp1.charCodeAt(0);
+                        return num_ascci < valor_exp2;
+                    }else if(tipo_exp2 == tipo.CARACTER){
+                        let num_ascci_exp1 = valor_exp1.charCodeAt(0);
+                        let num_ascci_exp2 = valor_exp2.charCodeAt(0);
+                        return num_ascci_exp1 < num_ascci_exp2;
+                    }else{
+                        controlador.errores.push(new Errores("Semantico", `Incompatibilidad de tipos`, this.linea, this.columna));
+                        //reportar error semantico
+                    }
+                }
+                
+                break;
         }
     }
 

@@ -70,7 +70,7 @@ export default class Logica extends Operacion implements Expresion{
             }
         }else{
 
-            if(this.operador == Operador.CHARARRAY||this.operador == Operador.CASTEOINT || this.operador == Operador.CASTEODOUBLE || this.operador == Operador.CASTEOSTRING || this.operador == Operador.CASTEOCHAR ||  this.operador == Operador.CASTEOTIPO || this.operador == Operador.UPPER ||  this.operador == Operador.LOWER || this.operador == Operador.LENGHT || this.operador == Operador.ROUND)
+            if(this.operador == Operador.CHARARRAY||this.operador==Operador.CASTEOBOOLEAN || this.operador == Operador.CASTEOINT || this.operador == Operador.CASTEODOUBLE || this.operador == Operador.CASTEOSTRING || this.operador == Operador.CASTEOCHAR ||  this.operador == Operador.CASTEOTIPO || this.operador == Operador.UPPER ||  this.operador == Operador.LOWER || this.operador == Operador.LENGHT || this.operador == Operador.ROUND)
 
                 switch (this.operador) {
                     case Operador.CASTEOINT:
@@ -80,6 +80,9 @@ export default class Logica extends Operacion implements Expresion{
                     case Operador.CASTEODOUBLE:
                         return tipo.DOBLE;
                         break;
+                    
+                    case Operador.CASTEOBOOLEAN:
+                        return tipo.BOOLEANO;
         
                     case Operador.CASTEOSTRING:
                         return tipo.CADENA;
@@ -123,9 +126,7 @@ export default class Logica extends Operacion implements Expresion{
             }  
 
         }
-                
         return tipo.ERROR;
-
     }
 
     getValor(controlador: Controlador, ts: TablaSimbolos) {
@@ -213,11 +214,40 @@ export default class Logica extends Operacion implements Expresion{
                     return null;
                 }
                 break;
+            case Operador.CASTEOBOOLEAN:
+                if(tipo_expU == tipo.ENTERO||tipo_expU == tipo.DOBLE||tipo_expU == tipo.CARACTER||tipo_expU == tipo.CADENA||tipo_expU == tipo.BOOLEANO){
+                    var valor = parseInt(valor_expU);
+                    if(valor == 0){
+                        console.log("false")
+                        return false;
+                    }else if(valor == 1){
+                        console.log("true")
+                        return true;
+                    }else{
+                        let error = new Errores("Semantico", `No se puede realizar la operacion de casteo boolean`, this.linea, this.columna);
+                        controlador.errores.push(error);
+                        controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
+                        return null;
+                    }
+                }else{
+                    let error = new Errores("Semantico", `No se puede realizar la operacion de casteo boolean`, this.linea, this.columna);
+                    controlador.errores.push(error);
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
+                    return null;
+                }
+
+                
             case Operador.CASTEOINT:
-                if(tipo_expU == tipo.CARACTER || tipo_expU == tipo.DOBLE){
+                if(tipo_expU == tipo.CARACTER || tipo_expU == tipo.DOBLE || tipo_expU == tipo.CADENA|| tipo_expU == tipo.ENTERO|| tipo_expU == tipo.BOOLEANO){
 
                     if(tipo_expU == tipo.CARACTER){
                         return valor_expU.charCodeAt(0);; 
+                    }else if(tipo_expU == tipo.BOOLEANO){
+                        if(valor_expU == true){
+                            return 1;
+                        }else{
+                            return 0;
+                        }
                     }else{
                         return valor_expU | 0;
                     }
@@ -225,25 +255,18 @@ export default class Logica extends Operacion implements Expresion{
                 }else{
                     let error = new Errores("Semantico", `No se puede realizar la operacion de casteo int`, this.linea, this.columna);
                     controlador.errores.push(error);
-                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion logica NOT, ya que solo se permiten valores booleano. En la linea ${this.linea} y columna ${this.columna}`)
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
                     return null;
                 }
                 break;
             case Operador.CASTEODOUBLE:
                
-                if(tipo_expU == tipo.CARACTER || tipo_expU == tipo.ENTERO){
-
-                    if(tipo_expU == tipo.CARACTER){
-                        let temporal = valor_expU.charCodeAt(0);
-                        return (temporal); 
-                    }else{
-                        return (valor_expU);
-                    }
-                    
+                if( tipo_expU == tipo.ENTERO || tipo_expU == tipo.CADENA|| tipo_expU == tipo.DOBLE){
+                    return valor_expU | 0;
                 }else{
-                    let error = new Errores("Semantico", `No se puede realizar el cateo de double`, this.linea, this.columna);
+                    let error = new Errores("Semantico", `No se puede realizar el casteo de double`, this.linea, this.columna);
                     controlador.errores.push(error);
-                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion logica NOT, ya que solo se permiten valores booleano. En la linea ${this.linea} y columna ${this.columna}`)
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
                     return null;
                 }
                 break;
@@ -260,14 +283,23 @@ export default class Logica extends Operacion implements Expresion{
                 }
                 break;
             case Operador.CASTEOCHAR:
-                if(tipo_expU == tipo.ENTERO ){
-                    tipo_expU = tipo.CARACTER;
-                    return  String.fromCharCode(valor_expU);      
-                        
+                if(tipo_expU == tipo.ENTERO || tipo_expU == tipo.CADENA || tipo_expU == tipo.CARACTER || tipo_expU == tipo.DOBLE || tipo_expU == tipo.BOOLEANO){
+                    if(tipo_expU == tipo.BOOLEANO){
+                        if(valor_expU == true){
+                            return "1";
+                        }else{
+                            return "0";
+                        }
+                    }else{   
+                        tipo_expU = tipo.CARACTER;
+                        let valorString=valor_expU.toString();
+                        console.log(valorString.charAt(0));
+                        return  valorString.charAt(0);      
+                    }    
                 }else{
                     let error = new Errores("Semantico", `No se puede realizar la operacion casteo char`, this.linea, this.columna);
                     controlador.errores.push(error);
-                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion logica NOT, ya que solo se permiten valores booleano. En la linea ${this.linea} y columna ${this.columna}`)
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar el casteo. En la linea ${this.linea} y columna ${this.columna}`)
                     return null;
                 }
                 break;           

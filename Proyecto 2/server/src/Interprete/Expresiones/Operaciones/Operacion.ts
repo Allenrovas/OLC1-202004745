@@ -34,6 +34,8 @@ export enum Operador{
     LENGHT,
     ROUND,
     CHARARRAY,
+    CASTEOBOOLEAN,
+    
     X
 
 }
@@ -112,6 +114,8 @@ export default class Operacion implements Expresion{
             return Operador.DIFERENCIA;  
         }else if(signo_operador == '(int)'){
             return Operador.CASTEOINT;
+        }else if(signo_operador == '(boolean)'){
+            return Operador.CASTEOBOOLEAN;
         }else if(signo_operador == '(double)'){
             return Operador.CASTEODOUBLE;
         }else if(signo_operador == '(char)'){

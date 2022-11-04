@@ -1,0 +1,31 @@
+<div class="modal">
+    
+
+    <h3>Contenido del Modal - Errror</h3>
+    <button (click) = "ModalError()">x</button>
+    <br>
+
+    <table>
+
+            <thead>
+              <tr>
+              <th scope="col">#</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Linea</th>
+              <th scope="col">Columna</th>
+              </tr>
+              </thead>
+            <tbody>
+                
+              <tr *ngFor="let item of Datos; index as i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item[0]}}</td>
+              <td>{{item[1]}}</td>
+              <td>{{item[2]}}</td>
+              <td>{{item[3]}}</td>
+              </tr>
+              </tbody>
+          </table>
+
+</div>

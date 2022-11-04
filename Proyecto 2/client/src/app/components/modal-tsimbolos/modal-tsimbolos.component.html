@@ -1,0 +1,39 @@
+<div class="modal">
+    
+
+    <h3>Contenido del Modal</h3>
+    <button (click) = "ModalSimbolos()">x</button>
+    <br>
+
+    <table>
+
+            <thead>
+              <tr>
+              <th scope="col">#</th>
+              <th scope="col">  Rol </th>
+              <th scope="col">  Nombre  </th>
+              <th scope="col">  Tipo  </th>
+              <th scope="col">  Ambito  </th>
+              <th scope="col">    Valor   </th>
+              <th scope="col">  Parametros  </th>
+              <th scope="col">  Linea </th>
+              <th scope="col">  Columna  </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of Datos; index as i">
+              <th scope="row">{{i+1}}</th>
+              <td>{{item[0]}}</td>
+              <td>{{item[1]}}</td>
+              <td>{{item[2]}}</td>
+              <td>{{item[3]}}</td>
+              <td>{{item[4]}}</td>
+              <td>{{item[5]}}</td>
+              <td>{{item[6]}}</td>
+              <td>{{item[7]}}</td>
+          
+              </tr>
+              </tbody>
+          </table>
+
+</div>

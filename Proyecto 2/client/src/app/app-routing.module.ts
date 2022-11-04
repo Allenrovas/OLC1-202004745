@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditorComponent } from './components/editor/editor.component';
 
-import { FormComponent } from './components/form/form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/form', pathMatch: 'full' },
+  { path: '', redirectTo: '/index', pathMatch: 'full' },
   {
-    path: 'form',
-    component:FormComponent
+    path: 'index',
+    component:EditorComponent
   }
 ];
 

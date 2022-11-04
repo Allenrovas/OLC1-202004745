@@ -1,0 +1,72 @@
+<nav class="d-flex align-items-center">
+
+    
+  <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center"> 
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+            <button type="button" class="btn btn-success rounded-pill" onclick="location.reload()">Crear archivo</button>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <input type="file" name="avatar"  class="btn btn-primary" accept="application/CST, application/CST"  (change)="onChange($event)">
+      </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+            <button  type="button" class="btn btn-success rounded-pill" (click) = "download()" >Guardar Como</button>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+            <button type="button" class="btn btn-primary rounded-pill"  (click) = "setInfo()" >Ejecutar</button>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+          <button type="button" class="btn btn-success rounded-pill"   (click) = "ModalSimbolos()"> Reporte simbolos</button>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+
+          <button type="button" class="btn btn-primary rounded-pill"   (click) = "getATS()">Reportes ats</button>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon">
+            <button type="button" class="btn btn-danger rounded-pill"   (click) = "ModalError()">Reportes Errores</button>
+          
+          </a>
+        </li>
+  
+    </ul>
+  </nav>
+  
+</nav><!-- End Header Buttons -->
+
+<h2>Entrada</h2>
+<ace-editor 
+class="entrada_Ace"
+style="height:500px;"
+[theme]="'monokai'"
+id="entrada_Ace"
+mode="java" 
+></ace-editor>
+
+<h2>Salida</h2>
+
+<div class="salida_Ace" id='salida_Ace'  style="height:500px;"></div>
+
+<div *ngIf="ModalSimbolo == true">
+  <app-modal-tsimbolos  [Datos]="varibles_cont"></app-modal-tsimbolos>
+</div>
+
+<div *ngIf="ModalATS == true" >
+  <app-modal-ats [Datos]="Info_ATS"></app-modal-ats>
+</div>
+
+<div *ngIf="ModalErrores == true" >
+  <app-modal-error [Datos]="varibles_err"></app-modal-error>
+</div>

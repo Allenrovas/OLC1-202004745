@@ -30,6 +30,7 @@ caracter         (\'({escape2} | {aceptacion2})\')
 "new"  { console.log("Reconocio : "+ yytext); return 'NEW'}
 "(int)"  { console.log("Reconocio : "+ yytext); return 'CASTEOINT'}
 "(double)"  { console.log("Reconocio : "+ yytext); return 'CASTEODOUBLE'}
+"(boolean)" { console.log("Reconocio : "+ yytext); return 'CASTEOBOOLEAN'}
 "toString"  { console.log("Reconocio : "+ yytext); return 'CASTEOSTRING'}
 "(char)"  { console.log("Reconocio : "+ yytext); return 'CASTEOCHAR'}
 "typeOf"  { console.log("Reconocio : "+ yytext); return 'CASTEOTIPO'}
@@ -186,7 +187,7 @@ caracter         (\'({escape2} | {aceptacion2})\')
 %right 'INTERROGACION'
 %left 'OR'
 %left 'AND'
-%right 'NOT' 'CASTEODOUBLE' 'CASTEOINT' 'CASTEOSTRING' 'CASTEOCHAR' 'CASTEOTIPO' 'CASTEOTOLOWER' 'CASTEOTOUPPER' 'LENGTH' 'ROUND'
+%right 'NOT' 'CASTEODOUBLE' 'CASTEOINT' 'CASTEOBOOLEAN' 'CASTEOSTRING' 'CASTEOCHAR' 'CASTEOTIPO' 'CASTEOTOLOWER' 'CASTEOTOUPPER' 'LENGTH' 'ROUND'
 %left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE' 'MAYORIGUAL'
 %left 'MAS' 'MENOS'
 %left 'DIV'  'MULTI' 
@@ -359,6 +360,7 @@ e : e MAS e         { $$ = new aritmetica.default($1, '+', $3, @1.first_line, @1
     | NOT e          { $$ = new logica.default($2, '!', null, @1.first_line, @1.last_column,true); }
     | CASTEODOUBLE e     { $$ = new logica.default($2, '(double)', null, @1.first_line, @1.last_column,true); }
     | CASTEOINT e  { $$ = new logica.default($2, '(int)', null, @1.first_line, @1.last_column,true); }
+    | CASTEOBOOLEAN e { $$ = new logica.default($2, '(boolean)', null, @1.first_line, @1.last_column,true); }
     | CASTEOSTRING PARA e PARC { $$ = new logica.default($3, '(string)', null, @1.first_line, @1.last_column,true); }
     | CASTEOCHAR e  { $$ = new logica.default($2, '(char)', null, @1.first_line, @1.last_column,true); } 
     | CASTEOTIPO PARA e PARC { $$ = new logica.default($3, '(tipo)', null, @1.first_line, @1.last_column,true); } 
@@ -382,8 +384,5 @@ e : e MAS e         { $$ = new aritmetica.default($1, '+', $3, @1.first_line, @1
     | ID INCRE          { $$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '+', new primitivo.default(1, 'ENTERO', @1.first_line, @1.last_column), @1.first_line, @1.last_column, false); }
     | ID DECRE          { $$ = new aritmetica.default(new identificador.default($1, @1.first_line, @1.last_column), '-', new primitivo.default(1, 'ENTERO', @1.first_line, @1.last_column), @1.first_line, @1.last_column, false); }
     | llamada           { $$ = $1; } 
-
-
- 
     ;
 

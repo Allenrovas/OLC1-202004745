@@ -1,39 +1,17 @@
-import express,{ Application } from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import express = require('express');
+const app : express.Application = express();
 
-import indexRoutes from './routes/indexRoutes';
-import formRoutes from './routes/formRoutes';
+const cors = require('cors');
 
-class Server {
-    public app: Application;
+//middlewares
+app.use(cors());
+app.use(express.json({limit: "50mb"}));
 
-    constructor() {
-        this.app = express();
-        this.config();
-        this.routes();
-    }
-    config(): void{
-        this.app.set('port', process.env.PORT || 3000);
-        this.app.use(morgan('dev'));
-        this.app.use(cors());
-        this.app.use(express.json());
-        this.app.use(express.urlencoded({extended: false}));
-    }
+//rutas localhost:3000/api
+app.use("/api", require("./routes/indexRoutes"));
 
-    routes(): void{
-        this.app.use(indexRoutes);
-        this.app.use('/api/form', formRoutes);
-    }
-
-    start(): void{
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server on port', this.app.get('port'));
-        });
-    }
-
-}
-
-const server = new Server();
-server.start();
+app.listen(3000, function() {
+    //console.log("Hola estoy en el http://localhost:3000/api \npuedes probarme utilizando postman u otra herramienta con: \nmetodo: POST \nruta: http://localhost:3000/api/ejecutar \nbody(json): { \"input\": \"Evaluar[((-(1+1+1+1+1-5-10)+(4*3-5^3))+8200*3/10)*3]; Evaluar[5+true]; Evaluar[1+'A']; Evaluar[0+\"hola\"]; Evaluar[true + false];  Evaluar[18-13];  Evaluar[8*9+7^5];\"}");
+    //console.log("Hola estoy en el http://localhost:3000/api \npuedes probarme utilizando postman u otra herramienta con: \nmetodo: POST \nruta: http://localhost:3000/api/ejecutar \nbody(json): { \"input\": \"int entero, entero2 = 25; double decimal = 3.14; string cadena = \"Hola Mundo\"; WriteLine(\"Todo bien, todo correcto\"); WriteLine(\"valores =>\" + entero + \", \" + entero2 + \", \" + decimal + \", \" + cadena); \"} \nahora tambien puedes probarme utilizando el cliente.");
+    console.log(`Hola estoy escuchando el puerto 3000, puedes probarme utilizando el cliente (:`);
+})

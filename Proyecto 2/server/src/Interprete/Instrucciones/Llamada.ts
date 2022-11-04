@@ -133,7 +133,7 @@ export default class Llamada implements Instruccion, Expresion{
         padre.AddHijo(new Nodo("(",""));
 
         //TODO: AGREGAR NODOS HIJOS DE PARAMETROS
-        if(this.parametros != []){
+        if(this.parametros != null){
             let parametros = new Nodo("Parametros","")
             for(let para of this.parametros){
                 parametros.AddHijo(para.recorrer())

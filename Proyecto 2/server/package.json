@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -w",
     "dev": "nodemon build/index.js",
-    "jison": "jison src/Analizador/interprete.jison && copy interprete.js build\\ && rimraf interprete.js"
+    "jison": "jison ./src/Analizador/interprete.jison && move interprete.js ./src/Analizador"
   },
   "keywords": [],
   "author": "",

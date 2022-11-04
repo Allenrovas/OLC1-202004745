@@ -1,35 +1,15 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const morgan_1 = __importDefault(require("morgan"));
-const cors_1 = __importDefault(require("cors"));
-const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
-const formRoutes_1 = __importDefault(require("./routes/formRoutes"));
-class Server {
-    constructor() {
-        this.app = (0, express_1.default)();
-        this.config();
-        this.routes();
-    }
-    config() {
-        this.app.set('port', process.env.PORT || 3000);
-        this.app.use((0, morgan_1.default)('dev'));
-        this.app.use((0, cors_1.default)());
-        this.app.use(express_1.default.json());
-        this.app.use(express_1.default.urlencoded({ extended: false }));
-    }
-    routes() {
-        this.app.use(indexRoutes_1.default);
-        this.app.use('/api/form', formRoutes_1.default);
-    }
-    start() {
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server on port', this.app.get('port'));
-        });
-    }
-}
-const server = new Server();
-server.start();
+const express = require("express");
+const app = express();
+const cors = require('cors');
+//middlewares
+app.use(cors());
+app.use(express.json({ limit: "50mb" }));
+//rutas localhost:3000/api
+app.use("/api", require("./routes/indexRoutes"));
+app.listen(3000, function () {
+    //console.log("Hola estoy en el http://localhost:3000/api \npuedes probarme utilizando postman u otra herramienta con: \nmetodo: POST \nruta: http://localhost:3000/api/ejecutar \nbody(json): { \"input\": \"Evaluar[((-(1+1+1+1+1-5-10)+(4*3-5^3))+8200*3/10)*3]; Evaluar[5+true]; Evaluar[1+'A']; Evaluar[0+\"hola\"]; Evaluar[true + false];  Evaluar[18-13];  Evaluar[8*9+7^5];\"}");
+    //console.log("Hola estoy en el http://localhost:3000/api \npuedes probarme utilizando postman u otra herramienta con: \nmetodo: POST \nruta: http://localhost:3000/api/ejecutar \nbody(json): { \"input\": \"int entero, entero2 = 25; double decimal = 3.14; string cadena = \"Hola Mundo\"; WriteLine(\"Todo bien, todo correcto\"); WriteLine(\"valores =>\" + entero + \", \" + entero2 + \", \" + decimal + \", \" + cadena); \"} \nahora tambien puedes probarme utilizando el cliente.");
+    console.log(`Hola estoy escuchando el puerto 3000, puedes probarme utilizando el cliente (:`);
+});

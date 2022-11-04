@@ -116,7 +116,7 @@ export default class Ifs implements Instruccion{
         
         padre.AddHijo(intrucicones_if);
 
-        if(this.lista_instrucciones_elses!= []){
+        if(this.lista_instrucciones_elses!= null){
             let intrucicones_Else = new Nodo("Else","");
 
                 

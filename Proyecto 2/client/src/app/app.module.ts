@@ -1,41 +1,38 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-//import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-//import {MatTabsModule} from '@angular/material/tabs';
 import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { AceEditorModule } from 'ng2-ace-editor';
 import { AppComponent } from './app.component';
-import { FormComponent } from './components/form/form.component';
-import {HttpClientModule } from '@angular/common/http';
 import { NavigationComponent } from './components/navigation/navigation.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {CompiService} from './services/compi.service';
-import { ErroresComponent } from './components/errores/errores.component';
-import { SimbolosComponent } from './components/simbolos/simbolos.component';
-import { AstComponent } from './components/ast/ast.component';
+import { EditorComponent } from './components/editor/editor.component';
+import { ModalAtsComponent } from './components/modal-ats/modal-ats.component';
+import { ModalErrorComponent } from './components/modal-error/modal-error.component';
+import { ModalTsimbolosComponent } from './components/modal-tsimbolos/modal-tsimbolos.component';
+import { UserService } from './services/user.service';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    FormComponent,
-    ErroresComponent,
-    SimbolosComponent,
-    AstComponent
+    EditorComponent,
+    ModalAtsComponent,
+    ModalErrorComponent,
+    ModalTsimbolosComponent
   ],
   imports: [
-    //MatTabsModule,
-    ReactiveFormsModule,
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    //CodemirrorModule,
-    BrowserAnimationsModule
+    FormsModule,
+    CodemirrorModule,
+    AceEditorModule
   ],
-  providers: [
-    CompiService
-  ],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
