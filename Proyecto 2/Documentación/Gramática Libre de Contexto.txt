@@ -1,0 +1,181 @@
+inicio : instrucciones EOF
+
+instrucciones : instrucciones instruccion   
+            | instruccion                   
+            ;
+
+instruccion : declaracion   
+            | startwith      
+            | writeline     
+            | asignacion    
+            | sent_if       
+            | sent_while    
+            | sent_Dowhile  
+            | BREAK PYC     
+            | sent_switch   
+            | sent_for       
+            |  ID DECRE PYC  
+            | ID INCRE  PYC 
+            | CONTINUE PYC 
+            | funciones     
+            | llamada PYC   
+            | RETURN PYC        
+            | RETURN e PYC      
+            | error
+            ;
+
+declaracion : tipo lista_ids IGUAL e PYC   
+            | tipo lista_ids PYC        
+            | tipo  CORA CORC lista_ids IGUAL NEW  tipo CORA e CORC  PYC 
+            | tipo CORA CORC lista_ids IGUAL LLAVA listasimple LLAVC  PYC 
+            | tipo CORA CORC CORA CORC lista_ids IGUAL NEW  tipo CORA e CORC  CORA  e CORC PYC 
+            | tipo CORA CORC  lista_ids IGUAL e PYC 
+            | tipo CORA CORC CORA CORC lista_ids  IGUAL LLAVA doublearray  LLAVC  PYC      
+            ;
+
+            
+
+
+
+
+doublearray: doublearray COMA LLAVA listasimple LLAVC 
+| LLAVA listasimple   LLAVC   
+;
+
+listasimple:listasimple COMA e 
+	    | e  
+	    ;
+
+tipo : INT     
+    | DOUBLE    
+    | STRING    
+    | CHAR     
+    | BOOLEAN   
+    ;
+
+lista_ids : lista_ids COMA ID   
+        | ID                    
+        ;
+
+writeline : PRINTLN PARA e PARC PYC 
+        |  PRINT PARA e PARC PYC 
+        ;
+
+asignacion : ID IGUAL e PYC   
+        |  ID CORA e CORC IGUAL e PYC   
+        |  ID CORA e CORC CORA e CORC IGUAL e PYC   
+
+            ;
+
+sent_if : IF PARA e PARC LLAVA instrucciones LLAVC
+        | IF PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC 
+        | IF PARA e PARC LLAVA instrucciones LLAVC ELIF sent_if 
+        | PARA e PARC LLAVA instrucciones LLAVC sent_if 
+        | PARA e PARC LLAVA instrucciones LLAVC 
+        | PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC 
+        ;
+
+sent_while : WHILE PARA e PARC LLAVA instrucciones LLAVC
+            ;
+
+
+sent_Dowhile : DO  LLAVA instrucciones LLAVC WHILE PARA e PARC PYC  
+            ;
+
+sent_for : FOR PARA dec_asig_for PYC e PYC actualizacion_for PARC LLAVA instrucciones LLAVC ;
+
+dec_asig_for : tipo ID IGUAL e  
+        | ID IGUAL e    
+            ;
+
+actualizacion_for : ID DECRE 
+                | ID INCRE   
+                | ID IGUAL e
+                ;
+
+sent_switch : SWITCH PARA e PARC LLAVA caselist LLAVC          
+            | SWITCH PARA e PARC LLAVA caselist default LLAVC   
+            | SWITCH PARA e PARC LLAVA default LLAVC
+            ;
+
+caselist : caselist caso       
+        | caso                
+        ;
+
+caso : CASE e DSPNTS instrucciones 
+    ;
+
+default : DEFAULT DSPNTS instrucciones
+        ;
+
+funciones 
+        : ID PARA lista_params PARC DSPNTS tipo LLAVA instrucciones LLAVC 
+        | ID PARA  PARC DSPNTS tipo LLAVA instrucciones LLAVC               
+        | ID PARA lista_params PARC DSPNTS VOID LLAVA instrucciones LLAVC   
+        | ID PARA  PARC DSPNTS VOID LLAVA instrucciones LLAVC               
+        ;
+
+lista_params : lista_params COMA tipo ID          
+             | tipo ID                          
+             | tipo CORA CORC ID                          
+             | tipo CORA CORC  CORA CORC ID             
+             ;
+
+llamada : ID PARA lista_vals PARC 
+        | ID PARA  PARC           
+        ; 
+
+lista_vals : lista_vals COMA e        
+        | e                           
+        ; 
+
+startwith :  RUN  llamadaeee PYC    
+        ;
+
+llamadaeee : ID PARA lista_vals PARC 
+        | ID PARA  PARC          
+        ;   
+
+e : e MAS e         
+    | e MENOS e      
+    | e MULTI e      
+    | e DIV e       
+    | e POT e       
+    | e MOD e        
+    | e MAYORIGUAL e  
+    | e MAYORQUE e   
+    | e MENORIGUAL e 
+    | e MENORQUE e  
+    | e IGUALIGUAL e 
+    | e DIFERENTE e  
+    | e AND e       
+    | e OR e       
+    | NOT e         
+    | CASTEODOUBLE e     
+    | CASTEOINT e  
+    | CASTEOBOOLEAN e 
+    | CASTEOSTRING PARA e PARC 
+    | CASTEOSTRINGAUX e 
+    | CASTEOCHAR e  
+    | CASTEOTIPO PARA e PARC 
+    | CASTEOTOLOWER PARA e PARC 
+    | CASTEOTOUPPER PARA e PARC 
+    | LENGTH PARA e PARC 
+    | CHARARRAY PARA e PARC  
+    | ROUND PARA e PARC 
+    | MENOS e %prec UMINUS    
+    | PARA e PARC       
+    | DECIMAL           
+    | ENTERO            
+    | ID                
+    | ID CORA e CORC               
+    | ID CORA e CORC CORA e CORC   
+    | CADENA            
+    | CARACTER          
+    | TRUE              
+    | FALSE             
+    | e INTERROGACION e DSPNTS e 
+    | ID INCRE          
+    | ID DECRE          
+    | llamada           
+    ;
