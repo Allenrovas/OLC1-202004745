@@ -70,12 +70,14 @@ export default class Logica extends Operacion implements Expresion{
             }
         }else{
 
-            if(this.operador == Operador.CHARARRAY||this.operador==Operador.CASTEOBOOLEAN || this.operador == Operador.CASTEOINT || this.operador == Operador.CASTEODOUBLE || this.operador == Operador.CASTEOSTRING || this.operador == Operador.CASTEOCHAR ||  this.operador == Operador.CASTEOTIPO || this.operador == Operador.UPPER ||  this.operador == Operador.LOWER || this.operador == Operador.LENGHT || this.operador == Operador.ROUND)
+            if(this.operador == Operador.CHARARRAY||this.operador == Operador.CASTEOSTRINGAUX||this.operador==Operador.CASTEOBOOLEAN || this.operador == Operador.CASTEOINT || this.operador == Operador.CASTEODOUBLE || this.operador == Operador.CASTEOSTRING || this.operador == Operador.CASTEOCHAR ||  this.operador == Operador.CASTEOTIPO || this.operador == Operador.UPPER ||  this.operador == Operador.LOWER || this.operador == Operador.LENGHT || this.operador == Operador.ROUND)
 
                 switch (this.operador) {
                     case Operador.CASTEOINT:
                         return tipo.ENTERO;
                         break;
+                    case Operador.CASTEOSTRINGAUX:
+                        return tipo.CADENA;
         
                     case Operador.CASTEODOUBLE:
                         return tipo.DOBLE;
@@ -236,7 +238,15 @@ export default class Logica extends Operacion implements Expresion{
                     return null;
                 }
 
-                
+            case Operador.CASTEOSTRINGAUX:
+                if(tipo_expU == tipo.ENTERO||tipo_expU == tipo.DOBLE||tipo_expU == tipo.CARACTER||tipo_expU == tipo.CADENA||tipo_expU == tipo.BOOLEANO){
+                    return valor_expU.toString();
+                }else{
+                    let error = new Errores("Semantico", `No se puede realizar la operacion de casteo string`, this.linea, this.columna);
+                    controlador.errores.push(error);
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
+                    return null;
+                }
             case Operador.CASTEOINT:
                 if(tipo_expU == tipo.CARACTER || tipo_expU == tipo.DOBLE || tipo_expU == tipo.CADENA|| tipo_expU == tipo.ENTERO|| tipo_expU == tipo.BOOLEANO){
 
@@ -278,7 +288,7 @@ export default class Logica extends Operacion implements Expresion{
                 }else{
                     let error = new Errores("Semantico", `No se puede realizar el casteo de string`, this.linea, this.columna);
                     controlador.errores.push(error);
-                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion logica NOT, ya que solo se permiten valores booleano. En la linea ${this.linea} y columna ${this.columna}`)
+                    controlador.append(` *** ERROR: Semantico, No se puede realizar la operacion de casteo. En la linea ${this.linea} y columna ${this.columna}`)
                     return null;
                 }
                 break;

@@ -35,7 +35,7 @@ export enum Operador{
     ROUND,
     CHARARRAY,
     CASTEOBOOLEAN,
-    
+    CASTEOSTRINGAUX,
     X
 
 }
@@ -121,6 +121,8 @@ export default class Operacion implements Expresion{
         }else if(signo_operador == '(char)'){
             return Operador.CASTEOCHAR;
         }else if(signo_operador == '(string)'){
+            return Operador.CASTEOSTRINGAUX;
+        }else if(signo_operador == '(tostring)'){
             return Operador.CASTEOSTRING;
         }else if(signo_operador == '(tipo)'){
             return Operador.CASTEOTIPO;

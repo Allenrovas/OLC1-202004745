@@ -32,6 +32,7 @@ caracter         (\'({escape2} | {aceptacion2})\')
 "(double)"  { console.log("Reconocio : "+ yytext); return 'CASTEODOUBLE'}
 "(boolean)" { console.log("Reconocio : "+ yytext); return 'CASTEOBOOLEAN'}
 "toString"  { console.log("Reconocio : "+ yytext); return 'CASTEOSTRING'}
+"(string)"  { console.log("Reconocio : "+ yytext); return 'CASTEOSTRINGAUX'}
 "(char)"  { console.log("Reconocio : "+ yytext); return 'CASTEOCHAR'}
 "typeOf"  { console.log("Reconocio : "+ yytext); return 'CASTEOTIPO'}
 "toLower"  { console.log("Reconocio : "+ yytext); return 'CASTEOTOLOWER'}
@@ -99,6 +100,7 @@ caracter         (\'({escape2} | {aceptacion2})\')
 "while"            { console.log("Reconocio : "+ yytext); return 'WHILE'}
 "do"            { console.log("Reconocio : "+ yytext); return 'DO'}
 "else"             { console.log("Reconocio : "+ yytext); return 'ELSE'}
+"elif"   { console.log("Reconocio : "+ yytext); return 'ELIF'}
 "break"            { console.log("Reconocio : "+ yytext); return 'BREAK'}
 
 "for"            { console.log("Reconocio : "+ yytext); return 'FOR'}
@@ -187,7 +189,7 @@ caracter         (\'({escape2} | {aceptacion2})\')
 %right 'INTERROGACION'
 %left 'OR'
 %left 'AND'
-%right 'NOT' 'CASTEODOUBLE' 'CASTEOINT' 'CASTEOBOOLEAN' 'CASTEOSTRING' 'CASTEOCHAR' 'CASTEOTIPO' 'CASTEOTOLOWER' 'CASTEOTOUPPER' 'LENGTH' 'ROUND'
+%right 'NOT' 'CASTEODOUBLE' 'CASTEOINT' 'CASTEOBOOLEAN' 'CASTEOSTRINGAUX' 'CASTEOSTRING' 'CASTEOCHAR' 'CASTEOTIPO' 'CASTEOTOLOWER' 'CASTEOTOUPPER' 'LENGTH' 'ROUND'
 %left 'IGUALIGUAL' 'DIFERENTE' 'MENORQUE' 'MENORIGUAL' 'MAYORQUE' 'MAYORIGUAL'
 %left 'MAS' 'MENOS'
 %left 'DIV'  'MULTI' 
@@ -234,16 +236,20 @@ instruccion : declaracion   { $$ =  $1; }
 
 declaracion : tipo lista_ids IGUAL e PYC  { $$ = new declaracion.default($1, $2, $4,@1.first_line, @1.last_column);}  
             | tipo lista_ids PYC         { $$ = new declaracion.default($1, $2, null,  @1.first_line, @1.last_column);}
-            | tipo lista_ids CORA CORC IGUAL NEW  tipo CORA e CORC  PYC         { $$ = new declaracion.default($1, $2, null,  @1.first_line, @1.last_column,$7,$9);}
-            | tipo lista_ids CORA e CORC IGUAL CORA listasimpleCORC  PYC         { $$ = new declaracion.default($1, $2, null,  @1.first_line, @1.last_column,$1,$4);}
-            | tipo lista_ids CORA CORC CORA CORC IGUAL NEW  tipo CORA e CORC  CORA  e CORC PYC         { $$ = new declaracion.default($1, $2, null,  @1.first_line, @1.last_column);}
+            | tipo  CORA CORC lista_ids IGUAL NEW  tipo CORA e CORC  PYC      { $$ = new declaracion.default($1, $4, null,  @1.first_line, @1.last_column,$7,null,null,$9);}
+            | tipo CORA CORC lista_ids IGUAL LLAVA listasimple LLAVC  PYC  { $$ = new declaracion.default($1, $4, null,  @1.first_line, @1.last_column,$1,$7.length,null,null,null,$7);}
+            | tipo CORA CORC CORA CORC lista_ids IGUAL NEW  tipo CORA e CORC  CORA  e CORC PYC { $$ = new declaracion.default($1, $6, null,  @1.first_line, @1.last_column,$1,null,null,$11,$14);}
             | tipo CORA CORC  lista_ids IGUAL e PYC { $$ = new declaracion.default($1, $4, $6,  @1.first_line, @1.last_column);}
-            | tipo lista_ids CORA e CORC CORA e CORC  IGUAL CORA doublearray  CORC  PYC      { $$ = new declaracion.default($1, $2, null,  @1.first_line, @1.last_column,$1,$4,$7,$11);}
-
+            | tipo CORA CORC CORA CORC lista_ids  IGUAL LLAVA doublearray  LLAVC  PYC      { $$ = new declaracion.default($1, $6, null,  @1.first_line, @1.last_column,$1,$9.length,$9[0].length,null,null,$9);}
             ;
 
-doublearray: doublearray COMA CORA listasimple CORC { $$ = $1; $$.push($4);}
-            | CORA listasimple   CORC   {$$= new Array(); $$.push($2);}
+            
+
+
+
+
+doublearray: doublearray COMA LLAVA listasimple LLAVC { $$ = $1; $$.push($4);}
+            | LLAVA listasimple   LLAVC   {$$= new Array(); $$.push($2);}
 	    ;
 
 listasimple:listasimple COMA e { $$ = $1; $$.push($3);}
@@ -273,7 +279,10 @@ asignacion : ID IGUAL e PYC   { $$ = new asignacion.default($1, $3, @1.first_lin
 
 sent_if : IF PARA e PARC LLAVA instrucciones LLAVC { $$ = new Ifs.default($3, $6, [], @1.first_line, @1.last_column); }
         | IF PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC { $$ = new Ifs.default($3, $6, $10, @1.first_line, @1.last_column); }
-        | IF PARA e PARC LLAVA instrucciones LLAVC ELSE sent_if { $$ = new Ifs.default($3, $6, [$9], @1.first_line, @1.last_column); }
+        | IF PARA e PARC LLAVA instrucciones LLAVC ELIF sent_if { $$ = new Ifs.default($3, $6, [$9], @1.first_line, @1.last_column); }
+        | PARA e PARC LLAVA instrucciones LLAVC sent_if { $$ = new Ifs.default($2, $5, [$7], @1.first_line, @1.last_column); }
+        | PARA e PARC LLAVA instrucciones LLAVC { $$ = new Ifs.default($2, $5, [], @1.first_line, @1.last_column); }
+        | PARA e PARC LLAVA instrucciones LLAVC ELSE LLAVA instrucciones LLAVC { $$ = new Ifs.default($2, $5, $9, @1.first_line, @1.last_column); }
         ;
 
 sent_while : WHILE PARA e PARC LLAVA instrucciones LLAVC { $$ = new While.default($3, $6, @1.first_line, @1.last_column);  }
@@ -361,7 +370,8 @@ e : e MAS e         { $$ = new aritmetica.default($1, '+', $3, @1.first_line, @1
     | CASTEODOUBLE e     { $$ = new logica.default($2, '(double)', null, @1.first_line, @1.last_column,true); }
     | CASTEOINT e  { $$ = new logica.default($2, '(int)', null, @1.first_line, @1.last_column,true); }
     | CASTEOBOOLEAN e { $$ = new logica.default($2, '(boolean)', null, @1.first_line, @1.last_column,true); }
-    | CASTEOSTRING PARA e PARC { $$ = new logica.default($3, '(string)', null, @1.first_line, @1.last_column,true); }
+    | CASTEOSTRING PARA e PARC { $$ = new logica.default($3, '(tostring)', null, @1.first_line, @1.last_column,true); }
+    | CASTEOSTRINGAUX e { $$ = new logica.default($2, '(string)', null, @1.first_line, @1.last_column,true); }
     | CASTEOCHAR e  { $$ = new logica.default($2, '(char)', null, @1.first_line, @1.last_column,true); } 
     | CASTEOTIPO PARA e PARC { $$ = new logica.default($3, '(tipo)', null, @1.first_line, @1.last_column,true); } 
     | CASTEOTOLOWER PARA e PARC { $$ = new logica.default($3, '(lower)', null, @1.first_line, @1.last_column,true); } 

@@ -37,7 +37,8 @@ var Operador;
     Operador[Operador["ROUND"] = 24] = "ROUND";
     Operador[Operador["CHARARRAY"] = 25] = "CHARARRAY";
     Operador[Operador["CASTEOBOOLEAN"] = 26] = "CASTEOBOOLEAN";
-    Operador[Operador["X"] = 27] = "X";
+    Operador[Operador["CASTEOSTRINGAUX"] = 27] = "CASTEOSTRINGAUX";
+    Operador[Operador["X"] = 28] = "X";
 })(Operador = exports.Operador || (exports.Operador = {}));
 /**
  * @class Clase para el manejo de operaciones del programa
@@ -128,6 +129,9 @@ class Operacion {
             return Operador.CASTEOCHAR;
         }
         else if (signo_operador == '(string)') {
+            return Operador.CASTEOSTRINGAUX;
+        }
+        else if (signo_operador == '(tostring)') {
             return Operador.CASTEOSTRING;
         }
         else if (signo_operador == '(tipo)') {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-//import { graphviz } from 'd3-graphviz';
+import { graphviz } from 'd3-graphviz';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class ModalAtsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //graphviz("#graph").renderDot(this.Datos);
+   graphviz("#graph").renderDot(this.Datos);
+   console.log(this.Datos);
   }
 
 }
